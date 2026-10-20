@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { PRODUCTS } from '@/data/products';
 import { Product } from '@/types';
@@ -21,7 +21,23 @@ import {
 
 export default function HomePage() {
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
-  const featuredArtworks = PRODUCTS.slice(0, 4);
+  const [featuredArtworks, setFeaturedArtworks] = useState<Product[]>(PRODUCTS.slice(0, 4));
+
+  useEffect(() => {
+    fetch('/api/products')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          const staticIds = new Set(PRODUCTS.map(p => p.id));
+          const dbCustoms = data.products.filter((p: Product) => !staticIds.has(p.id));
+          const combined = [...PRODUCTS.filter(p => p.featured), ...dbCustoms];
+          setFeaturedArtworks(combined.slice(0, 4));
+        }
+      })
+      .catch(err => {
+        console.warn('Using static products:', err);
+      });
+  }, []);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -227,56 +243,82 @@ export default function HomePage() {
             <h2 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
               Trending Canvas Prints
             </h2>
+            <p className="text-xs text-stone-500 mt-1">
+              Pre-calibrated museum artworks ready for single canvas and multi-panel zero-cut wall decor.
+            </p>
           </div>
           <Link href="/products" className="text-xs font-bold text-amber-800 hover:text-stone-950 flex items-center gap-1">
-            <span>View All {PRODUCTS.length} Artworks</span>
+            <span>View All Artworks</span>
             <ArrowRight className="w-3.5 h-3.5" />
           </Link>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredArtworks.map(prod => (
-            <div
-              key={prod.id}
-              className="group bg-white rounded-2xl overflow-hidden border border-stone-200 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              <div className="relative aspect-[3/4] bg-stone-900 overflow-hidden">
-                <img
-                  src={prod.image}
-                  alt={prod.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-2 left-2 bg-black/75 text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
-                  {prod.category}
-                </span>
-              </div>
+          {featuredArtworks.map(prod => {
+            const studioUrl =
+              prod.id === 'port-1'
+                ? '/customize?preset=portrait&pack=16x24'
+                : prod.id === 'abstract-1'
+                ? '/customize?preset=triptych&pack=3part-36x24'
+                : prod.id === 'islamic-1'
+                ? '/customize?preset=calligraphy'
+                : prod.id === 'nature-1'
+                ? '/customize?preset=sajek&pack=5part-24x48'
+                : `/customize?preset=${prod.id}`;
 
-              <div className="p-3.5 flex-1 flex flex-col justify-between">
-                <div>
-                  <h3 className="text-xs sm:text-sm font-bold text-stone-900 line-clamp-1">{prod.title}</h3>
-                  <span className="text-[10px] text-stone-400 block mt-0.5">Starts from ৳ {prod.basePrice}</span>
+            return (
+              <div
+                key={prod.id}
+                className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+              >
+                {/* Artwork Thumbnail Container with fixed height for perfect aspect harmony */}
+                <div className="relative h-56 bg-stone-900 overflow-hidden">
+                  <img
+                    src={prod.image}
+                    alt={prod.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <span className="absolute top-2.5 left-2.5 bg-stone-950/85 backdrop-blur-md text-amber-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-500/30">
+                    {prod.tags[0] || prod.category}
+                  </span>
+                  <span className="absolute bottom-2.5 right-2.5 bg-black/75 backdrop-blur-xs text-white text-[10px] font-bold px-2.5 py-0.5 rounded-md">
+                    From ৳ {prod.basePrice}
+                  </span>
                 </div>
 
-                <div className="pt-2 mt-2 border-t border-stone-100 flex items-center justify-between">
-                  <Link
-                    href={`/customize?preset=${prod.id}`}
-                    className="text-[11px] font-semibold text-stone-600 hover:text-stone-950 transition"
-                  >
-                    Studio View
-                  </Link>
+                {/* Artwork Info & Actions */}
+                <div className="p-4 flex-1 flex flex-col justify-between">
+                  <div>
+                    <h3 className="text-sm font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
+                      {prod.title}
+                    </h3>
+                    <p className="text-[11px] text-stone-500 mt-1 line-clamp-1">
+                      {prod.tags.slice(1).join(' • ') || prod.category}
+                    </p>
+                  </div>
 
-                  <button
-                    type="button"
-                    onClick={() => setModalProduct(prod)}
-                    className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs px-3 py-1.5 rounded-xl shadow-xs transition flex items-center gap-1 cursor-pointer"
-                  >
-                    <ShoppingBag className="w-3 h-3" />
-                    <span>Add to Bag</span>
-                  </button>
+                  <div className="pt-3 mt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+                    <Link
+                      href={studioUrl}
+                      className="text-xs font-bold text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 px-3 py-1.5 rounded-xl transition flex items-center gap-1"
+                    >
+                      <span>Studio View</span>
+                      <ArrowRight className="w-3 h-3 text-stone-400" />
+                    </Link>
+
+                    <button
+                      type="button"
+                      onClick={() => setModalProduct(prod)}
+                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs px-3.5 py-1.5 rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                    >
+                      <ShoppingBag className="w-3.5 h-3.5" />
+                      <span>Add to Bag</span>
+                    </button>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 

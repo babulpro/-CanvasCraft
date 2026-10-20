@@ -21,6 +21,16 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: 'CanvasCraft BD — Premium Custom Canvases & PVC Wall Decor',
   description: 'Bangladesh’s premier studio for high-definition custom canvas prints, rigid PVC wall boards, 5-part split panels, and museum floating frames. Express delivery across all 64 districts.',
+  icons: {
+    icon: [
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
+  },
+  manifest: '/site.webmanifest',
 };
 
 export default function RootLayout({

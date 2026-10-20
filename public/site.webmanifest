@@ -1,0 +1,20 @@
+{
+  "name": "CanvasCraft BD",
+  "short_name": "CanvasCraft",
+  "description": "Premium Custom Canvases & PVC Wall Decor in Bangladesh",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ],
+  "theme_color": "#12100e",
+  "background_color": "#faf8f5",
+  "display": "standalone"
+}

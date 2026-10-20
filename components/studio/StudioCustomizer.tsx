@@ -59,6 +59,54 @@ export default function StudioCustomizer() {
   const fileInputRef = useRef<HTMLInputElement>(null);
   const batchFileInputRef = useRef<HTMLInputElement>(null);
 
+  // Handle URL query parameters from Catalog / Home Page (e.g. ?preset=portrait&pack=16x24)
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    const params = new URLSearchParams(window.location.search);
+    const preset = params.get('preset');
+    const pack = params.get('pack');
+
+    if (preset === 'triptych' || preset === 'desert' || preset === 'abstract-1') {
+      setActiveImageSrc('/assets/triptych_art.jpg');
+      setActiveTab('multipanel');
+      setMultiPanelPreset('3part-36x24');
+    } else if (preset === 'portrait' || preset === 'port-1') {
+      setActiveImageSrc('/assets/portrait_art.jpg');
+      setActiveTab('single');
+      setSingleSizeCode('16x24');
+    } else if (preset === 'calligraphy' || preset === 'islamic-1') {
+      setActiveImageSrc('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=80');
+      setActiveTab('single');
+      setSingleSizeCode('16x24');
+    } else if (preset === 'sajek' || preset === 'nature-1') {
+      setActiveImageSrc('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80');
+      setActiveTab('multipanel');
+      setMultiPanelPreset('5part-24x48');
+    }
+
+    if (pack) {
+      if (pack.startsWith('6x8')) {
+        setActiveTab('combo');
+        setComboKey('6x8');
+      } else if (pack.startsWith('8x12')) {
+        setActiveTab('combo');
+        setComboKey('8x12');
+      } else if (pack.startsWith('12x16')) {
+        setActiveTab('combo');
+        setComboKey('12x16');
+      } else if (pack === '16x24') {
+        setActiveTab('single');
+        setSingleSizeCode('16x24');
+      } else if (pack === '3part-36x24') {
+        setActiveTab('multipanel');
+        setMultiPanelPreset('3part-36x24');
+      } else if (pack === '5part-24x48') {
+        setActiveTab('multipanel');
+        setMultiPanelPreset('5part-24x48');
+      }
+    }
+  }, []);
+
   // Current combo package definition
   const currentCombo = COMBO_PACKAGES[comboKey] || COMBO_PACKAGES['8x12'];
   const currentTier = currentCombo.tiers[comboTierIndex] || currentCombo.tiers[0];
@@ -246,10 +294,22 @@ export default function StudioCustomizer() {
     }
   };
 
-  // Handle single slot upload
+  // Handle single slot or main custom artwork upload
   const handleSlotFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    if (!file || activeSlotIndex === null) return;
+    if (!file) return;
+
+    // If activeSlotIndex is null, we are uploading a photo for Single Canvas / Multi-Panel mode
+    if (activeSlotIndex === null) {
+      const reader = new FileReader();
+      reader.onload = event => {
+        const rawSrc = event.target?.result as string;
+        if (rawSrc) setActiveImageSrc(rawSrc);
+      };
+      reader.readAsDataURL(file);
+      e.target.value = '';
+      return;
+    }
 
     const targetSlot = activeSlotIndex;
     const reader = new FileReader();
@@ -897,6 +957,77 @@ export default function StudioCustomizer() {
                   );
                 })}
               </div>
+              {/* Quick Artwork Presets Switcher & Custom Upload */}
+              <div className="pt-2 border-t border-stone-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-stone-700">Studio Artwork Presets:</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveSlotIndex(null);
+                      fileInputRef.current?.click();
+                    }}
+                    className="text-[10px] font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-1 rounded-lg transition cursor-pointer"
+                  >
+                    <Upload className="w-3 h-3 text-amber-700" />
+                    <span>Upload Custom Photo</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-4 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('/assets/portrait_art.jpg')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc === '/assets/portrait_art.jpg'
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="/assets/portrait_art.jpg" alt="Portrait" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Portrait</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('/assets/triptych_art.jpg')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc === '/assets/triptych_art.jpg'
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="/assets/triptych_art.jpg" alt="Triptych" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Triptych</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=80')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc.includes('1583394838336')
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=200&q=80" alt="Calligraphy" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Calligraphy</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc.includes('1506744038136')
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=80" alt="Waterfall" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Waterfall</span>
+                  </button>
+                </div>
+              </div>
             </div>
           )}
 
@@ -911,6 +1042,78 @@ export default function StudioCustomizer() {
                 </p>
                 <div className="mt-3 font-mono font-bold text-amber-800">
                   Total Span: 24″ × 48″ • Price: ৳ 1,250
+                </div>
+              </div>
+
+              {/* Quick Artwork Presets Switcher & Custom Upload */}
+              <div className="pt-2 border-t border-stone-200">
+                <div className="flex items-center justify-between mb-2">
+                  <span className="text-[11px] font-bold text-stone-700">Studio Artwork Presets:</span>
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setActiveSlotIndex(null);
+                      fileInputRef.current?.click();
+                    }}
+                    className="text-[10px] font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1 bg-amber-50 hover:bg-amber-100 border border-amber-200 px-2.5 py-1 rounded-lg transition cursor-pointer"
+                  >
+                    <Upload className="w-3 h-3 text-amber-700" />
+                    <span>Upload Custom Photo</span>
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-4 gap-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('/assets/triptych_art.jpg')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc === '/assets/triptych_art.jpg'
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="/assets/triptych_art.jpg" alt="Triptych" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Triptych</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1000&q=80')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc.includes('1506744038136')
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=200&q=80" alt="Waterfall" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Waterfall</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('/assets/portrait_art.jpg')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc === '/assets/portrait_art.jpg'
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="/assets/portrait_art.jpg" alt="Portrait" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Portrait</span>
+                  </button>
+
+                  <button
+                    type="button"
+                    onClick={() => setActiveImageSrc('https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=1000&q=80')}
+                    className={`p-1 rounded-xl border text-center transition cursor-pointer ${
+                      activeImageSrc.includes('1583394838336')
+                        ? 'border-amber-500 bg-amber-50/80 ring-1 ring-amber-400'
+                        : 'border-stone-200 hover:border-amber-300 bg-white'
+                    }`}
+                  >
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?auto=format&fit=crop&w=200&q=80" alt="Calligraphy" className="h-9 w-full object-cover rounded-lg mb-0.5" />
+                    <span className="text-[9px] font-bold block truncate text-stone-800">Calligraphy</span>
+                  </button>
                 </div>
               </div>
             </div>

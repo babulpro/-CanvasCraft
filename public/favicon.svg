@@ -1,0 +1,87 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <!-- Rich Obsidian Canvas Background -->
+    <radialGradient id="galleryObsidian" cx="50%" cy="36%" r="75%">
+      <stop offset="0%" stop-color="#26221e"/>
+      <stop offset="50%" stop-color="#14110f"/>
+      <stop offset="100%" stop-color="#070605"/>
+    </radialGradient>
+
+    <!-- 24K Burnished Gold Leaf Gradient -->
+    <linearGradient id="goldLeaf" x1="12%" y1="5%" x2="88%" y2="95%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="15%" stop-color="#fef08a"/>
+      <stop offset="35%" stop-color="#fbbf24"/>
+      <stop offset="65%" stop-color="#d97706"/>
+      <stop offset="85%" stop-color="#b45309"/>
+      <stop offset="100%" stop-color="#78350f"/>
+    </linearGradient>
+
+    <!-- Floating Frame Gold Bevel Rim -->
+    <linearGradient id="frameGold" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#fffbeb"/>
+      <stop offset="20%" stop-color="#fbbf24"/>
+      <stop offset="50%" stop-color="#d97706"/>
+      <stop offset="80%" stop-color="#92400e"/>
+      <stop offset="100%" stop-color="#fde68a"/>
+    </linearGradient>
+
+    <!-- Center Warmth Spotlight -->
+    <radialGradient id="centerWarmth" cx="50%" cy="44%" r="55%">
+      <stop offset="0%" stop-color="#f59e0b" stop-opacity="0.32"/>
+      <stop offset="55%" stop-color="#b45309" stop-opacity="0.09"/>
+      <stop offset="100%" stop-color="#000000" stop-opacity="0"/>
+    </radialGradient>
+
+    <!-- 3D Shadow for Monogram -->
+    <filter id="artDropShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#000000" flood-opacity="0.95"/>
+    </filter>
+
+    <!-- Star Glow -->
+    <radialGradient id="starGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="40%" stop-color="#fef08a" stop-opacity="0.9"/>
+      <stop offset="100%" stop-color="#f59e0b" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+
+  <!-- Canvas Squircle Base -->
+  <rect x="12" y="12" width="488" height="488" rx="118" fill="url(#galleryObsidian)"/>
+  <rect x="12" y="12" width="488" height="488" rx="118" fill="url(#centerWarmth)"/>
+
+  <!-- Museum Outer Floating Frame Bevel (Crisp, High-Contrast Gold Frame) -->
+  <rect x="22" y="22" width="468" height="468" rx="108" fill="none" stroke="url(#frameGold)" stroke-width="18"/>
+
+  <!-- Inner Recessed Shadow Rim -->
+  <rect x="36" y="36" width="440" height="440" rx="96" fill="none" stroke="#000000" stroke-width="6" opacity="0.85"/>
+
+  <!-- Fine Inner Gold Pinstripe -->
+  <rect x="44" y="44" width="424" height="424" rx="88" fill="none" stroke="url(#frameGold)" stroke-width="3" stroke-opacity="0.6"/>
+
+  <!-- CanvasCraft Signature 3-Panel Split Canvas (Subtle Gold Relief) -->
+  <g opacity="0.13">
+    <rect x="110" y="86" width="76" height="340" rx="12" fill="#f59e0b"/>
+    <rect x="198" y="66" width="116" height="380" rx="12" fill="#f59e0b"/>
+    <rect x="326" y="86" width="76" height="340" rx="12" fill="#f59e0b"/>
+  </g>
+
+  <!-- 4 Floating Frame Corner Pins -->
+  <circle cx="64" cy="64" r="5" fill="#fde047" opacity="0.85"/>
+  <circle cx="448" cy="64" r="5" fill="#fde047" opacity="0.85"/>
+  <circle cx="64" cy="448" r="5" fill="#fde047" opacity="0.85"/>
+  <circle cx="448" cy="448" r="5" fill="#fde047" opacity="0.85"/>
+
+  <!-- The Bold Luxury Monogram "C" -->
+  <g filter="url(#artDropShadow)">
+    <!-- Base Glyph with Subtle Metallic Stroke for Maximum Tab Contrast -->
+    <path d="M272.83 396.14Q243.51 396.14 217.94 386.65Q192.38 377.16 173.39 359.11Q154.78 341.44 144.06 315.40Q133.35 289.37 133.35 258.16Q133.35 227.14 144.16 200.73Q154.97 174.32 174.52 154.95Q193.69 135.97 220.57 125.53Q247.46 115.10 278.10 115.10Q300.28 115.10 318.52 120.46Q336.75 125.82 349.35 132.58L361 122.24L377.36 122.24L379.05 219.62L362.50 219.62Q348.41 175.07 328.67 154.20Q308.93 133.34 280.54 133.34Q245.20 133.34 226.78 164.45Q208.35 195.56 208.35 251.77Q208.35 283.54 214.65 306Q220.95 328.47 231.10 342.19Q242 356.48 256.86 363.15Q271.71 369.83 289.75 369.83Q316.07 369.83 336.66 355.54Q357.24 341.25 374.16 312.30L390.33 322.08Q382.24 338.62 371.90 351.68Q361.56 364.75 348.03 374.15Q333.18 384.49 315.23 390.32Q297.27 396.14 272.83 396.14" fill="url(#goldLeaf)" stroke="url(#goldLeaf)" stroke-width="4" stroke-linejoin="round"/>
+  </g>
+
+  <!-- Brilliant 4-Point Hallmark Star on Frame Shoulder -->
+  <g transform="translate(408, 104)">
+    <circle cx="0" cy="0" r="24" fill="url(#starGlow)"/>
+    <path d="M 0 -28 Q 4 -5 28 0 Q 4 5 0 28 Q -4 5 -28 0 Q -4 -5 0 -28 Z" fill="url(#goldLeaf)"/>
+    <circle cx="0" cy="0" r="5.5" fill="#ffffff"/>
+  </g>
+</svg>

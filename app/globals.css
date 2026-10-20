@@ -1,26 +1,94 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --brand-primary: #b89053;
+    --brand-dark: #8c670f;
+    --brand-light: #fdf8ea;
+  }
+
+  body {
+    background-color: #faf8f5;
+    color: #1c1917;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: var(--font-serif), Georgia, serif;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+/* 3D Museum Floating Frame Mouldings */
+.floating-frame-black {
+  box-shadow: 
+    0 0 0 10px #141415,
+    0 0 0 11px #050505,
+    inset 0 0 0 2px rgba(0,0,0,0.8),
+    0 22px 45px -8px rgba(0,0,0,0.7);
+}
+
+.floating-frame-walnut {
+  box-shadow: 
+    0 0 0 10px #4a2818,
+    0 0 0 11px #30190e,
+    inset 0 0 0 2px rgba(0,0,0,0.7),
+    0 22px 45px -8px rgba(0,0,0,0.65);
+}
+
+.floating-frame-white {
+  box-shadow: 
+    0 0 0 10px #f8fafc,
+    0 0 0 11px #d6d3cb,
+    inset 0 0 0 2px rgba(0,0,0,0.2),
+    0 22px 45px -8px rgba(0,0,0,0.5);
+}
+
+.floating-frame-gold {
+  box-shadow: 
+    0 0 0 10px #b88a1a,
+    0 0 0 11px #8c670f,
+    inset 0 0 0 2px rgba(0,0,0,0.65),
+    0 22px 45px -8px rgba(0,0,0,0.65);
+}
+
+.floating-frame-none {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.25), 0 18px 36px -6px rgba(0, 0, 0, 0.5);
+}
+
+/* Soft Room Interior Lighting */
+.wall-lighting {
+  background: radial-gradient(ellipse at 50% 20%, rgba(255,255,255,0.42) 0%, rgba(0,0,0,0.16) 100%);
+}
+
+/* Realistic Luxury Wood Floor */
+.wood-floor-pattern {
+  background: linear-gradient(180deg, #38241b 0%, #20130d 100%);
+  background-image: repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, rgba(255,255,255,0.02) 1px, transparent 1px, transparent 32px);
+}
+
+/* Canvas Linen Weave Micro-Texture */
+.canvas-linen-texture {
+  background-image: 
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.18) 1px, transparent 1px),
+    radial-gradient(circle at 0% 0%, rgba(0,0,0,0.08) 1px, transparent 1px);
+  background-size: 3px 3px, 4px 4px;
+}
+
+/* Custom Scrollbar */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: #f7f6f2;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: #dcd8cc;
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: #b89053;
 }

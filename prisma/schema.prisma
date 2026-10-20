@@ -1,0 +1,180 @@
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGODB_URI")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+// ==============================================================================
+// Better Auth Core Models (Mapped to MongoDB collections)
+// ==============================================================================
+
+model User {
+  id            String        @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String        @unique
+  emailVerified Boolean       @default(false)
+  image         String?
+  username      String?       @unique
+  role          String        @default("user") // "admin" | "moderator" | "user"
+  banned        Boolean?      @default(false)
+  banReason     String?
+  banExpires    DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  orders        Order[]
+  savedDesigns  SavedDesign[]
+
+  @@map("user")
+}
+
+model Session {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId
+  expiresAt      DateTime
+  token          String   @unique
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  ipAddress      String?
+  userAgent      String?
+  userId         String   @db.ObjectId
+  user           User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  impersonatedBy String?
+
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id @default(auto()) @map("_id") @db.ObjectId
+  accountId             String
+  providerId            String
+  userId                String    @db.ObjectId
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@map("verification")
+}
+
+// ==============================================================================
+// CanvasCraft E-Commerce Catalog Models
+// ==============================================================================
+
+model Product {
+  id          String   @id @default(auto()) @map("_id") @db.ObjectId
+  slug        String   @unique
+  title       String
+  category    String
+  description String?
+  imageUrl    String
+  aspect      String   @default("portrait")
+  orientation String   @default("portrait")
+  basePrice   Float
+  tags        String[]
+  featured    Boolean  @default(false)
+  inStock     Boolean  @default(true)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("products")
+}
+
+// ==============================================================================
+// Order & Embedded Cart Item Models
+// ==============================================================================
+
+model Order {
+  id              String      @id @default(auto()) @map("_id") @db.ObjectId
+  orderNumber     String      @unique
+  customerName    String
+  customerPhone   String
+  customerAddress String
+  deliveryZone    String      // "dhaka" | "outside"
+  notes           String?
+  status          String      @default("PENDING") // PENDING, CONFIRMED, IN_PRODUCTION, SHIPPED, DELIVERED, CANCELLED
+  subtotal        Float
+  comboDiscount   Float       @default(0)
+  comboDealName   String?
+  deliveryFee     Float
+  total           Float
+  advancePaid     Float       @default(0)
+  codDue          Float
+  paymentMethod   String      @default("bKash/Nagad + COD")
+  items           OrderItem[]
+  userId          String?     @db.ObjectId
+  user            User?       @relation(fields: [userId], references: [id])
+  createdAt       DateTime    @default(now())
+  updatedAt       DateTime    @updatedAt
+
+  @@map("orders")
+}
+
+type OrderItem {
+  productId       String?
+  title           String
+  imageUrl        String
+  category        String?
+  sizeCode        String
+  sizeLabel       String
+  width           Float
+  height          Float
+  material        String     // "pvc" | "canvas"
+  frameType       String     // "none" | "black" | "walnut" | "white" | "gold"
+  quantity        Int        @default(1)
+  unitPrice       Float
+  totalPrice      Float
+  comboPieces     Int?
+  customPhotoUrls String[]
+}
+
+// ==============================================================================
+// Studio Customizer Saved Designs & Uploaded Photos (Cloudinary Linked)
+// ==============================================================================
+
+model SavedDesign {
+  id              String          @id @default(auto()) @map("_id") @db.ObjectId
+  name            String?
+  layoutType      String          // "single" | "triptych" | "grid3" | "grid6" etc.
+  slotsCount      Int             @default(1)
+  sizeCode        String
+  material        String
+  frameType       String
+  previewImageUrl String?
+  uploadedPhotos  UploadedPhoto[]
+  userId          String?         @db.ObjectId
+  user            User?           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+
+  @@map("saved_designs")
+}
+
+type UploadedPhoto {
+  slotId        Int
+  cloudinaryUrl String
+  publicId      String?
+  thumbnailUrl  String?
+  fileName      String?
+  fileSize      String?
+}

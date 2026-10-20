@@ -10,6 +10,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'portrait',
     basePrice: 350,
     tags: ['Museum Classic', 'Oil on Linen', 'Solo Promo (16×24″)'],
+    details: 'Masterpiece floral still life with butterflies & fruit. High-definition pigment print on 380 GSM textured cotton canvas or 3mm rigid PVC board.',
     featured: true
   },
   {
@@ -21,6 +22,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'landscape',
     basePrice: 550,
     tags: ['3-Piece Ready', 'Triptych', 'Grand Scale'],
+    details: 'Continuous 3-piece watercolor dunes and moonlight. Calibrated for zero-cut multi-panel living room wall display above 80″ sofas.',
     featured: true
   },
   {
@@ -32,6 +34,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'portrait',
     basePrice: 350,
     tags: ['Single & Triptych', 'Islamic Heritage', 'Gold Script'],
+    details: 'Sacred classical Thuluth script with rich gold inlay on obsidian. Anti-scratch, anti-glare satin UV coating that never fades in sunlight.',
     featured: true
   },
   {
@@ -43,6 +46,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'landscape',
     basePrice: 350,
     tags: ['5-Piece Waterfall Ready', 'Landscape', 'Panoramic'],
+    details: 'Misty mountain ridges and cascading river panorama. Pre-sliced for 5-part waterfall sets spanning 3 to 5 feet of continuous art.',
     featured: true
   },
   {
@@ -54,6 +58,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'portrait',
     basePrice: 350,
     tags: ['Vintage Oil', 'Earthy Linen', 'Fine Art'],
+    details: 'Warm earth tones and subtle linen texture. Complements minimalist Scandinavian interiors, dining spaces, and cozy reading nooks.',
     featured: true
   },
   {
@@ -65,6 +70,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'portrait',
     basePrice: 550,
     tags: ['Photo Combo Deal', '12 Tiles Collage', 'Bestseller'],
+    details: 'Ultra-light 3mm rigid PVC photo tiles with pre-applied heavy-duty 3M mounting tape. Damage-free wall mounting without any nails or drills.',
     featured: false
   }
 ];

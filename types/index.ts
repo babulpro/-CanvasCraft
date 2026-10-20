@@ -49,6 +49,8 @@ export interface Product {
   basePrice: number;
   tags: string[];
   featured?: boolean;
+  details?: string;
+  description?: string;
 }
 
 export interface UploadedSlotImage {

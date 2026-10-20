@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
-import { useSession } from '@/lib/auth-client';
+import { useSession, signOut } from '@/lib/auth-client';
 import { AuthUser } from '@/types';
 import {
   ShoppingBag,
@@ -21,6 +21,7 @@ import {
   ChevronRight,
   Phone,
   Flame,
+  LogOut,
 } from 'lucide-react';
 
 const WHATSAPP_URL = 'https://wa.me/8801972304749';
@@ -100,14 +101,14 @@ export default function Navbar() {
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           
           {/* Left: Brand Logo & Tagline */}
-          <div className="flex items-center gap-2.5 sm:gap-6">
-            <Link href="/" className="flex items-center gap-2 sm:gap-3 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-stone-900 to-stone-950 text-amber-400 flex items-center justify-center font-serif text-lg sm:text-xl font-bold tracking-wider shadow-sm border border-stone-800 shrink-0">
+          <div className="flex items-center gap-2 sm:gap-6 min-w-0">
+            <Link href="/" className="flex items-center gap-2 sm:gap-3 group shrink-0">
+              <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-xl bg-gradient-to-br from-stone-900 to-stone-950 text-amber-400 flex items-center justify-center font-serif text-base sm:text-xl font-bold tracking-wider shadow-sm border border-stone-800 shrink-0">
                 C
               </div>
-              <div>
-                <span className="font-serif text-lg sm:text-2xl font-bold tracking-tight text-stone-950 block leading-tight">
-                  CanvasCraft<span className="text-amber-700 font-sans text-xs ml-1 font-bold px-1.5 py-0.5 rounded bg-amber-100/70 border border-amber-200">BD</span>
+              <div className="min-w-0">
+                <span className="font-serif text-base sm:text-2xl font-bold tracking-tight text-stone-950 block leading-tight truncate">
+                  CanvasCraft<span className="text-amber-700 font-sans text-[11px] sm:text-xs ml-1 font-bold px-1.5 py-0.5 rounded bg-amber-100/70 border border-amber-200">BD</span>
                 </span>
                 <span className="text-[10px] text-stone-500 font-medium tracking-wide hidden sm:block">
                   Archival Canvas &amp; Rigid PVC Wall Decor
@@ -189,24 +190,25 @@ export default function Navbar() {
           </div>
 
           {/* Right Header Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-3">
+          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             
-            {/* User Session State: ALWAYS DIRECTLY VISIBLE ON BOTH MOBILE & DESKTOP! */}
+            {/* User Session State: ALWAYS PROMINENT ON BOTH MOBILE & DESKTOP */}
             <div className="flex items-center">
               {!mounted ? (
-                <div className="w-16 h-7 rounded-full bg-stone-200/60 animate-pulse" />
+                <div className="w-16 h-8 rounded-full bg-stone-200/60 animate-pulse" />
               ) : user ? (
                 <Link
                   href="/profile"
-                  className="flex items-center gap-1.5 py-1 px-2 sm:px-3 rounded-full bg-stone-100 hover:bg-amber-50 text-stone-800 hover:text-amber-950 text-xs font-semibold transition border border-stone-200 hover:border-amber-300 shadow-2xs"
+                  className="flex items-center gap-1.5 py-1 px-2.5 sm:px-3 rounded-full bg-amber-100/80 hover:bg-amber-200 text-stone-900 text-xs font-bold transition border border-amber-300/80 shadow-2xs shrink-0"
                   title="Member Profile"
                 >
-                  <div className="w-6 h-6 rounded-full bg-gradient-to-br from-amber-500 to-amber-700 text-stone-950 font-bold flex items-center justify-center text-[10px] shadow-2xs shrink-0">
+                  <div className="w-6 h-6 rounded-full bg-stone-950 text-amber-400 font-black flex items-center justify-center text-[10px] shadow-2xs shrink-0">
                     {user.name ? user.name[0].toUpperCase() : 'U'}
                   </div>
                   <span className="hidden sm:inline max-w-[85px] truncate">
                     {user.username ? `@${user.username}` : user.name?.split(' ')[0]}
                   </span>
+                  <span className="sm:hidden text-xs font-bold">Profile</span>
                   {isAdmin && (
                     <span className="bg-red-600 text-white text-[8px] font-black uppercase px-1 rounded">
                       Admin
@@ -219,14 +221,14 @@ export default function Navbar() {
                   )}
                 </Link>
               ) : (
-                /* Mobile & Desktop Visible Sign-In Pill */
+                /* Radiant Golden Amber Login CTA on Mobile & Desktop */
                 <Link
                   href="/sign-in"
-                  className="inline-flex items-center gap-1 py-1.5 px-2.5 sm:px-3 rounded-full bg-amber-500/15 hover:bg-amber-500/25 text-amber-950 font-bold text-xs border border-amber-300 transition shadow-2xs"
-                  title="Sign In to Your Account"
+                  className="inline-flex items-center gap-1.5 py-1.5 px-3 sm:px-4 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 shrink-0"
+                  title="Login to Your Account"
                 >
-                  <User className="w-3.5 h-3.5 text-amber-700" />
-                  <span>Sign In</span>
+                  <User className="w-3.5 h-3.5 text-stone-950 stroke-[2.5]" />
+                  <span>Login</span>
                 </Link>
               )}
             </div>
@@ -234,7 +236,7 @@ export default function Navbar() {
             {/* Shopping Bag CTA */}
             <button
               onClick={openDrawer}
-              className="relative p-2 rounded-full hover:bg-stone-100 text-stone-800 transition group cursor-pointer"
+              className="relative p-2 rounded-full hover:bg-stone-100 text-stone-800 transition group cursor-pointer shrink-0"
               title="Open Shopping Bag"
               aria-label="Open Shopping Bag"
             >
@@ -301,14 +303,15 @@ export default function Navbar() {
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             
             {/* Mobile User Profile / Sign In Card (Prominent & Clear) */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-stone-900 to-stone-900/90 border border-stone-800 shadow-xl">
+            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#24211e] via-[#1c1917] to-[#121110] border-2 border-amber-500/40 shadow-xl relative overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/15 rounded-full blur-xl pointer-events-none" />
               {!mounted ? (
                 <div className="w-full h-14 bg-stone-800/60 rounded-xl animate-pulse" />
               ) : user ? (
                 /* Logged-In User Card */
-                <div className="space-y-3">
+                <div className="space-y-3 relative z-10">
                   <div className="flex items-center justify-between gap-3">
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-3 min-w-0">
                       <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 text-stone-950 font-bold flex items-center justify-center text-base shadow-md shrink-0">
                         {user.name ? user.name[0].toUpperCase() : 'U'}
                       </div>
@@ -354,20 +357,37 @@ export default function Navbar() {
                       <span>My Orders</span>
                     </Link>
                   </div>
+
+                  <button
+                    type="button"
+                    onClick={async () => {
+                      setMobileMenuOpen(false);
+                      await signOut();
+                    }}
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-950/40 hover:bg-red-900/50 text-red-300 hover:text-red-200 text-xs font-semibold border border-red-900/40 transition cursor-pointer"
+                  >
+                    <LogOut className="w-3.5 h-3.5" />
+                    <span>Log Out</span>
+                  </button>
                 </div>
               ) : (
                 /* Not Logged In: Super Clear Sign In & Register Buttons */
-                <div className="space-y-3">
+                <div className="space-y-3 relative z-10">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center shrink-0">
-                      <User className="w-5 h-5" />
+                    <div className="w-10 h-10 rounded-xl bg-amber-500 text-stone-950 flex items-center justify-center shrink-0 shadow-md">
+                      <User className="w-5 h-5 stroke-[2.5]" />
                     </div>
                     <div>
-                      <h3 className="font-serif font-bold text-stone-100 text-sm">
-                        CanvasCraft Account
-                      </h3>
-                      <p className="text-xs text-stone-400">
-                        Sign in to view your orders &amp; save designs
+                      <div className="flex items-center gap-1.5">
+                        <h3 className="font-serif font-bold text-stone-100 text-sm">
+                          CanvasCraft Account
+                        </h3>
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.2 rounded">
+                          Free
+                        </span>
+                      </div>
+                      <p className="text-xs text-stone-300">
+                        Sign in to view orders &amp; saved designs
                       </p>
                     </div>
                   </div>
@@ -376,16 +396,16 @@ export default function Navbar() {
                     <Link
                       href="/sign-in"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-bold text-xs transition shadow-md"
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-black text-xs transition shadow-lg shadow-amber-500/25 text-center"
                     >
-                      <User className="w-3.5 h-3.5" />
-                      <span>Sign In</span>
+                      <User className="w-3.5 h-3.5 stroke-[2.5]" />
+                      <span>Sign In / Login</span>
                     </Link>
 
                     <Link
                       href="/sign-up"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-xs transition border border-stone-700"
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 font-semibold text-xs transition border border-stone-700 text-center"
                     >
                       <span>Create Account</span>
                     </Link>

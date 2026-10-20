@@ -63,44 +63,44 @@ export default function ProductsPage() {
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200">
           <div>
-            <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 inline-block mb-1">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 inline-block mb-1.5">
               Curated Fine Art Collections
             </span>
-            <h1 className="text-2xl sm:text-3xl font-serif font-bold text-stone-900">
+            <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">
               Gallery Artworks &amp; Wall Prints
             </h1>
-            <p className="text-xs text-stone-500 mt-1">
+            <p className="text-sm sm:text-base text-stone-600 mt-1.5">
               Explore {productsList.length} curated designs ready for custom sizing in 3mm Rigid PVC or 1.25″ Pine Wood Canvas.
             </p>
           </div>
 
           {/* Search Input, Sort dropdown & Admin Action */}
-          <div className="flex flex-col sm:flex-row items-center gap-2.5">
+          <div className="flex flex-col sm:flex-row items-center gap-3">
             {isAdmin && (
               <Link
                 href="/admin/add-product"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-3.5 py-2 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-xs font-bold shadow-xs transition shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold shadow-xs transition shrink-0"
               >
-                <PlusCircle className="w-3.5 h-3.5" />
+                <PlusCircle className="w-4 h-4" />
                 <span>Add Artwork (Admin)</span>
               </Link>
             )}
 
             <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 absolute left-3 top-1/2 -translate-y-1/2 text-stone-400" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
               <input
                 type="text"
                 placeholder="Search art, style, verse..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full text-xs pl-9 pr-3.5 py-2 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white"
+                className="w-full text-sm pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white"
               />
             </div>
 
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value as any)}
-              className="text-xs px-3 py-2 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white text-stone-700 cursor-pointer"
+              className="w-full sm:w-auto text-sm px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white text-stone-700 cursor-pointer font-medium"
             >
               <option value="featured">Sort by: Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -110,7 +110,7 @@ export default function ProductsPage() {
         </div>
 
         {/* Category Navigation Pills */}
-        <div className="flex items-center gap-1.5 overflow-x-auto py-4 custom-scrollbar text-xs">
+        <div className="flex items-center gap-2 overflow-x-auto py-4 custom-scrollbar text-sm">
           {CATEGORIES.map(cat => {
             const isSelected = selectedCategory === cat;
             return (
@@ -118,10 +118,10 @@ export default function ProductsPage() {
                 key={cat}
                 type="button"
                 onClick={() => setSelectedCategory(cat)}
-                className={`px-3.5 py-1.5 rounded-full font-bold whitespace-nowrap transition cursor-pointer ${
+                className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition cursor-pointer text-xs sm:text-sm ${
                   isSelected
                     ? 'bg-stone-900 text-white shadow-xs'
-                    : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200'
+                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
                 }`}
               >
                 {cat}
@@ -134,73 +134,76 @@ export default function ProductsPage() {
         {filteredProducts.length === 0 ? (
           <div className="text-center py-20 bg-white rounded-3xl border border-stone-200 mt-4">
             <Filter className="w-10 h-10 text-stone-300 mx-auto mb-2" />
-            <h3 className="text-sm font-bold text-stone-800">No matching artworks found</h3>
-            <p className="text-xs text-stone-400 mt-1">Try selecting another category or clear your search term.</p>
+            <h3 className="text-base font-bold text-stone-800">No matching artworks found</h3>
+            <p className="text-sm text-stone-500 mt-1">Try selecting another category or clear your search term.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 sm:gap-6 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
             {filteredProducts.map(prod => (
               <div
                 key={prod.id}
                 className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
                 {/* Artwork Thumbnail with Hover Overlay */}
-                <div className="relative aspect-[3/4] bg-stone-900 overflow-hidden">
+                <div className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden">
                   <img
                     src={prod.image}
                     alt={prod.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <span className="absolute top-2 left-2 bg-black/75 backdrop-blur-xs text-white text-[9px] font-bold px-2 py-0.5 rounded-full">
+                  <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full">
                     {prod.category}
                   </span>
                   {prod.featured && (
-                    <span className="absolute top-2 right-2 bg-amber-500 text-stone-950 text-[9px] font-black px-2 py-0.5 rounded-full uppercase">
+                    <span className="absolute top-2.5 right-2.5 bg-amber-500 text-stone-950 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
                       Popular
                     </span>
                   )}
+                  <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
+                    From ৳ {prod.basePrice}
+                  </span>
                 </div>
 
-                {/* Card Body */}
-                <div className="p-3.5 flex-1 flex flex-col justify-between">
+                {/* Card Body with Real Details */}
+                <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-xs sm:text-sm font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
+                    <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
                       {prod.title}
                     </h3>
-                    <div className="flex flex-wrap gap-1 mt-1.5 mb-2">
-                      {prod.tags.map(t => (
-                        <span key={t} className="text-[8px] bg-stone-100 text-stone-600 px-1.5 py-0.5 rounded">
-                          {t}
-                        </span>
-                      ))}
-                    </div>
+                    <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
+                      {prod.details || prod.description || prod.tags.join(' • ')}
+                    </p>
                   </div>
 
                   {/* Price & Action Buttons */}
-                  <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-                    <div>
-                      <span className="text-[9px] text-stone-400 block">Starts from</span>
-                      <span className="text-xs sm:text-sm font-black text-amber-700">৳ {prod.basePrice}</span>
-                    </div>
+                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+                    <Link
+                      href={
+                        prod.id === 'port-1'
+                          ? '/customize?preset=portrait&pack=16x24'
+                          : prod.id === 'abstract-1'
+                          ? '/customize?preset=triptych&pack=3part-36x24'
+                          : prod.id === 'islamic-1'
+                          ? '/customize?preset=calligraphy'
+                          : prod.id === 'nature-1'
+                          ? '/customize?preset=sajek&pack=5part-24x48'
+                          : `/customize?preset=${prod.id}`
+                      }
+                      className="px-3 py-2 rounded-xl text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 text-xs sm:text-sm font-semibold transition flex items-center gap-1"
+                      title="Preview on Living Room Wall"
+                    >
+                      <Eye className="w-4 h-4 text-stone-500" />
+                      <span>Studio</span>
+                    </Link>
 
-                    <div className="flex items-center gap-1.5">
-                      <Link
-                        href={`/customize?preset=${prod.id}`}
-                        className="p-2 rounded-xl text-stone-500 hover:text-stone-900 hover:bg-stone-100 border border-stone-200 transition"
-                        title="Preview on Living Room Wall"
-                      >
-                        <Eye className="w-3.5 h-3.5" />
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() => setModalProduct(prod)}
-                        className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-[11px] px-3 py-1.5 rounded-xl shadow-xs transition flex items-center gap-1 cursor-pointer"
-                      >
-                        <ShoppingBag className="w-3 h-3" />
-                        <span>Add to Bag</span>
-                      </button>
-                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setModalProduct(prod)}
+                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                    >
+                      <ShoppingBag className="w-4 h-4" />
+                      <span>Add to Bag</span>
+                    </button>
                   </div>
 
                 </div>

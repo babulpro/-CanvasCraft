@@ -175,6 +175,9 @@ export default function CartDrawer() {
                                 {it.sizeLabel} • <span>{it.material === 'pvc' ? '3mm PVC Board' : 'Pine Canvas'}</span>
                               </p>
                               <p className="text-stone-500">Frame: <strong className="text-stone-800">{it.frameName}</strong></p>
+                              {it.borderName && !it.borderName.toLowerCase().includes('none') && (
+                                <p className="text-stone-500">Border Accent: <strong className="text-amber-800">{it.borderName}</strong></p>
+                              )}
                             </div>
                           </div>
                         </div>

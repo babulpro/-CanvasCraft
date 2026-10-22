@@ -273,6 +273,12 @@ export default function CartPage() {
                             <span className="capitalize">{item.materialName}</span>
                             <span>•</span>
                             <span className="capitalize">{item.frameName}</span>
+                            {item.borderName && !item.borderName.toLowerCase().includes('none') && (
+                              <>
+                                <span>•</span>
+                                <span className="text-amber-800 font-semibold">{item.borderName}</span>
+                              </>
+                            )}
                           </div>
 
                           {/* Combo Checkbox Toggle */}

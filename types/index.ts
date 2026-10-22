@@ -79,6 +79,7 @@ export interface CartItem {
   materialName: string;
   frameType: FrameType;
   frameName: string;
+  borderName?: string;
   basePrice: number;
   framePrice: number;
   unitPrice: number;
@@ -129,6 +130,7 @@ export interface OrderItemData {
   height: number;
   material: string;
   frameType: string;
+  borderName?: string | null;
   quantity: number;
   unitPrice: number;
   totalPrice: number;

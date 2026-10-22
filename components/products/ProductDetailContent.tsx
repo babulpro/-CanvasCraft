@@ -31,16 +31,32 @@ interface ProductDetailContentProps {
   productId: string;
 }
 
-// Curated realistic wall paint swatches
+// Curated realistic wall paint swatches with pre-rendered photorealistic room views
 const WALL_COLORS = [
-  { id: 'white', name: 'Original Sunlit White', hex: '#ffffff', textDark: true },
-  { id: 'ivory', name: 'Warm Alabaster', hex: '#f7f3ea', textDark: true },
-  { id: 'linen', name: 'Oatmeal Linen', hex: '#e8dfd2', textDark: true },
-  { id: 'greige', name: 'Greige Mist', hex: '#d1c9bd', textDark: true },
-  { id: 'slate', name: 'Moody Slate', hex: '#374151', textDark: false },
-  { id: 'olive', name: 'Forest Olive', hex: '#2e3d32', textDark: false },
-  { id: 'navy', name: 'Midnight Navy', hex: '#1e293b', textDark: false },
-  { id: 'terracotta', name: 'Terracotta Clay', hex: '#8a483a', textDark: false },
+  { id: 'white', name: 'Original Sunlit White', hex: '#ffffff', imageSrc: '/assets/rooms/living_room_white.jpg', textDark: true },
+  { id: 'ivory', name: 'Warm Alabaster', hex: '#f7f3ea', imageSrc: '/assets/rooms/living_room_ivory.jpg', textDark: true },
+  { id: 'linen', name: 'Oatmeal Linen', hex: '#e8dfd2', imageSrc: '/assets/rooms/living_room_linen.jpg', textDark: true },
+  { id: 'greige', name: 'Greige Mist', hex: '#d1c9bd', imageSrc: '/assets/rooms/living_room_greige.jpg', textDark: true },
+  { id: 'slate', name: 'Moody Slate', hex: '#374151', imageSrc: '/assets/rooms/living_room_slate.jpg', textDark: false },
+  { id: 'olive', name: 'Forest Olive', hex: '#2e3d32', imageSrc: '/assets/rooms/living_room_olive.jpg', textDark: false },
+  { id: 'navy', name: 'Midnight Navy', hex: '#1e293b', imageSrc: '/assets/rooms/living_room_navy.jpg', textDark: false },
+  { id: 'terracotta', name: 'Terracotta Clay', hex: '#8a483a', imageSrc: '/assets/rooms/living_room_terracotta.jpg', textDark: false },
+];
+
+export interface SlimBorderOption {
+  id: string;
+  name: string;
+  color: string;
+  borderCss: string;
+  textDark?: boolean;
+}
+
+export const SLIM_BORDER_OPTIONS: SlimBorderOption[] = [
+  { id: 'none', name: 'None (Full Bleed)', color: 'transparent', borderCss: 'none', textDark: true },
+  { id: 'white', name: 'Pure White (2.5mm)', color: '#ffffff', borderCss: '2.5px solid #ffffff', textDark: true },
+  { id: 'black', name: 'Matte Black (2.5mm)', color: '#171717', borderCss: '2.5px solid #171717', textDark: false },
+  { id: 'walnut', name: 'Warm Walnut (2.5mm)', color: '#4a3319', borderCss: '2.5px solid #4a3319', textDark: false },
+  { id: 'gold', name: 'Brushed Gold (2.5mm)', color: '#c5a059', borderCss: '2.5px solid #c5a059', textDark: false },
 ];
 
 export default function ProductDetailContent({ productId }: ProductDetailContentProps) {
@@ -53,6 +69,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   const [loading, setLoading] = useState(!product);
   const [selectedSize, setSelectedSize] = useState<SizeOption>(STANDARD_SIZES[3]); // 16x24 default
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialType>('pvc');
+  const [selectedBorder, setSelectedBorder] = useState<SlimBorderOption>(SLIM_BORDER_OPTIONS[0]); // Default: None (Full Bleed)
   const [quantity, setQuantity] = useState(1);
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [viewMode, setViewMode] = useState<'room' | 'studio'>('room');
@@ -159,6 +176,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
       materialName: selectedMaterial === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
       frameType: 'none',
       frameName: 'Gallery Wrap / Rimless',
+      borderName: selectedBorder.name,
       basePrice,
       framePrice: 0,
       unitPrice,
@@ -182,6 +200,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
       materialName: selectedMaterial === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
       frameType: 'none',
       frameName: 'Gallery Wrap / Rimless',
+      borderName: selectedBorder.name,
       basePrice,
       framePrice: 0,
       unitPrice,
@@ -191,12 +210,17 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   };
 
   // Pre-fill WhatsApp message
+  const borderDesc = selectedBorder.id !== 'none'
+    ? `• Slim Edge Accent: ${selectedBorder.name}\n`
+    : `• Edge Style: Modern Rimless / Gallery Wrap (Full Bleed)\n`;
+
   const waText = encodeURIComponent(
     `Hello CanvasCraft BD! I would like to order this artwork:\n` +
     `• Artwork: ${product.title}\n` +
     `• Size: ${selectedSize.label} (${physWidth}″ × ${physHeight}″)\n` +
     `• Material: ${selectedMaterial === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas'}\n` +
     `• Style: Gallery Wrap / Rimless (৳0 Extra)\n` +
+    borderDesc +
     `• Quantity: ${quantity}\n` +
     `• Total Price: ৳ ${totalPrice.toLocaleString()}\n\n` +
     `Please confirm my delivery details.`
@@ -284,32 +308,15 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               /* Photorealistic Living Room Scene with Real Sofa & Tea Table */
               <div className="relative w-full aspect-[4/3] max-h-[580px] rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
                 
-                {/* 1. Real Living Room Photo with Sofa & Tea Table */}
+                {/* 1. Photorealistic Living Room Scene with Exact Wall Color Paint, Real Sofa & Tea Table */}
                 <img
-                  src="/assets/living_room_mockup.jpg"
-                  alt="Living Room with Real Sofa and Tea Table"
-                  className="w-full h-full object-cover pointer-events-none select-none"
+                  key={wallColor.id}
+                  src={wallColor.imageSrc}
+                  alt={`Living Room with ${wallColor.name} Wall, Real Sofa and Tea Table`}
+                  className="w-full h-full object-cover pointer-events-none select-none transition-all duration-300"
                 />
 
-                {/* 2. Soft Dynamic Wall Color Tint (Smooth blend onto the wall above sofa) */}
-                {wallColor.id !== 'white' && (
-                  <div
-                    className="absolute pointer-events-none transition-all duration-500 ease-out"
-                    style={{
-                      top: '0%',
-                      left: '21%',
-                      right: '18%',
-                      height: '56.9%',
-                      backgroundColor: wallColor.hex,
-                      mixBlendMode: 'multiply',
-                      opacity: wallColor.id === 'ivory' ? 0.35 : 0.65,
-                      maskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                      WebkitMaskImage: 'linear-gradient(to bottom, black 80%, transparent 100%)',
-                    }}
-                  />
-                )}
-
-                {/* 3. The Artwork on the Far Wall — True Architectural Perspective, NEVER Overlaps Sofa */}
+                {/* 2. The Artwork on the Far Wall — True Architectural Perspective, Frameless / Gallery Wrap */}
                 <div
                   className="absolute z-20 flex items-center justify-center pointer-events-none transition-all duration-500 ease-out"
                   style={{
@@ -328,19 +335,29 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                         selectedMaterial === 'canvas'
                           ? '0 18px 32px -6px rgba(0,0,0,0.52), 0 8px 14px -3px rgba(0,0,0,0.30), 3px 3px 0px rgba(40,30,20,0.22)'
                           : '0 12px 20px -4px rgba(0,0,0,0.35), 0 5px 10px -2px rgba(0,0,0,0.20), 1.5px 1.5px 0px rgba(40,30,20,0.14)',
-                      borderRadius: selectedMaterial === 'canvas' ? '2px' : '3px'
+                      borderRadius: '0px'
                     }}
                   >
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-contain select-none rounded-xs block pointer-events-auto"
+                      className="w-full h-full object-cover select-none rounded-none block pointer-events-auto"
                     />
+
+                    {/* 2-3mm Slim Edge/Border (Customizable Color) */}
+                    {selectedBorder.id !== 'none' && (
+                      <div
+                        className="absolute inset-0 pointer-events-none z-10"
+                        style={{
+                          border: selectedBorder.borderCss
+                        }}
+                      />
+                    )}
 
                     {/* 3D Pine Wood Canvas Wrap Edge Highlight */}
                     {selectedMaterial === 'canvas' && (
                       <div
-                        className="absolute inset-0 pointer-events-none rounded-xs border border-white/20"
+                        className="absolute inset-0 pointer-events-none border border-white/20"
                         style={{
                           boxShadow: 'inset 0 0 2px rgba(0,0,0,0.15)'
                         }}
@@ -348,7 +365,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                     )}
 
                     {/* Subtle Satin Sheen Surface Reflection */}
-                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-black/5 via-transparent to-white/15 opacity-60 rounded-xs" />
+                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-black/5 via-transparent to-white/15 opacity-60" />
                   </div>
                 </div>
 
@@ -422,15 +439,26 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                         selectedMaterial === 'canvas'
                           ? '0 30px 60px -12px rgba(0,0,0,0.7), 0 18px 36px -18px rgba(0,0,0,0.6), 5px 5px 0px rgba(30,20,10,0.4)'
                           : '0 20px 40px -10px rgba(0,0,0,0.6), 0 10px 20px -10px rgba(0,0,0,0.4), 2px 2px 0px rgba(30,20,10,0.3)',
-                      borderRadius: selectedMaterial === 'canvas' ? '2px' : '3px'
+                      borderRadius: '0px'
                     }}
                   >
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="block max-h-[320px] sm:max-h-[360px] max-w-[360px] sm:max-w-[440px] w-auto h-auto object-contain select-none group-hover/studio:scale-[1.02] transition-transform duration-500 rounded-xs"
+                      className="block max-h-[320px] sm:max-h-[360px] max-w-[360px] sm:max-w-[440px] w-auto h-auto object-contain select-none group-hover/studio:scale-[1.02] transition-transform duration-500 rounded-none"
                     />
-                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-black/10 via-transparent to-white/10 opacity-70 rounded-xs" />
+
+                    {/* 2-3mm Slim Edge/Border (Customizable Color) */}
+                    {selectedBorder.id !== 'none' && (
+                      <div
+                        className="absolute inset-0 pointer-events-none z-10"
+                        style={{
+                          border: selectedBorder.borderCss
+                        }}
+                      />
+                    )}
+
+                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-black/10 via-transparent to-white/10 opacity-70" />
                   </div>
                 </div>
 
@@ -663,7 +691,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               </div>
             </div>
 
-            {/* RIMLESS FINISH GUARANTEE (NO CONFUSING FLOATING FRAME SELECTOR) */}
+            {/* HANGING STYLE: PURE RIMLESS / GALLERY WRAP (NO FRAME) */}
             <div className="p-3.5 bg-stone-100/90 rounded-2xl border border-stone-200/90 flex items-center justify-between">
               <div className="flex items-center gap-2.5">
                 <span className="w-7 h-7 rounded-full bg-amber-500/15 text-amber-800 flex items-center justify-center text-sm font-bold shrink-0">
@@ -671,16 +699,73 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 </span>
                 <div>
                   <span className="text-xs font-bold text-stone-900 block">
-                    Modern Rimless / Gallery Wrap Style
+                    Hanging on Wall: No Frame (Modern Gallery Wrap)
                   </span>
                   <span className="text-[11px] text-stone-600 block">
-                    Seamless borderless finish ready to mount on your wall
+                    Clean, seamless edges mounted flush on your wall
                   </span>
                 </div>
               </div>
               <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-full border border-emerald-200 shrink-0">
-                Included (৳ 0)
+                Frameless (৳ 0)
               </span>
+            </div>
+
+            {/* STEP 3: 2-3mm SLIM EDGE BORDER COLOR (CUSTOMIZABLE ACCENT) */}
+            <div className="space-y-2.5 pt-4 border-t border-stone-200">
+              <div className="flex items-center justify-between">
+                <label className="text-sm font-bold text-stone-900 flex items-center gap-1.5">
+                  <Palette className="w-4 h-4 text-amber-600" />
+                  <span>3. Fine Edge / Border (2–3mm)</span>
+                </label>
+                <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
+                  Customizable Color • Free (৳ 0)
+                </span>
+              </div>
+
+              <p className="text-xs text-stone-600">
+                Normally canvas prints hang rimless. You can optionally add a subtle 2–3mm fine edge border around the artwork in your preferred accent color:
+              </p>
+
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+                {SLIM_BORDER_OPTIONS.map(opt => {
+                  const isSelected = selectedBorder.id === opt.id;
+                  return (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setSelectedBorder(opt)}
+                      className={`p-2.5 rounded-2xl border text-left transition flex items-center gap-2.5 cursor-pointer ${
+                        isSelected
+                          ? 'border-amber-500 bg-amber-50/90 ring-2 ring-amber-400 shadow-xs'
+                          : 'border-stone-200 bg-white hover:border-amber-300'
+                      }`}
+                    >
+                      <div
+                        className="w-5 h-5 rounded-full border border-stone-300 shrink-0 shadow-2xs flex items-center justify-center"
+                        style={{
+                          backgroundColor: opt.id === 'none' ? '#f5f5f4' : opt.color,
+                        }}
+                      >
+                        {opt.id === 'none' ? (
+                          <span className="text-[9px] text-stone-400 font-bold">✕</span>
+                        ) : isSelected ? (
+                          <Check className={`w-3 h-3 ${opt.textDark ? 'text-stone-900' : 'text-white'}`} />
+                        ) : null}
+                      </div>
+
+                      <div className="min-w-0">
+                        <span className="text-xs font-bold text-stone-900 block truncate">
+                          {opt.name}
+                        </span>
+                        <span className="text-[10px] text-stone-500 block truncate">
+                          {opt.id === 'none' ? 'Full bleed' : '2.5mm rim accent'}
+                        </span>
+                      </div>
+                    </button>
+                  );
+                })}
+              </div>
             </div>
 
             {/* QUANTITY STEPPER */}
@@ -790,15 +875,26 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
           </button>
 
           <div className="relative max-w-5xl max-h-[90vh] flex flex-col items-center justify-center">
-            <img
-              src={product.image}
-              alt={product.title}
-              className="max-w-full max-h-[82vh] object-contain rounded-xl shadow-2xl"
-            />
+            <div className="relative inline-block">
+              <img
+                src={product.image}
+                alt={product.title}
+                className="max-w-full max-h-[82vh] object-contain rounded-none shadow-2xl block"
+              />
+              {/* 2-3mm Slim Edge/Border (Customizable Color) in Zoom View */}
+              {selectedBorder.id !== 'none' && (
+                <div
+                  className="absolute inset-0 pointer-events-none z-10"
+                  style={{
+                    border: selectedBorder.borderCss
+                  }}
+                />
+              )}
+            </div>
             <div className="mt-3 text-center text-white">
               <h3 className="font-serif font-bold text-lg">{product.title}</h3>
               <p className="text-xs text-stone-400">
-                {product.category} • {physWidth}″ × {physHeight}″ ({cmWidth} × {cmHeight} cm) • High-Resolution Archival Display
+                {product.category} • {physWidth}″ × {physHeight}″ ({cmWidth} × {cmHeight} cm) • {selectedBorder.name} • High-Resolution Archival Display
               </p>
             </div>
           </div>

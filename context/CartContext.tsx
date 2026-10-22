@@ -69,6 +69,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         i.sizeCode === item.sizeCode &&
         i.material === item.material &&
         i.frameType === item.frameType &&
+        i.borderName === item.borderName &&
         (!item.comboImages || item.comboImages.length === 0)
       );
 
@@ -250,10 +251,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
           it.comboImages.map((p, pIdx) => `   ${pIdx + 1}. ${p.fileName || 'Photo ' + (pIdx + 1)}`).join('%0A') + '%0A';
       }
 
+      const borderText = it.borderName && !it.borderName.toLowerCase().includes('none')
+        ? `• Edge Accent: ${it.borderName}%0A`
+        : '';
+
       detailsText += `[Item ${idx + 1}] ${it.title}%0A` +
                      `• Size: ${it.sizeLabel}%0A` +
                      `• Material: ${it.materialName}%0A` +
                      `• Frame: ${it.frameName}%0A` +
+                     borderText +
                      `• Quantity: ${it.quantity} pc(s)%0A` +
                      attachedPhotosText +
                      `• Price: ৳ ${it.totalPrice.toLocaleString()}${isCombo ? ' (Included in Combo Deal)' : ''}%0A%0A`;

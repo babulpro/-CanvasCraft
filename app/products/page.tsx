@@ -28,6 +28,17 @@ export default function ProductsPage() {
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high'>('featured');
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
 
+  // Initialize category from URL parameter (?cat=...) if present
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const catParam = params.get('cat');
+      if (catParam) {
+        setSelectedCategory(catParam);
+      }
+    }
+  }, []);
+
   // Fetch updated catalog from MongoDB API
   useEffect(() => {
     fetch('/api/products')

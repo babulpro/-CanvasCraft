@@ -66,6 +66,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   const [product, setProduct] = useState<Product | null>(() => {
     return STATIC_PRODUCTS.find(p => p.id === productId) || null;
   });
+  const [catalogProducts, setCatalogProducts] = useState<Product[]>(STATIC_PRODUCTS);
   const [loading, setLoading] = useState(!product);
   const [selectedSize, setSelectedSize] = useState<SizeOption>(STANDARD_SIZES[3]); // 16x24 default
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialType>('pvc');
@@ -75,14 +76,13 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   const [viewMode, setViewMode] = useState<'room' | 'studio'>('room');
   const [wallColor, setWallColor] = useState(WALL_COLORS[0]); // Original Sunlit White default
 
-  // Load product from API if not found statically (e.g. admin created artworks)
+  // Always fetch latest products catalog from database/API
   useEffect(() => {
-    if (product) return;
-
     fetch('/api/products')
       .then(res => res.json())
       .then(data => {
-        if (data.success && Array.isArray(data.products)) {
+        if (data.success && Array.isArray(data.products) && data.products.length > 0) {
+          setCatalogProducts(data.products);
           const found = data.products.find((p: Product) => p.id === productId);
           if (found) {
             setProduct(found);
@@ -90,12 +90,12 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
         }
       })
       .catch(err => {
-        console.error('Error fetching product details:', err);
+        console.warn('Error fetching product catalog:', err);
       })
       .finally(() => {
         setLoading(false);
       });
-  }, [productId, product]);
+  }, [productId]);
 
   if (loading) {
     return (
@@ -227,8 +227,14 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   );
   const waUrl = `https://wa.me/8801972304749?text=${waText}`;
 
-  // Curated recommendations (same category or others)
-  const relatedProducts = STATIC_PRODUCTS.filter(p => p.id !== product.id).slice(0, 4);
+  // All other canvas artworks from the EXACT SAME CATEGORY as this canvas
+  const sameCategoryProducts = catalogProducts.filter(
+    p => p.id !== product.id && p.category === product.category
+  );
+  // Fallback to other artworks only if there are none in this category
+  const relatedProducts = sameCategoryProducts.length > 0
+    ? sameCategoryProducts
+    : catalogProducts.filter(p => p.id !== product.id);
 
   return (
     <div className="bg-[#faf8f5] min-h-screen pb-16">
@@ -901,23 +907,26 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
         </div>
       )}
 
-      {/* 4. Curated Recommendations ("You May Also Like") */}
+      {/* 4. Curated Recommendations ("You May Also Like" — Same Category) */}
       {relatedProducts.length > 0 && (
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-16 pt-12 border-t border-stone-200">
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
             <div>
-              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 inline-block mb-1">
-                More Artworks
+              <span className="text-xs font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-2.5 py-0.5 rounded-full border border-amber-200 inline-block mb-1.5">
+                {product.category}
               </span>
-              <h3 className="text-2xl font-serif font-bold text-stone-950">
-                You May Also Like
+              <h3 className="text-2xl sm:text-3xl font-serif font-bold text-stone-950">
+                More in {product.category}
               </h3>
+              <p className="text-xs sm:text-sm text-stone-500 mt-1">
+                Explore all other museum-grade canvas prints in the {product.category} collection
+              </p>
             </div>
             <Link
-              href="/products"
-              className="text-xs sm:text-sm font-bold text-amber-800 hover:text-stone-950 flex items-center gap-1 transition"
+              href={`/products?cat=${encodeURIComponent(product.category)}`}
+              className="text-xs sm:text-sm font-bold text-amber-800 hover:text-stone-950 flex items-center gap-1.5 transition self-start sm:self-auto"
             >
-              <span>View All Catalog</span>
+              <span>View All {product.category} ({relatedProducts.length + 1})</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>
@@ -929,13 +938,13 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 href={`/products/${rel.id}`}
                 className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
-                <div className="relative h-56 bg-stone-900 overflow-hidden">
+                <div className="relative h-60 bg-stone-900 overflow-hidden">
                   <img
                     src={rel.image}
                     alt={rel.title}
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full">
+                  <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
                     {rel.category}
                   </span>
                   <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
@@ -952,9 +961,14 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                       {rel.details || rel.description}
                     </p>
                   </div>
-                  <span className="text-xs font-bold text-amber-700 mt-3 block group-hover:translate-x-1 transition-transform">
-                    View Details &amp; Sizes →
-                  </span>
+                  <div className="mt-3 pt-2.5 border-t border-stone-100 flex items-center justify-between">
+                    <span className="text-[11px] font-semibold text-stone-500">
+                      Rimless / Gallery Wrap
+                    </span>
+                    <span className="text-xs font-bold text-amber-700 group-hover:translate-x-1 transition-transform">
+                      View Details →
+                    </span>
+                  </div>
                 </div>
               </Link>
             ))}

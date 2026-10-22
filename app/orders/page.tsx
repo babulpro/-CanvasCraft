@@ -247,7 +247,7 @@ function OrdersPageContent() {
               No orders found
             </h3>
             <p className="text-xs text-stone-500 max-w-sm mx-auto mb-6">
-              You haven&apos;t placed any canvas orders yet. Discover our curated collections or build a personalized split-panel artwork.
+              You haven&apos;t placed any canvas orders yet. Discover our curated collections or explore popular wall combo sets.
             </p>
             <div className="flex items-center justify-center gap-3">
               <Link
@@ -258,11 +258,11 @@ function OrdersPageContent() {
                 <span>Explore Catalog</span>
               </Link>
               <Link
-                href="/customize"
+                href="/#combos"
                 className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition border border-amber-300"
               >
                 <Sparkles className="w-4 h-4 text-amber-700" />
-                <span>Custom Studio</span>
+                <span>View Combo Deals</span>
               </Link>
             </div>
           </div>

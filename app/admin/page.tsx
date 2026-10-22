@@ -455,11 +455,11 @@ export default function AdminDashboardPage() {
                       <td className="py-3.5 px-4 text-right">
                         <div className="flex items-center justify-end gap-2">
                           <Link
-                            href={`/customize?image=${encodeURIComponent(p.image)}&title=${encodeURIComponent(p.title)}`}
+                            href="/products"
                             className="p-1.5 rounded-lg bg-stone-800 hover:bg-stone-700 text-stone-300 hover:text-white transition"
-                            title="Open in Customizer Studio"
+                            title="View in Art Catalog"
                           >
-                            <Palette className="w-3.5 h-3.5" />
+                            <ExternalLink className="w-3.5 h-3.5" />
                           </Link>
 
                           <button

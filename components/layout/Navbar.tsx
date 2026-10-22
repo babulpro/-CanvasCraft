@@ -149,18 +149,6 @@ export default function Navbar() {
                 <span>Combo Deals</span>
               </Link>
 
-              <Link
-                href="/customize"
-                className={`px-3 py-1.5 rounded-full transition border flex items-center gap-1.5 ${
-                  pathname === '/customize'
-                    ? 'bg-amber-200/80 border-amber-400 text-stone-950 font-bold shadow-2xs'
-                    : 'text-amber-950 bg-amber-50/80 hover:bg-amber-100 border-amber-300/80'
-                }`}
-              >
-                <Palette className="w-3.5 h-3.5 text-amber-600" />
-                <span>Live Studio</span>
-              </Link>
-
               {/* STRICT CONDITION: Only show "My Orders" if LOGGED IN */}
               {mounted && user && (
                 <Link
@@ -479,32 +467,6 @@ export default function Navbar() {
                   </div>
                 </div>
                 <ChevronRight className="w-4 h-4 text-rose-400" />
-              </Link>
-
-              <Link
-                href="/customize"
-                onClick={() => setMobileMenuOpen(false)}
-                className={`flex items-center justify-between p-3 rounded-xl transition ${
-                  pathname === '/customize'
-                    ? 'bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30'
-                    : 'text-stone-200 hover:bg-stone-900'
-                }`}
-              >
-                <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/30 flex items-center justify-center text-amber-400">
-                    <Palette className="w-4 h-4" />
-                  </span>
-                  <div>
-                    <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-stone-100">Live Customizer Studio</span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-amber-500/20 text-amber-400 border border-amber-500/40 uppercase">
-                        3D Room
-                      </span>
-                    </div>
-                    <span className="text-[11px] text-stone-400">Preview above 80″ living room couch</span>
-                  </div>
-                </div>
-                <ChevronRight className="w-4 h-4 text-stone-500" />
               </Link>
 
               {/* STRICT CONDITION: My Orders ONLY IF LOGGED IN */}

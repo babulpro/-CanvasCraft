@@ -6,7 +6,7 @@ import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { Product, AuthUser } from '@/types';
 import { useSession } from '@/lib/auth-client';
 import AddToCartModal from '@/components/products/AddToCartModal';
-import { Search, ShoppingBag, Eye, Sparkles, Filter, PlusCircle } from 'lucide-react';
+import { Search, ShoppingBag, Sparkles, Filter, PlusCircle } from 'lucide-react';
 
 const CATEGORIES = [
   'All Artworks',
@@ -144,8 +144,11 @@ export default function ProductsPage() {
                 key={prod.id}
                 className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
               >
-                {/* Artwork Thumbnail with Hover Overlay */}
-                <div className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden">
+                {/* Artwork Thumbnail: Click to view details */}
+                <Link
+                  href={`/products/${prod.id}`}
+                  className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden block"
+                >
                   <img
                     src={prod.image}
                     alt={prod.title}
@@ -162,48 +165,33 @@ export default function ProductsPage() {
                   <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
                     From ৳ {prod.basePrice}
                   </span>
-                </div>
+                </Link>
 
                 {/* Card Body with Real Details */}
                 <div className="p-4 flex-1 flex flex-col justify-between">
                   <div>
-                    <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
-                      {prod.title}
-                    </h3>
+                    <Link
+                      href={`/products/${prod.id}`}
+                      className="block group-hover:text-amber-800 transition"
+                    >
+                      <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1">
+                        {prod.title}
+                      </h3>
+                    </Link>
                     <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
                       {prod.details || prod.description || prod.tags.join(' • ')}
                     </p>
                   </div>
 
-                  {/* Price & Action Buttons */}
-                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
+                  {/* Single High-Converting Full-Width Order Button */}
+                  <div className="pt-3 border-t border-stone-100">
                     <Link
-                      href={
-                        prod.id === 'port-1'
-                          ? '/customize?preset=portrait&pack=16x24'
-                          : prod.id === 'abstract-1'
-                          ? '/customize?preset=triptych&pack=3part-36x24'
-                          : prod.id === 'islamic-1'
-                          ? '/customize?preset=calligraphy'
-                          : prod.id === 'nature-1'
-                          ? '/customize?preset=sajek&pack=5part-24x48'
-                          : `/customize?preset=${prod.id}`
-                      }
-                      className="px-3 py-2 rounded-xl text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 text-xs sm:text-sm font-semibold transition flex items-center gap-1"
-                      title="Preview on Living Room Wall"
-                    >
-                      <Eye className="w-4 h-4 text-stone-500" />
-                      <span>Studio</span>
-                    </Link>
-
-                    <button
-                      type="button"
-                      onClick={() => setModalProduct(prod)}
-                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer active:scale-95"
+                      href={`/products/${prod.id}`}
+                      className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition flex items-center justify-center gap-2 active:scale-95 text-center"
                     >
                       <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Bag</span>
-                    </button>
+                      <span>View Details &amp; Order</span>
+                    </Link>
                   </div>
 
                 </div>

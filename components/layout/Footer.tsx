@@ -78,13 +78,13 @@ export default function Footer() {
           </div>
 
           <div>
-            <h5 className="font-bold text-amber-400 uppercase tracking-wider text-xs sm:text-sm mb-4">Custom Studio</h5>
+            <h5 className="font-bold text-amber-400 uppercase tracking-wider text-xs sm:text-sm mb-4">Popular Sizes &amp; Deals</h5>
             <ul className="space-y-2.5 text-stone-300 text-sm">
-              <li><Link href="/customize?pack=16x24" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">Single Canvas (৳ 350 Promo)</Link></li>
-              <li><Link href="/customize?pack=6x8-6" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">6×8″ Mini Photo Tiles</Link></li>
-              <li><Link href="/customize?pack=8x12-3" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">8×12″ Wall Boards (3 Pcs ৳ 300)</Link></li>
-              <li><Link href="/customize?pack=12x16-3" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">12×16″ Medium Canvases</Link></li>
-              <li><Link href="/customize?preset=sajek&pack=5part-24x48" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">5-Part Panorama Split</Link></li>
+              <li><Link href="/products" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">Single Canvas (16×24″ ৳ 350 Promo)</Link></li>
+              <li><Link href="/#combos" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">8×12″ Wall Boards (3 Pcs ৳ 300)</Link></li>
+              <li><Link href="/#combos" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">6×8″ Mini Photo Tiles (6 Pcs ৳ 300)</Link></li>
+              <li><Link href="/products" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">12×16″ Medium Wall Art</Link></li>
+              <li><Link href="/products" className="hover:text-amber-300 hover:translate-x-1 transition-all duration-200 block">20×30″ Large Statement Canvas</Link></li>
             </ul>
           </div>
 

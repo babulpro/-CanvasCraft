@@ -16,7 +16,8 @@ import {
   Star,
   Layers,
   Palette,
-  PhoneCall
+  PhoneCall,
+  Flame
 } from 'lucide-react';
 
 export default function HomePage() {
@@ -51,7 +52,7 @@ export default function HomePage() {
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
               <div className="inline-flex items-center gap-2 bg-amber-500/15 text-amber-900 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full border border-amber-400/30">
                 <Sparkles className="w-4 h-4 text-amber-600" />
-                <span>Bangladesh’s #1 Custom Canvas Studio</span>
+                <span>Curated Fine Art &amp; Premium Canvas Wall Decor</span>
               </div>
 
               <h1 className="text-3xl sm:text-5xl lg:text-6xl font-serif font-bold tracking-tight leading-tight sm:leading-tight text-stone-950">
@@ -59,25 +60,26 @@ export default function HomePage() {
               </h1>
 
               <p className="text-base sm:text-lg text-stone-700 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
-                High-definition archival pigment prints on <strong className="text-stone-950 font-semibold">3mm Rigid PVC Boards</strong> (free 3M tape) or <strong className="text-stone-950 font-semibold">1.25″ Solid Pine Wood Stretched Canvas</strong> with luxury museum floating frames.
+                High-definition archival pigment prints on <strong className="text-stone-950 font-semibold">3mm Rigid PVC Boards</strong> or <strong className="text-stone-950 font-semibold">1.25″ Solid Pine Wood Stretched Canvas</strong> with luxury museum floating frames.
               </p>
 
               {/* CTAs */}
               <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-3.5 pt-2">
                 <Link
-                  href="/customize"
+                  href="/products"
                   className="w-full sm:w-auto bg-amber-500 hover:bg-amber-400 text-stone-950 font-black py-4 px-8 rounded-full shadow-lg hover:shadow-xl transition flex items-center justify-center gap-2.5 text-sm sm:text-base transform active:scale-95"
                 >
-                  <Palette className="w-5 h-5" />
-                  <span>Customize in Live Studio</span>
+                  <ShoppingBag className="w-5 h-5" />
+                  <span>Shop All Artworks</span>
                   <ArrowRight className="w-4 h-4" />
                 </Link>
 
                 <Link
-                  href="/products"
+                  href="/#combos"
                   className="w-full sm:w-auto bg-white hover:bg-stone-50 text-stone-900 font-bold py-4 px-8 rounded-full border border-stone-300 shadow-xs hover:border-stone-400 transition flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
-                  <span>Explore Catalog</span>
+                  <Flame className="w-4 h-4 text-rose-600" />
+                  <span>View Combo Deals</span>
                 </Link>
               </div>
 
@@ -149,7 +151,7 @@ export default function HomePage() {
               </div>
               <h3 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2">6×8″ Mini Photo Tiles</h3>
               <p className="text-sm text-stone-600 mb-5 leading-relaxed">
-                Rigid PVC photo board with free 3M tape. Perfect for photo walls, baby memories, and travel grids.
+                Rigid PVC photo boards with clean, minimal finish. Perfect for photo walls, baby memories, and travel grids.
               </p>
               
               <ul className="space-y-2 text-sm sm:text-base text-stone-700 mb-6 border-t border-stone-100 pt-4">
@@ -161,10 +163,10 @@ export default function HomePage() {
             </div>
 
             <Link
-              href="/customize?pack=6x8-6"
-              className="w-full bg-stone-900 hover:bg-amber-500 hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-sm"
+              href="/products"
+              className="w-full bg-stone-900 hover:bg-amber-500 hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-sm block"
             >
-              Customize 6×8″ Tiles
+              Choose Art for 6×8″ Tiles
             </Link>
           </div>
 
@@ -194,10 +196,10 @@ export default function HomePage() {
             </div>
 
             <Link
-              href="/customize?pack=8x12-3"
-              className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-md"
+              href="/products"
+              className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-md block"
             >
-              Customize 8×12″ Set (৳ 300)
+              Choose Art for 8×12″ Set (৳ 300)
             </Link>
           </div>
 
@@ -223,10 +225,10 @@ export default function HomePage() {
             </div>
 
             <Link
-              href="/customize?pack=16x24"
-              className="w-full bg-stone-900 hover:bg-amber-500 hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-sm"
+              href="/products"
+              className="w-full bg-stone-900 hover:bg-amber-500 hover:text-stone-950 text-white font-bold py-3.5 rounded-xl text-center text-sm sm:text-base transition shadow-sm block"
             >
-              Order 16×24″ (৳ 350)
+              Order 16×24″ Canvas (৳ 350)
             </Link>
           </div>
 
@@ -254,71 +256,57 @@ export default function HomePage() {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredArtworks.map(prod => {
-            const studioUrl =
-              prod.id === 'port-1'
-                ? '/customize?preset=portrait&pack=16x24'
-                : prod.id === 'abstract-1'
-                ? '/customize?preset=triptych&pack=3part-36x24'
-                : prod.id === 'islamic-1'
-                ? '/customize?preset=calligraphy'
-                : prod.id === 'nature-1'
-                ? '/customize?preset=sajek&pack=5part-24x48'
-                : `/customize?preset=${prod.id}`;
-
-            return (
-              <div
-                key={prod.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+          {featuredArtworks.map(prod => (
+            <div
+              key={prod.id}
+              className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+            >
+              {/* Artwork Thumbnail: Click to view details */}
+              <Link
+                href={`/products/${prod.id}`}
+                className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden block"
               >
-                {/* Artwork Thumbnail Container with fixed height for perfect aspect harmony */}
-                <div className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden">
-                  <img
-                    src={prod.image}
-                    alt={prod.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-2.5 left-2.5 bg-stone-950/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full border border-white/10">
-                    {prod.category}
-                  </span>
-                  <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
-                    From ৳ {prod.basePrice}
-                  </span>
-                </div>
+                <img
+                  src={prod.image}
+                  alt={prod.title}
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                />
+                <span className="absolute top-2.5 left-2.5 bg-stone-950/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full border border-white/10">
+                  {prod.category}
+                </span>
+                <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
+                  From ৳ {prod.basePrice}
+                </span>
+              </Link>
 
-                {/* Artwork Info & Details instead of raw tags */}
-                <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
+              {/* Artwork Info & Details */}
+              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                <div>
+                  <Link
+                    href={`/products/${prod.id}`}
+                    className="block group-hover:text-amber-800 transition"
+                  >
+                    <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1">
                       {prod.title}
                     </h3>
-                    <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
-                      {prod.details || prod.description || prod.tags.join(' • ')}
-                    </p>
-                  </div>
+                  </Link>
+                  <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
+                    {prod.details || prod.description || prod.tags.join(' • ')}
+                  </p>
+                </div>
 
-                  <div className="pt-3 border-t border-stone-100 flex items-center justify-between gap-2">
-                    <Link
-                      href={studioUrl}
-                      className="text-xs sm:text-sm font-semibold text-stone-700 hover:text-stone-950 bg-stone-100 hover:bg-stone-200 px-3.5 py-2 rounded-xl transition flex items-center gap-1.5"
-                    >
-                      <span>Studio View</span>
-                      <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
-                    </Link>
-
-                    <button
-                      type="button"
-                      onClick={() => setModalProduct(prod)}
-                      className="bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm px-4 py-2 rounded-xl shadow-xs transition flex items-center gap-1.5 cursor-pointer active:scale-95"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>Add to Bag</span>
-                    </button>
-                  </div>
+                <div className="pt-3 border-t border-stone-100">
+                  <Link
+                    href={`/products/${prod.id}`}
+                    className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition flex items-center justify-center gap-2 active:scale-95 text-center"
+                  >
+                    <ShoppingBag className="w-4 h-4" />
+                    <span>View Details &amp; Order</span>
+                  </Link>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </section>
 
@@ -338,7 +326,7 @@ export default function HomePage() {
               </p>
               <div className="flex flex-wrap gap-4 pt-2 text-xs sm:text-sm">
                 <span className="flex items-center gap-2 text-stone-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Free 3M Mounting Tape on all PVC Boards
+                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Lightweight, Damage-Free Wall Mounting on PVC
                 </span>
                 <span className="flex items-center gap-2 text-stone-200">
                   <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Solid Kiln-Dried Pine Wood Stretcher Bars

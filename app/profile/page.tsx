@@ -22,6 +22,7 @@ import {
   Package,
   Grid,
   AlertTriangle,
+  Flame,
 } from "lucide-react";
 
 function ProfileContent() {
@@ -365,26 +366,26 @@ function ProfileContent() {
                 CanvasCraft Collector Membership
               </h4>
               <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                Enjoy customized frame mockups in our Live Studio, save your custom room configurations, and explore our premium museum-quality canvas artworks.
+                Explore our premium museum-quality canvas artworks, choose proportional wall sizes, and enjoy nationwide doorstep delivery across 64 districts.
               </p>
             </div>
           </div>
         )}
 
-        {/* Studio & Catalog Explore Panels */}
+        {/* Catalog & Combos Explore Panels */}
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
-            href="/customize"
+            href="/#combos"
             className="group block p-6 rounded-2xl bg-gradient-to-br from-stone-900 to-stone-900/40 border border-stone-800 hover:border-amber-500/40 transition"
           >
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <Palette className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+              <Flame className="w-5 h-5" />
             </div>
             <h3 className="text-base font-semibold text-stone-100 mb-1 group-hover:text-amber-300 transition">
-              Launch Studio Customizer
+              View Combo Deals
             </h3>
             <p className="text-xs text-stone-400">
-              Simulate canvas sets above the 80″ living room sofa and create combo sets with up to 6 custom photos.
+              Browse multi-piece wall board combos (3, 6, 9 &amp; 12 pieces) starting from ৳ 300.
             </p>
           </Link>
 

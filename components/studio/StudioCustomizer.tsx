@@ -423,7 +423,7 @@ export default function StudioCustomizer() {
             width: currentSpecs.tileW,
             height: currentSpecs.tileH,
             material,
-            materialName: material === 'pvc' ? '3mm Rigid PVC Board (Free 3M Tape)' : '1.25″ Pine Wood Canvas',
+            materialName: material === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
             frameType: activeFrame.type,
             frameName: activeFrame.name,
             basePrice: singleBase,
@@ -450,7 +450,7 @@ export default function StudioCustomizer() {
           width: currentSpecs.tileW,
           height: currentSpecs.tileH,
           material,
-          materialName: material === 'pvc' ? '3mm Rigid PVC Board (Free 3M Tape)' : '1.25″ Pine Wood Canvas',
+          materialName: material === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
           frameType: activeFrame.type,
           frameName: activeFrame.name,
           basePrice: currentSpecs.basePrice,
@@ -473,7 +473,7 @@ export default function StudioCustomizer() {
       width: currentSpecs.tileW,
       height: currentSpecs.tileH,
       material,
-      materialName: material === 'pvc' ? '3mm Rigid PVC Board (Free 3M Tape)' : '1.25″ Pine Wood Canvas',
+      materialName: material === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
       frameType: activeFrame.type,
       frameName: activeFrame.name,
       basePrice: currentSpecs.basePrice,
@@ -1138,7 +1138,7 @@ export default function StudioCustomizer() {
                   <span className="font-bold text-stone-900">3mm Rigid PVC Board</span>
                   {material === 'pvc' && <Check className="w-3.5 h-3.5 text-amber-600" />}
                 </div>
-                <p className="text-[10px] text-stone-500">Free 3M heavy-duty tape included. Ultra-light, no nail holes.</p>
+                <p className="text-[10px] text-stone-500">Ultra-light, durable, high-density smooth finish. Easy wall mounting.</p>
               </button>
 
               <button

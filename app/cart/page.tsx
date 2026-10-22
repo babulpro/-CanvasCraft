@@ -162,11 +162,11 @@ export default function CartPage() {
                 <ArrowRight className="w-4 h-4" />
               </Link>
               <Link
-                href="/customize"
+                href="/#combos"
                 className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3 rounded-full bg-amber-100 hover:bg-amber-200 text-amber-900 text-xs font-bold transition border border-amber-300"
               >
                 <Sparkles className="w-4 h-4 text-amber-700" />
-                <span>Launch Customizer</span>
+                <span>View Combo Deals</span>
               </Link>
             </div>
           </div>

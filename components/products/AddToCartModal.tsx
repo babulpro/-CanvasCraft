@@ -1,9 +1,8 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { Product, SizeOption, FrameOption, MaterialType } from '@/types';
+import { Product, SizeOption, MaterialType } from '@/types';
 import { STANDARD_SIZES } from '@/data/combo-packages';
-import { FRAME_OPTIONS } from '@/data/frames';
 import { useCart } from '@/context/CartContext';
 import { X, ShoppingBag, ShieldCheck, Check } from 'lucide-react';
 
@@ -17,7 +16,6 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
 
   const [selectedSize, setSelectedSize] = useState<SizeOption>(STANDARD_SIZES[3]); // 16x24 default
   const [selectedMaterial, setSelectedMaterial] = useState<MaterialType>('pvc');
-  const [selectedFrame, setSelectedFrame] = useState<FrameOption>(FRAME_OPTIONS[0]); // Rimless default
   const [quantity, setQuantity] = useState(1);
 
   // Reset when product changes
@@ -25,15 +23,13 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
     if (product) {
       setSelectedSize(STANDARD_SIZES[3]);
       setSelectedMaterial('pvc');
-      setSelectedFrame(FRAME_OPTIONS[0]);
       setQuantity(1);
     }
   }, [product]);
 
   if (!product) return null;
 
-  const basePrice = selectedMaterial === 'pvc' ? selectedSize.pricePvc : selectedSize.priceCanvas;
-  const unitPrice = basePrice + selectedFrame.price;
+  const unitPrice = selectedMaterial === 'pvc' ? selectedSize.pricePvc : selectedSize.priceCanvas;
   const totalPrice = unitPrice * quantity;
 
   const handleAddToCart = () => {
@@ -47,11 +43,11 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
       width: selectedSize.w,
       height: selectedSize.h,
       material: selectedMaterial,
-      materialName: selectedMaterial === 'pvc' ? '3mm Rigid PVC Board (Free 3M Tape)' : '1.25″ Pine Wood Canvas',
-      frameType: selectedFrame.type,
-      frameName: selectedFrame.name,
-      basePrice,
-      framePrice: selectedFrame.price,
+      materialName: selectedMaterial === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas',
+      frameType: 'none',
+      frameName: 'Gallery Wrap / Rimless',
+      basePrice: unitPrice,
+      framePrice: 0,
       unitPrice,
       quantity
     });
@@ -160,7 +156,7 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
                   <span className="font-bold text-stone-900 text-sm">3mm Rigid PVC Board</span>
                   {selectedMaterial === 'pvc' && <Check className="w-4 h-4 text-amber-600" />}
                 </div>
-                <p className="text-xs text-stone-600 leading-relaxed">Includes heavy-duty 3M mounting tape. Ultra-light, no wall drilling needed.</p>
+                <p className="text-xs text-stone-600 leading-relaxed">Ultra-light, durable, high-density smooth finish. Easy wall mounting.</p>
               </button>
 
               <button
@@ -181,34 +177,7 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
             </div>
           </div>
 
-          {/* Frame Moulding Selector */}
-          <div>
-            <label className="text-sm font-bold text-stone-900 block mb-2">3. Floating Frame Moulding</label>
-            <div className="grid grid-cols-2 sm:grid-cols-5 gap-2.5">
-              {FRAME_OPTIONS.map(fr => {
-                const isSelected = selectedFrame.type === fr.type;
-                return (
-                  <button
-                    key={fr.type}
-                    type="button"
-                    onClick={() => setSelectedFrame(fr)}
-                    className={`p-2.5 rounded-xl border text-center transition cursor-pointer flex flex-col items-center justify-between ${
-                      isSelected
-                        ? 'border-amber-500 bg-amber-50/70 shadow-xs ring-1 ring-amber-400'
-                        : 'border-stone-200 bg-white hover:border-amber-300'
-                    }`}
-                  >
-                    <span
-                      className="w-5 h-5 rounded-full border border-black/10 shadow-2xs mb-1.5"
-                      style={{ backgroundColor: fr.color }}
-                    />
-                    <span className="text-xs font-bold text-stone-900 leading-tight block">{fr.name}</span>
-                    <span className="text-xs font-bold text-amber-700 mt-1 block">{fr.tag}</span>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
+
 
           {/* Quantity Stepper & Price Summary */}
           <div className="pt-3 border-t border-stone-200 flex items-center justify-between">

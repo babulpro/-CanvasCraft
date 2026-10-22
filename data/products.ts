@@ -70,7 +70,7 @@ export const PRODUCTS: Product[] = [
     orientation: 'portrait',
     basePrice: 550,
     tags: ['Photo Combo Deal', '12 Tiles Collage', 'Bestseller'],
-    details: 'Ultra-light 3mm rigid PVC photo tiles with pre-applied heavy-duty 3M mounting tape. Damage-free wall mounting without any nails or drills.',
+    details: 'Ultra-light 3mm rigid PVC photo tiles. Clean, minimal, modern wall collage display.',
     featured: false
   }
 ];

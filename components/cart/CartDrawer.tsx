@@ -63,7 +63,7 @@ export default function CartDrawer() {
               </div>
               <h4 className="text-sm font-bold text-stone-900 mb-1">Your bag is empty</h4>
               <p className="text-xs text-stone-500 max-w-xs mx-auto mb-6">
-                Browse our curated art collections or customize your own multi-piece canvas in our Live Studio.
+                Browse our curated art collections to choose the perfect canvas size for your home.
               </p>
               <button
                 onClick={closeDrawer}

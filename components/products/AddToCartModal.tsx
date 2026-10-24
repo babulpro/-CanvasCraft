@@ -86,8 +86,14 @@ export default function AddToCartModal({ product, onClose }: AddToCartModalProps
           
           {/* Top Product Summary */}
           <div className="flex gap-4 p-3.5 bg-stone-50 rounded-2xl border border-stone-200/80 items-center">
-            <div className="w-16 h-16 sm:w-20 sm:h-20 rounded-xl overflow-hidden bg-stone-900 shrink-0 border border-stone-300">
+            <div
+              className="relative w-16 h-20 sm:w-20 sm:h-24 rounded-none overflow-hidden shrink-0 border border-stone-300"
+              style={{
+                boxShadow: '0 8px 16px -2px rgba(35,25,15,0.28), 2px 2px 0px rgba(50,40,30,0.2)'
+              }}
+            >
               <img src={product.image} alt={product.title} className="w-full h-full object-cover" />
+              <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/20 pointer-events-none" />
             </div>
             <div className="space-y-1 min-w-0 flex-1">
               <div className="flex items-center gap-2">

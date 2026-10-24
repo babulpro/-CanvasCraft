@@ -1,10 +1,11 @@
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
 import { PRODUCTS } from '@/data/products';
 import { Product } from '@/types';
 import AddToCartModal from '@/components/products/AddToCartModal';
+import CanvasCard from '@/components/products/CanvasCard';
 import {
   Sparkles,
   ArrowRight,
@@ -17,12 +18,23 @@ import {
   Layers,
   Palette,
   PhoneCall,
-  Flame
+  Flame,
+  Grid3X3
 } from 'lucide-react';
+
+const HOME_CATEGORIES = [
+  'All Trending',
+  'Modern Abstract',
+  'Islamic Art',
+  'Landscape & Nature',
+  'Portrait & Classical',
+  'Minimalist'
+] as const;
 
 export default function HomePage() {
   const [modalProduct, setModalProduct] = useState<Product | null>(null);
-  const [featuredArtworks, setFeaturedArtworks] = useState<Product[]>(PRODUCTS.slice(0, 4));
+  const [allProducts, setAllProducts] = useState<Product[]>(PRODUCTS);
+  const [selectedCategory, setSelectedCategory] = useState<string>('All Trending');
 
   useEffect(() => {
     fetch('/api/products')
@@ -31,14 +43,21 @@ export default function HomePage() {
         if (data.success && Array.isArray(data.products) && data.products.length > 0) {
           const staticIds = new Set(PRODUCTS.map(p => p.id));
           const dbCustoms = data.products.filter((p: Product) => !staticIds.has(p.id));
-          const combined = [...PRODUCTS.filter(p => p.featured), ...dbCustoms];
-          setFeaturedArtworks(combined.slice(0, 4));
+          setAllProducts([...PRODUCTS, ...dbCustoms]);
         }
       })
       .catch(err => {
         console.warn('Using static products:', err);
       });
   }, []);
+
+  const displayedArtworks = useMemo(() => {
+    if (selectedCategory === 'All Trending') {
+      const featured = allProducts.filter(p => p.featured);
+      return featured.length >= 8 ? featured.slice(0, 8) : allProducts.slice(0, 8);
+    }
+    return allProducts.filter(p => p.category === selectedCategory).slice(0, 8);
+  }, [allProducts, selectedCategory]);
 
   return (
     <div className="space-y-16 sm:space-y-24 pb-16">
@@ -141,7 +160,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
           
           {/* Card 1: 6x8 Mini Tiles */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200 shadow-md hover:shadow-xl transition flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs sm:text-sm font-bold bg-amber-100 text-amber-900 px-3 py-1 rounded-full">
@@ -149,6 +168,32 @@ export default function HomePage() {
                 </span>
                 <span className="text-xs sm:text-sm font-bold text-stone-500">From ৳ 50/pc</span>
               </div>
+
+              {/* Visual 6-Tile Gallery Grid Mockup (Real PVC Canvases) */}
+              <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80">
+                <div className="grid grid-cols-3 gap-2">
+                  {[
+                    { img: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80', title: 'Velvet Lady' },
+                    { img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80', title: 'Tea Highlands' },
+                    { img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=400&q=80', title: 'Kufic Script' },
+                    { img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80', title: 'Sapphire' },
+                    { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80', title: 'Bauhaus' },
+                    { img: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80', title: 'Botanical' },
+                  ].map((tile, tIdx) => (
+                    <div
+                      key={tIdx}
+                      className="relative aspect-[3/4] rounded-xs overflow-hidden shadow-[0_4px_8px_rgba(35,25,15,0.22)] border-[1.5px] border-white group-hover:scale-105 transition-transform duration-300"
+                    >
+                      <img src={tile.img} alt={tile.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
+                    </div>
+                  ))}
+                </div>
+                <span className="text-[10px] font-mono font-bold text-stone-500 text-center block mt-2">
+                  Real 6-Piece PVC Photo Wall Collage
+                </span>
+              </div>
+
               <h3 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2">6×8″ Mini Photo Tiles</h3>
               <p className="text-sm text-stone-600 mb-5 leading-relaxed">
                 Rigid PVC photo boards with clean, minimal finish. Perfect for photo walls, baby memories, and travel grids.
@@ -171,7 +216,7 @@ export default function HomePage() {
           </div>
 
           {/* Card 2: 8x12 Classic Wall Boards */}
-          <div className="bg-gradient-to-b from-white to-amber-50/50 rounded-3xl p-6 sm:p-7 border-2 border-amber-500 shadow-xl flex flex-col justify-between relative">
+          <div className="bg-gradient-to-b from-white to-amber-50/50 rounded-3xl p-6 sm:p-7 border-2 border-amber-500 shadow-xl flex flex-col justify-between relative group">
             <span className="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-amber-500 text-stone-950 text-xs font-black px-3.5 py-1 rounded-full uppercase tracking-wider shadow-xs">
               Most Popular Wall Set
             </span>
@@ -182,6 +227,29 @@ export default function HomePage() {
                 </span>
                 <span className="text-xs sm:text-sm font-bold text-stone-600">Bestseller</span>
               </div>
+
+              {/* Visual 3-Piece Living Room Wall Triptych Mockup (Real Canvases) */}
+              <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80">
+                <div className="grid grid-cols-3 gap-2 items-center">
+                  {[
+                    { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=80', title: 'Sajek Left' },
+                    { img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=500&q=80', title: 'Tea Center' },
+                    { img: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=500&q=80', title: 'Mangrove Right' },
+                  ].map((panel, pIdx) => (
+                    <div
+                      key={pIdx}
+                      className="relative aspect-[2/3] rounded-none overflow-hidden shadow-[0_8px_16px_-2px_rgba(35,25,15,0.28)] border-[2px] border-white group-hover:-translate-y-1 transition-transform duration-300"
+                    >
+                      <img src={panel.img} alt={panel.title} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/20 pointer-events-none" />
+                    </div>
+                  ))}
+                </div>
+                <span className="text-[10px] font-mono font-bold text-amber-900 text-center block mt-2">
+                  Real 3-Piece Matching Gallery Wall Set
+                </span>
+              </div>
+
               <h3 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2">8×12″ Classic Wall Boards</h3>
               <p className="text-sm text-stone-600 mb-5 leading-relaxed">
                 Proportional gallery boards. Fill wall space over your couch with 3, 6, or 9 matching pieces.
@@ -204,7 +272,7 @@ export default function HomePage() {
           </div>
 
           {/* Card 3: 16x24 Solo Promo */}
-          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200 shadow-md hover:shadow-xl transition flex flex-col justify-between">
+          <div className="bg-white rounded-3xl p-6 sm:p-7 border border-stone-200 shadow-md hover:shadow-xl transition flex flex-col justify-between group">
             <div>
               <div className="flex items-center justify-between mb-4">
                 <span className="text-xs sm:text-sm font-bold bg-rose-100 text-rose-800 px-3 py-1 rounded-full">
@@ -212,6 +280,25 @@ export default function HomePage() {
                 </span>
                 <span className="text-xs sm:text-sm font-black text-rose-600">Only ৳ 350</span>
               </div>
+
+              {/* Visual Solo Statement 16x24 Canvas Mockup (Real Stretched Canvas) */}
+              <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80 flex flex-col items-center justify-center">
+                <div className="relative w-36 aspect-[2/3] rounded-none overflow-hidden shadow-[0_14px_28px_-4px_rgba(35,25,15,0.35),3px_3px_0px_rgba(50,40,30,0.22)] border border-stone-300 group-hover:scale-105 transition-transform duration-300">
+                  <img
+                    src="https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80"
+                    alt="16x24 Baroque Solo Canvas"
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/25 pointer-events-none" />
+                  <div className="absolute bottom-1.5 left-1.5 bg-black/80 text-amber-300 text-[9px] font-mono px-1.5 py-0.5 rounded">
+                    16×24″ Solo
+                  </div>
+                </div>
+                <span className="text-[10px] font-mono font-bold text-stone-500 text-center block mt-2">
+                  Real 1.25″ Pine Wood Stretched Canvas
+                </span>
+              </div>
+
               <h3 className="text-xl sm:text-2xl font-bold text-stone-900 mb-2">16×24″ Studio Canvas</h3>
               <p className="text-sm text-stone-600 mb-5 leading-relaxed">
                 Our bestselling statement portrait format. Vertical eye-level grandeur at an unbeatable promotional price.
@@ -237,7 +324,7 @@ export default function HomePage() {
 
       {/* 3. FEATURED ARTWORKS PREVIEWS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
             <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 inline-block mb-1.5">
               Handpicked Fine Art
@@ -246,66 +333,40 @@ export default function HomePage() {
               Trending Canvas Prints
             </h2>
             <p className="text-sm sm:text-base text-stone-600 mt-1.5">
-              Pre-calibrated museum artworks ready for single canvas and multi-panel zero-cut wall decor.
+              Explore authentic archival pigment prints on 3mm Rigid PVC or 1.25″ Solid Pine Wood Stretched Canvas.
             </p>
           </div>
           <Link href="/products" className="text-sm sm:text-base font-bold text-amber-800 hover:text-stone-950 flex items-center gap-1.5 transition">
-            <span>View All Artworks</span>
+            <span>View All {allProducts.length} Artworks</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          {featuredArtworks.map(prod => (
-            <div
-              key={prod.id}
-              className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-            >
-              {/* Artwork Thumbnail: Click to view details */}
-              <Link
-                href={`/products/${prod.id}`}
-                className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden block"
+        {/* Category Navigation Pills */}
+        <div className="flex items-center gap-2 overflow-x-auto pb-6 custom-scrollbar text-sm">
+          {HOME_CATEGORIES.map(cat => {
+            const isSelected = selectedCategory === cat;
+            return (
+              <button
+                key={cat}
+                type="button"
+                onClick={() => setSelectedCategory(cat)}
+                className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition cursor-pointer text-xs sm:text-sm ${
+                  isSelected
+                    ? 'bg-stone-900 text-white shadow-xs'
+                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                }`}
               >
-                <img
-                  src={prod.image}
-                  alt={prod.title}
-                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                />
-                <span className="absolute top-2.5 left-2.5 bg-stone-950/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full border border-white/10">
-                  {prod.category}
-                </span>
-                <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
-                  From ৳ {prod.basePrice}
-                </span>
-              </Link>
+                {cat}
+              </button>
+            );
+          })}
+        </div>
 
-              {/* Artwork Info & Details */}
-              <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
-                <div>
-                  <Link
-                    href={`/products/${prod.id}`}
-                    className="block group-hover:text-amber-800 transition"
-                  >
-                    <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1">
-                      {prod.title}
-                    </h3>
-                  </Link>
-                  <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
-                    {prod.details || prod.description || prod.tags.join(' • ')}
-                  </p>
-                </div>
-
-                <div className="pt-3 border-t border-stone-100">
-                  <Link
-                    href={`/products/${prod.id}`}
-                    className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition flex items-center justify-center gap-2 active:scale-95 text-center"
-                  >
-                    <ShoppingBag className="w-4 h-4" />
-                    <span>View Details &amp; Order</span>
-                  </Link>
-                </div>
-              </div>
-            </div>
+        {/* Realistic 3D Canvas Cards Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {displayedArtworks.map(prod => (
+            <CanvasCard key={prod.id} product={prod} />
           ))}
         </div>
       </section>

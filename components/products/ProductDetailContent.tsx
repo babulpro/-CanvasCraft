@@ -7,6 +7,7 @@ import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { STANDARD_SIZES } from '@/data/combo-packages';
 import { Product, SizeOption, MaterialType } from '@/types';
 import { useCart } from '@/context/CartContext';
+import CanvasCard from '@/components/products/CanvasCard';
 import {
   ShoppingBag,
   Truck,
@@ -933,44 +934,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {relatedProducts.map(rel => (
-              <Link
-                key={rel.id}
-                href={`/products/${rel.id}`}
-                className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                <div className="relative h-60 bg-stone-900 overflow-hidden">
-                  <img
-                    src={rel.image}
-                    alt={rel.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-white text-[11px] font-semibold px-2.5 py-1 rounded-full">
-                    {rel.category}
-                  </span>
-                  <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
-                    From ৳ {rel.basePrice}
-                  </span>
-                </div>
-
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <h4 className="text-base font-bold text-stone-900 line-clamp-1 group-hover:text-amber-800 transition">
-                      {rel.title}
-                    </h4>
-                    <p className="text-xs text-stone-600 mt-1 line-clamp-2">
-                      {rel.details || rel.description}
-                    </p>
-                  </div>
-                  <div className="mt-3 pt-2.5 border-t border-stone-100 flex items-center justify-between">
-                    <span className="text-[11px] font-semibold text-stone-500">
-                      Rimless / Gallery Wrap
-                    </span>
-                    <span className="text-xs font-bold text-amber-700 group-hover:translate-x-1 transition-transform">
-                      View Details →
-                    </span>
-                  </div>
-                </div>
-              </Link>
+              <CanvasCard key={rel.id} product={rel} />
             ))}
           </div>
         </div>

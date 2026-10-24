@@ -6,6 +6,7 @@ import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { Product, AuthUser } from '@/types';
 import { useSession } from '@/lib/auth-client';
 import AddToCartModal from '@/components/products/AddToCartModal';
+import CanvasCard from '@/components/products/CanvasCard';
 import { Search, ShoppingBag, Sparkles, Filter, PlusCircle } from 'lucide-react';
 
 const CATEGORIES = [
@@ -151,63 +152,7 @@ export default function ProductsPage() {
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
             {filteredProducts.map(prod => (
-              <div
-                key={prod.id}
-                className="group bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
-              >
-                {/* Artwork Thumbnail: Click to view details */}
-                <Link
-                  href={`/products/${prod.id}`}
-                  className="relative h-60 sm:h-64 bg-stone-900 overflow-hidden block"
-                >
-                  <img
-                    src={prod.image}
-                    alt={prod.title}
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  />
-                  <span className="absolute top-2.5 left-2.5 bg-black/80 backdrop-blur-xs text-white text-xs font-semibold px-2.5 py-1 rounded-full">
-                    {prod.category}
-                  </span>
-                  {prod.featured && (
-                    <span className="absolute top-2.5 right-2.5 bg-amber-500 text-stone-950 text-xs font-bold px-2.5 py-1 rounded-full uppercase tracking-wider">
-                      Popular
-                    </span>
-                  )}
-                  <span className="absolute bottom-2.5 right-2.5 bg-stone-950/85 backdrop-blur-xs text-amber-300 text-xs font-bold px-2.5 py-1 rounded-md border border-amber-500/20">
-                    From ৳ {prod.basePrice}
-                  </span>
-                </Link>
-
-                {/* Card Body with Real Details */}
-                <div className="p-4 flex-1 flex flex-col justify-between">
-                  <div>
-                    <Link
-                      href={`/products/${prod.id}`}
-                      className="block group-hover:text-amber-800 transition"
-                    >
-                      <h3 className="text-base sm:text-lg font-bold text-stone-900 line-clamp-1">
-                        {prod.title}
-                      </h3>
-                    </Link>
-                    <p className="text-xs sm:text-sm text-stone-600 mt-2 mb-3 leading-relaxed line-clamp-2">
-                      {prod.details || prod.description || prod.tags.join(' • ')}
-                    </p>
-                  </div>
-
-                  {/* Single High-Converting Full-Width Order Button */}
-                  <div className="pt-3 border-t border-stone-100">
-                    <Link
-                      href={`/products/${prod.id}`}
-                      className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm py-2.5 px-4 rounded-xl shadow-xs transition flex items-center justify-center gap-2 active:scale-95 text-center"
-                    >
-                      <ShoppingBag className="w-4 h-4" />
-                      <span>View Details &amp; Order</span>
-                    </Link>
-                  </div>
-
-                </div>
-
-              </div>
+              <CanvasCard key={prod.id} product={prod} />
             ))}
           </div>
         )}

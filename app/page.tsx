@@ -41,9 +41,7 @@ export default function HomePage() {
       .then(res => res.json())
       .then(data => {
         if (data.success && Array.isArray(data.products) && data.products.length > 0) {
-          const staticIds = new Set(PRODUCTS.map(p => p.id));
-          const dbCustoms = data.products.filter((p: Product) => !staticIds.has(p.id));
-          setAllProducts([...PRODUCTS, ...dbCustoms]);
+          setAllProducts(data.products);
         }
       })
       .catch(err => {
@@ -69,8 +67,8 @@ export default function HomePage() {
             
             {/* Left Hero Copy */}
             <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-              <div className="inline-flex items-center gap-2 bg-amber-500/15 text-amber-900 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full border border-amber-400/30">
-                <Sparkles className="w-4 h-4 text-amber-600" />
+              <div className="inline-flex items-center gap-2 bg-amber-100/80 text-amber-900 text-xs sm:text-sm font-bold px-3.5 py-1.5 rounded-full border border-amber-300/60 shadow-2xs">
+                <Sparkles className="w-4 h-4 text-amber-700" />
                 <span>Curated Fine Art &amp; Premium Canvas Wall Decor</span>
               </div>
 
@@ -78,7 +76,7 @@ export default function HomePage() {
                 Transform Any Wall Into A <span className="text-amber-800 italic">Museum Gallery.</span>
               </h1>
 
-              <p className="text-base sm:text-lg text-stone-700 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
+              <p className="text-base sm:text-lg text-stone-600 max-w-xl mx-auto lg:mx-0 leading-relaxed font-normal">
                 High-definition archival pigment prints on <strong className="text-stone-950 font-semibold">3mm Rigid PVC Boards</strong> or <strong className="text-stone-950 font-semibold">1.25″ Solid Pine Wood Stretched Canvas</strong> with luxury museum floating frames.
               </p>
 
@@ -95,7 +93,7 @@ export default function HomePage() {
 
                 <Link
                   href="/#combos"
-                  className="w-full sm:w-auto bg-white hover:bg-stone-50 text-stone-900 font-bold py-4 px-8 rounded-full border border-stone-300 shadow-xs hover:border-stone-400 transition flex items-center justify-center gap-2 text-sm sm:text-base"
+                  className="w-full sm:w-auto bg-white hover:bg-stone-50 text-stone-900 font-bold py-4 px-8 rounded-full border border-stone-300 shadow-xs hover:border-amber-400 transition flex items-center justify-center gap-2 text-sm sm:text-base"
                 >
                   <Flame className="w-4 h-4 text-rose-600" />
                   <span>View Combo Deals</span>
@@ -169,16 +167,16 @@ export default function HomePage() {
                 <span className="text-xs sm:text-sm font-bold text-stone-500">From ৳ 50/pc</span>
               </div>
 
-              {/* Visual 6-Tile Gallery Grid Mockup (Real PVC Canvases) */}
+              {/* Visual 6-Tile Gallery Grid Mockup (Real PVC Canvases from DB) */}
               <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80">
                 <div className="grid grid-cols-3 gap-2">
                   {[
-                    { img: 'https://images.unsplash.com/photo-1578301978693-85fa9c0320b9?auto=format&fit=crop&w=400&q=80', title: 'Velvet Lady' },
-                    { img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=400&q=80', title: 'Tea Highlands' },
-                    { img: 'https://images.unsplash.com/photo-1564769625905-50e93615e769?auto=format&fit=crop&w=400&q=80', title: 'Kufic Script' },
-                    { img: 'https://images.unsplash.com/photo-1579783902614-a3fb3927b675?auto=format&fit=crop&w=400&q=80', title: 'Sapphire' },
-                    { img: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=400&q=80', title: 'Bauhaus' },
-                    { img: 'https://images.unsplash.com/photo-1579783900882-c0d3dad7b119?auto=format&fit=crop&w=400&q=80', title: 'Botanical' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792781413/canvascraft/artworks/nwpi6mxuh2yqwnttlvkj.jpg', title: 'Golden Hour Embrace' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792776286/canvascraft/artworks/rvqlmmbsxejsybsg54uw.jpg', title: 'Autumn Serenity' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792775165/canvascraft/artworks/ktmtvaq2lqbw5bmd9n4s.jpg', title: 'Subhan Allah' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792780497/canvascraft/artworks/dj5brj1lok1s6d2netnf.jpg', title: 'Midnight Foliage' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792780135/canvascraft/artworks/o7un3q8df48cml9siaxa.jpg', title: 'Geometric Botanica' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792779410/canvascraft/artworks/zhzfz8wkgoykzo5hxhf6.jpg', title: 'Botanical Serenity' },
                   ].map((tile, tIdx) => (
                     <div
                       key={tIdx}
@@ -228,13 +226,13 @@ export default function HomePage() {
                 <span className="text-xs sm:text-sm font-bold text-stone-600">Bestseller</span>
               </div>
 
-              {/* Visual 3-Piece Living Room Wall Triptych Mockup (Real Canvases) */}
+              {/* Visual 3-Piece Living Room Wall Triptych Mockup (Real Canvases from DB) */}
               <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80">
                 <div className="grid grid-cols-3 gap-2 items-center">
                   {[
-                    { img: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=80', title: 'Sajek Left' },
-                    { img: 'https://images.unsplash.com/photo-1470071459604-3b5ec3a7fe05?auto=format&fit=crop&w=500&q=80', title: 'Tea Center' },
-                    { img: 'https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?auto=format&fit=crop&w=500&q=80', title: 'Mangrove Right' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792774757/canvascraft/artworks/ahtfrpmdnhvtjh7rjvce.jpg', title: 'Muhammad ﷺ' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792775165/canvascraft/artworks/ktmtvaq2lqbw5bmd9n4s.jpg', title: 'Subhan Allah' },
+                    { img: 'https://res.cloudinary.com/dmyekmpy3/image/upload/v1792775512/canvascraft/artworks/wtcw9c9x0ayfahkw4cih.jpg', title: 'La Hawla' },
                   ].map((panel, pIdx) => (
                     <div
                       key={pIdx}
@@ -281,12 +279,12 @@ export default function HomePage() {
                 <span className="text-xs sm:text-sm font-black text-rose-600">Only ৳ 350</span>
               </div>
 
-              {/* Visual Solo Statement 16x24 Canvas Mockup (Real Stretched Canvas) */}
+              {/* Visual Solo Statement 16x24 Canvas Mockup (Real Stretched Canvas from DB) */}
               <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80 flex flex-col items-center justify-center">
                 <div className="relative w-36 aspect-[2/3] rounded-none overflow-hidden shadow-[0_14px_28px_-4px_rgba(35,25,15,0.35),3px_3px_0px_rgba(50,40,30,0.22)] border border-stone-300 group-hover:scale-105 transition-transform duration-300">
                   <img
-                    src="https://images.unsplash.com/photo-1582561424760-0321d75e81fa?auto=format&fit=crop&w=600&q=80"
-                    alt="16x24 Baroque Solo Canvas"
+                    src="https://res.cloudinary.com/dmyekmpy3/image/upload/v1792493937/canvascraft/artworks/yysvud3nmdlvhjtmwufp.jpg"
+                    alt="16x24 Whispers of the Sunset Solo Canvas"
                     className="w-full h-full object-cover"
                   />
                   <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/25 pointer-events-none" />
@@ -326,7 +324,7 @@ export default function HomePage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-6">
           <div>
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-800 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 inline-block mb-1.5">
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-wider text-amber-900 bg-amber-100/80 px-3.5 py-1 rounded-full border border-amber-300/60 inline-block mb-1.5 shadow-2xs">
               Handpicked Fine Art
             </span>
             <h2 className="text-3xl sm:text-4xl font-serif font-bold text-stone-950">
@@ -354,7 +352,7 @@ export default function HomePage() {
                 className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition cursor-pointer text-xs sm:text-sm ${
                   isSelected
                     ? 'bg-stone-900 text-white shadow-xs'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                    : 'bg-white text-stone-700 hover:bg-stone-100 hover:text-stone-950 border border-stone-200/90 shadow-2xs'
                 }`}
               >
                 {cat}
@@ -371,37 +369,37 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 4. DHAKA PRODUCTION GUARANTEE */}
+      {/* 4. DHAKA PRODUCTION GUARANTEE & REVIEWS */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-gradient-to-br from-[#24211e] via-[#1c1917] to-[#2c2723] text-stone-100 rounded-3xl p-8 sm:p-12 border border-amber-900/30 shadow-2xl relative overflow-hidden">
+        <div className="bg-gradient-to-br from-[#f8f5ee] via-[#fcfaf5] to-[#f4eee3] text-stone-900 rounded-3xl p-8 sm:p-12 border border-stone-200 shadow-md relative overflow-hidden">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-center">
             <div className="lg:col-span-8 space-y-4">
-              <span className="text-xs sm:text-sm font-bold text-amber-400 uppercase tracking-widest">
+              <span className="text-xs sm:text-sm font-bold text-amber-900 uppercase tracking-widest bg-amber-100/70 px-3.5 py-1.5 rounded-full border border-amber-300/60 inline-block">
                 Our Quality Commitment
               </span>
-              <h3 className="text-2xl sm:text-4xl font-serif font-bold text-white leading-tight">
+              <h3 className="text-2xl sm:text-4xl font-serif font-bold text-stone-950 leading-tight">
                 Archival Pigment Printing &amp; Custom Framing in Dhaka
               </h3>
-              <p className="text-sm sm:text-base text-stone-300 max-w-2xl leading-relaxed">
+              <p className="text-sm sm:text-base text-stone-700 max-w-2xl leading-relaxed">
                 Unlike ordinary digital posters that fade in sunlight, our canvases use 12-color archival pigment inks protected with an anti-scratch, waterproof UV satin seal. Each frame is assembled by master craftsmen in our Dhaka workshop.
               </p>
               <div className="flex flex-wrap gap-4 pt-2 text-xs sm:text-sm">
-                <span className="flex items-center gap-2 text-stone-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Lightweight, Damage-Free Wall Mounting on PVC
+                <span className="flex items-center gap-2 text-stone-800 font-medium">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> Lightweight, Damage-Free Wall Mounting on PVC
                 </span>
-                <span className="flex items-center gap-2 text-stone-200">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" /> Solid Kiln-Dried Pine Wood Stretcher Bars
+                <span className="flex items-center gap-2 text-stone-800 font-medium">
+                  <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" /> Solid Kiln-Dried Pine Wood Stretcher Bars
                 </span>
               </div>
             </div>
 
             <div className="lg:col-span-4 flex justify-center">
-              <div className="bg-[#161412]/90 p-6 sm:p-8 rounded-2xl border border-stone-700/80 text-center space-y-3 w-full max-w-xs shadow-xl">
-                <span className="text-3xl sm:text-4xl font-black text-amber-400 block">4.9 / 5.0</span>
-                <div className="flex justify-center text-amber-400 gap-1">
+              <div className="bg-white/95 backdrop-blur-md p-6 sm:p-8 rounded-2xl border border-stone-200/90 text-center space-y-3 w-full max-w-xs shadow-lg ring-1 ring-amber-500/10">
+                <span className="text-4xl sm:text-5xl font-black text-amber-600 font-serif block">4.9 / 5.0</span>
+                <div className="flex justify-center text-amber-500 gap-1">
                   {[0, 1, 2, 3, 4].map(i => <Star key={i} className="w-5 h-5 fill-current" />)}
                 </div>
-                <p className="text-xs sm:text-sm text-stone-300">Over 3,400+ custom canvases delivered across Bangladesh.</p>
+                <p className="text-xs sm:text-sm text-stone-600 font-medium">Over 3,400+ custom canvases delivered across Bangladesh.</p>
               </div>
             </div>
           </div>

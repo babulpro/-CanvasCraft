@@ -75,10 +75,10 @@ export default function ProductsPage() {
         {/* Page Header */}
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-700 bg-amber-50 px-3 py-1 rounded-full border border-amber-200 inline-block mb-1.5">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-100/80 px-3.5 py-1 rounded-full border border-amber-300/60 inline-block mb-1.5 shadow-2xs">
               Curated Fine Art Collections
             </span>
-            <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-900 tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-950 tracking-tight">
               Gallery Artworks &amp; Wall Prints
             </h1>
             <p className="text-sm sm:text-base text-stone-600 mt-1.5">
@@ -91,7 +91,7 @@ export default function ProductsPage() {
             {isAdmin && (
               <Link
                 href="/admin/add-product"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-600 hover:bg-amber-700 text-white text-sm font-bold shadow-xs transition shrink-0"
+                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-sm font-extrabold shadow-xs transition shrink-0"
               >
                 <PlusCircle className="w-4 h-4" />
                 <span>Add Artwork (Admin)</span>
@@ -105,14 +105,14 @@ export default function ProductsPage() {
                 placeholder="Search art, style, verse..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full text-sm pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white"
+                className="w-full text-sm pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-stone-900 placeholder:text-stone-400 shadow-2xs"
               />
             </div>
 
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value as any)}
-              className="w-full sm:w-auto text-sm px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 bg-white text-stone-700 cursor-pointer font-medium"
+              className="w-full sm:w-auto text-sm px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-stone-800 cursor-pointer font-medium shadow-2xs"
             >
               <option value="featured">Sort by: Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -133,7 +133,7 @@ export default function ProductsPage() {
                 className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition cursor-pointer text-xs sm:text-sm ${
                   isSelected
                     ? 'bg-stone-900 text-white shadow-xs'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 border border-stone-200'
+                    : 'bg-white text-stone-700 hover:bg-stone-100 hover:text-stone-950 border border-stone-200/90 shadow-2xs'
                 }`}
               >
                 {cat}

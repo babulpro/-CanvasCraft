@@ -5,6 +5,7 @@
     --brand-primary: #b89053;
     --brand-dark: #8c670f;
     --brand-light: #fdf8ea;
+    --brand-cream: #faf8f5;
   }
 
   body {
@@ -16,9 +17,77 @@
     -webkit-tap-highlight-color: transparent;
   }
 
+  ::selection {
+    background-color: #fde68a;
+    color: #451a03;
+  }
+
   h1, h2, h3, .font-serif {
     font-family: var(--font-serif), Georgia, serif;
+    letter-spacing: -0.02em;
+    color: #0c0a09;
   }
+
+  h4, h5, h6 {
+    letter-spacing: -0.01em;
+    color: #1c1917;
+  }
+
+  p {
+    color: #57534e;
+    line-height: 1.65;
+  }
+}
+
+/* Polished Button and Badge Utilities */
+.btn-gold {
+  background-color: #f59e0b;
+  color: #0c0a09;
+  font-weight: 800;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1);
+}
+.btn-gold:hover {
+  background-color: #fbbf24;
+  box-shadow: 0 4px 6px -1px rgba(245, 158, 11, 0.25), 0 2px 4px -2px rgba(245, 158, 11, 0.2);
+}
+.btn-gold:active {
+  transform: scale(0.98);
+}
+
+.btn-stone {
+  background-color: #1c1917;
+  color: #ffffff;
+  font-weight: 700;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.btn-stone:hover {
+  background-color: #f59e0b;
+  color: #0c0a09;
+}
+.btn-stone:active {
+  transform: scale(0.98);
+}
+
+.badge-gold {
+  background-color: rgba(254, 243, 199, 0.8);
+  color: #78350f;
+  border: 1px solid rgba(251, 191, 36, 0.5);
+  font-weight: 700;
+}
+
+.badge-emerald {
+  background-color: #ecfdf5;
+  color: #065f46;
+  border: 1px solid #a7f3d0;
+  font-weight: 700;
+}
+
+.badge-rose {
+  background-color: #fff1f2;
+  color: #9f1239;
+  border: 1px solid #fecdd3;
+  font-weight: 700;
 }
 
 /* 3D Museum Floating Frame Mouldings */

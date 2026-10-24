@@ -114,7 +114,7 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 flex items-center justify-center bg-stone-950 relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-4 flex items-center justify-center bg-[#faf8f5] relative overflow-hidden">
       {/* Background Ambience */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
 
@@ -123,24 +123,24 @@ export default function SignUpPage() {
         <div className="text-center mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-300 text-xs tracking-wider uppercase mb-4"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 border border-amber-300/60 text-amber-900 text-xs font-bold tracking-wider uppercase mb-4 shadow-2xs"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-700" />
             <span>Create Your Member Account</span>
           </Link>
-          <h1 className="text-3xl font-serif text-stone-100 font-bold mb-2">
+          <h1 className="text-3xl font-serif text-stone-950 font-bold mb-2">
             Join CanvasCraft BD
           </h1>
-          <p className="text-sm text-stone-400">
+          <p className="text-sm text-stone-600">
             Save custom canvas configurations, unlock combo deals, and track workshop production in Dhaka.
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-stone-900/80 backdrop-blur-xl border border-stone-800 rounded-2xl p-6 sm:p-8 shadow-2xl">
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-8 shadow-xl ring-1 ring-stone-900/5">
           {/* Error Banner */}
           {errorMessage && (
-            <div className="mb-5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 flex items-start gap-3 text-red-300 text-xs">
+            <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-700 text-xs">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{errorMessage}</span>
             </div>
@@ -148,8 +148,8 @@ export default function SignUpPage() {
 
           {/* Success Banner */}
           {successMessage && (
-            <div className="mb-5 p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-start gap-3 text-emerald-300 text-xs">
-              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5" />
+            <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-emerald-800 text-xs font-semibold">
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -160,7 +160,7 @@ export default function SignUpPage() {
               type="button"
               onClick={() => handleSocialSignUp("google")}
               disabled={loading || !!socialLoading}
-              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-200 text-sm font-medium border border-stone-700/80 hover:border-stone-600 transition disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 text-sm font-semibold border border-stone-200/90 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -191,9 +191,9 @@ export default function SignUpPage() {
               type="button"
               onClick={() => handleSocialSignUp("github")}
               disabled={loading || !!socialLoading}
-              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-800 hover:bg-stone-750 text-stone-200 text-sm font-medium border border-stone-700/80 hover:border-stone-600 transition disabled:opacity-50"
+              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 text-sm font-semibold border border-stone-200/90 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
             >
-              <svg className="w-4 h-4 fill-stone-100" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 fill-stone-900" viewBox="0 0 24 24">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -210,8 +210,8 @@ export default function SignUpPage() {
 
           {/* Divider */}
           <div className="relative flex items-center justify-center my-6">
-            <div className="border-t border-stone-800 w-full" />
-            <span className="bg-stone-900 px-3 text-xs text-stone-500 uppercase tracking-widest font-mono">
+            <div className="border-t border-stone-200 w-full" />
+            <span className="bg-white px-3 text-xs text-stone-400 uppercase tracking-widest font-mono">
               or register with email
             </span>
           </div>
@@ -222,7 +222,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-xs font-medium text-stone-300 mb-1.5"
+                className="block text-xs font-semibold text-stone-700 mb-1.5"
               >
                 Full Name
               </label>
@@ -234,9 +234,9 @@ export default function SignUpPage() {
                   placeholder="e.g. Tanvir Ahmed"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-950/80 border border-stone-800 focus:border-amber-500/80 rounded-xl text-stone-100 placeholder-stone-600 text-sm focus:outline-none transition"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <User className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -245,7 +245,7 @@ export default function SignUpPage() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="username"
-                  className="block text-xs font-medium text-stone-300"
+                  className="block text-xs font-semibold text-stone-700"
                 >
                   Username Handle
                 </label>
@@ -261,9 +261,9 @@ export default function SignUpPage() {
                   placeholder="tanvir_bd"
                   value={username}
                   onChange={(e) => handleUsernameChange(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-950/80 border border-stone-800 focus:border-amber-500/80 rounded-xl text-stone-100 placeholder-stone-600 text-sm focus:outline-none transition font-mono"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition font-mono"
                 />
-                <AtSign className="w-4 h-4 text-amber-500/70 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <AtSign className="w-4 h-4 text-amber-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -271,7 +271,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-medium text-stone-300 mb-1.5"
+                className="block text-xs font-semibold text-stone-700 mb-1.5"
               >
                 Email Address
               </label>
@@ -283,9 +283,9 @@ export default function SignUpPage() {
                   placeholder="tanvir@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-950/80 border border-stone-800 focus:border-amber-500/80 rounded-xl text-stone-100 placeholder-stone-600 text-sm focus:outline-none transition"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <Mail className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -294,7 +294,7 @@ export default function SignUpPage() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="password"
-                  className="block text-xs font-medium text-stone-300"
+                  className="block text-xs font-semibold text-stone-700"
                 >
                   Password
                 </label>
@@ -310,13 +310,13 @@ export default function SignUpPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 bg-stone-950/80 border border-stone-800 focus:border-amber-500/80 rounded-xl text-stone-100 placeholder-stone-600 text-sm focus:outline-none transition"
+                  className="w-full pl-10 pr-10 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <Lock className="w-4 h-4 text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-500 hover:text-stone-300"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -330,7 +330,7 @@ export default function SignUpPage() {
             <button
               type="submit"
               disabled={loading || !!socialLoading}
-              className="w-full flex items-center justify-center gap-2 py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-semibold text-sm shadow-lg shadow-amber-500/20 transition disabled:opacity-50 mt-2"
+              className="w-full flex items-center justify-center gap-2 py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm shadow-md hover:shadow-lg transition disabled:opacity-50 mt-2 cursor-pointer active:scale-98"
             >
               <span>{loading ? "Creating Account..." : "Create Account"}</span>
               <ArrowRight className="w-4 h-4" />
@@ -338,11 +338,11 @@ export default function SignUpPage() {
           </form>
 
           {/* Footer Navigation */}
-          <div className="mt-6 text-center text-xs text-stone-400">
+          <div className="mt-6 text-center text-xs text-stone-600">
             Already have an account?{" "}
             <Link
               href="/sign-in"
-              className="text-amber-400 hover:text-amber-300 font-semibold underline underline-offset-4"
+              className="text-amber-800 hover:text-stone-950 font-bold underline underline-offset-4"
             >
               Sign In
             </Link>

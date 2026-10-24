@@ -324,10 +324,10 @@ export default function CartDrawer() {
             <Link
               href="/cart"
               onClick={closeDrawer}
-              className="w-full bg-stone-900 hover:bg-stone-800 text-white font-bold py-3 px-4 rounded-xl text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform active:scale-98"
+              className="w-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-black py-3 px-4 rounded-xl text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 transform active:scale-98"
             >
-              <span>View Full Cart & Details</span>
-              <ArrowRight className="w-4 h-4 text-amber-400" />
+              <span>Proceed to Checkout</span>
+              <ArrowRight className="w-4 h-4 text-stone-950" />
             </Link>
 
             {/* WhatsApp Order Action */}

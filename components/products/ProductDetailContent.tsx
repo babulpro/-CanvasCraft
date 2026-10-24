@@ -266,10 +266,10 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
       {/* 2. Main Product Showcase & Configurator */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
           
-          {/* Left Column: Interactive Proportional Size Preview & Room View */}
-          <div className="lg:col-span-6 space-y-4 lg:sticky lg:top-24">
+          {/* Left Column: Interactive Proportional Size Preview & Room View (2/3 Width on Laptop/Desktop) */}
+          <div className="lg:col-span-7 xl:col-span-8 space-y-4 lg:sticky lg:top-24">
             
             {/* View Mode Controls Bar */}
             <div className="flex items-center justify-between gap-2 p-1.5 bg-stone-900/5 rounded-2xl border border-stone-200/90">
@@ -313,7 +313,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
             {/* Main Visual Preview Display Area */}
             {viewMode === 'room' ? (
               /* Photorealistic Living Room Scene with Real Sofa & Tea Table */
-              <div className="relative w-full aspect-[4/3] max-h-[580px] rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
+              <div className="relative w-full aspect-[4/3] max-h-[620px] xl:max-h-[700px] rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
                 
                 {/* 1. Photorealistic Living Room Scene with Exact Wall Color Paint, Real Sofa & Tea Table */}
                 <img
@@ -564,8 +564,8 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
           </div>
 
-          {/* Right Column: Title, Details, Simplified 2-Step Ordering */}
-          <div className="lg:col-span-6 space-y-6">
+          {/* Right Column: Title, Details, Simplified 2-Step Ordering (1/3 Width on Laptop/Desktop) */}
+          <div className="lg:col-span-5 xl:col-span-4 space-y-6">
             
             {/* Header & Title */}
             <div>
@@ -614,7 +614,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 </span>
               </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 gap-2.5">
                 {STANDARD_SIZES.map(sz => {
                   const isSelected = selectedSize.code === sz.code;
                   const price = selectedMaterial === 'pvc' ? sz.pricePvc : sz.priceCanvas;
@@ -734,7 +734,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 Normally canvas prints hang rimless. You can optionally add a subtle 2–3mm fine edge border around the artwork in your preferred accent color:
               </p>
 
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div className="grid grid-cols-2 gap-2">
                 {SLIM_BORDER_OPTIONS.map(opt => {
                   const isSelected = selectedBorder.id === opt.id;
                   return (

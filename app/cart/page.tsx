@@ -132,9 +132,9 @@ export default function CartPage() {
 
         {/* Page Title */}
         <div>
-          <h1 className="text-3xl font-serif font-bold text-stone-900 flex items-center gap-2.5">
+          <h1 className="text-3xl font-serif font-bold text-stone-950 flex items-center gap-2.5">
             <ShoppingBag className="w-8 h-8 text-amber-600" />
-            <span>Your Shopping Bag & Checkout</span>
+            <span>Your Shopping Bag &amp; Checkout</span>
           </h1>
           <p className="text-sm text-stone-600 mt-1">
             Review your custom canvas selections, apply combo package savings, and finalize delivery across all 64 districts.
@@ -490,14 +490,14 @@ export default function CartPage() {
                         value={customerName}
                         onChange={(e) => setCustomerName(e.target.value)}
                         placeholder="e.g. Babul Hossain"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 transition"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 shadow-2xs transition"
                       />
                     </div>
                   </div>
 
                   <div>
                     <label className="block text-[11px] font-semibold text-stone-700 mb-1">
-                      Phone Number (For Delivery & bKash confirmation) *
+                      Phone Number (For Delivery &amp; bKash confirmation) *
                     </label>
                     <div className="relative">
                       <Phone className="w-4 h-4 text-stone-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" />
@@ -507,7 +507,7 @@ export default function CartPage() {
                         value={customerPhone}
                         onChange={(e) => setCustomerPhone(e.target.value)}
                         placeholder="017XXXXXXXX"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 transition font-mono"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 shadow-2xs transition font-mono"
                       />
                     </div>
                   </div>
@@ -524,7 +524,7 @@ export default function CartPage() {
                         value={customerAddress}
                         onChange={(e) => setCustomerAddress(e.target.value)}
                         placeholder="e.g. House 14, Road 5, Dhanmondi, Dhaka"
-                        className="w-full pl-9 pr-3 py-2 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 transition"
+                        className="w-full pl-9 pr-3 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 shadow-2xs transition"
                       />
                     </div>
                   </div>
@@ -538,7 +538,7 @@ export default function CartPage() {
                       value={orderNotes}
                       onChange={(e) => setOrderNotes(e.target.value)}
                       placeholder="e.g. Please call before delivery"
-                      className="w-full px-3 py-2 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 transition"
+                      className="w-full px-3 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 shadow-2xs transition"
                     />
                   </div>
 
@@ -546,7 +546,7 @@ export default function CartPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className="w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-400 hover:to-amber-500 text-stone-950 font-bold text-xs transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50"
+                    className="w-full py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm transition shadow-md hover:shadow-lg flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 active:scale-98"
                   >
                     <span>
                       {isSubmitting

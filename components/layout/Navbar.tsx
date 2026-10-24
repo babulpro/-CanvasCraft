@@ -117,12 +117,12 @@ export default function Navbar() {
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1 text-xs font-semibold text-stone-700 pl-4 border-l border-stone-200">
+            <nav className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-stone-700 pl-4 border-l border-stone-200">
               <Link
                 href="/"
                 className={`px-3 py-1.5 rounded-full transition ${
                   pathname === '/'
-                    ? 'text-amber-950 bg-amber-100/70 font-bold'
+                    ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
                     : 'hover:text-stone-950 hover:bg-stone-100'
                 }`}
               >
@@ -133,7 +133,7 @@ export default function Navbar() {
                 href="/products"
                 className={`px-3 py-1.5 rounded-full transition flex items-center gap-1.5 ${
                   pathname === '/products'
-                    ? 'text-amber-950 bg-amber-100/70 font-bold'
+                    ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
                     : 'hover:text-stone-950 hover:bg-stone-100'
                 }`}
               >
@@ -143,7 +143,7 @@ export default function Navbar() {
 
               <Link
                 href="/#combos"
-                className="px-3 py-1.5 rounded-full text-rose-800 hover:text-rose-950 bg-rose-50 hover:bg-rose-100 transition border border-rose-200/80 flex items-center gap-1.5 shadow-2xs"
+                className="px-3 py-1.5 rounded-full text-rose-800 hover:text-rose-950 bg-rose-50 hover:bg-rose-100 transition border border-rose-200 flex items-center gap-1.5 font-bold shadow-2xs"
               >
                 <Flame className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
                 <span>Combo Deals</span>
@@ -155,7 +155,7 @@ export default function Navbar() {
                   href="/orders"
                   className={`px-3 py-1.5 rounded-full transition flex items-center gap-1.5 ${
                     pathname === '/orders'
-                      ? 'text-amber-950 bg-amber-100/70 font-bold'
+                      ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
                       : 'hover:text-stone-950 hover:bg-stone-100'
                   }`}
                 >
@@ -180,8 +180,8 @@ export default function Navbar() {
           {/* Right Header Actions */}
           <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
             
-            {/* User Session State: ALWAYS PROMINENT ON BOTH MOBILE & DESKTOP */}
-            <div className="flex items-center">
+            {/* User Session State: Visible on Desktop/Tablet, Accessible in Drawer on Mobile */}
+            <div className="hidden md:flex items-center">
               {!mounted ? (
                 <div className="w-16 h-8 rounded-full bg-stone-200/60 animate-pulse" />
               ) : user ? (
@@ -209,10 +209,10 @@ export default function Navbar() {
                   )}
                 </Link>
               ) : (
-                /* Radiant Golden Amber Login CTA on Mobile & Desktop */
+                /* Radiant Golden Amber Login CTA on Desktop */
                 <Link
                   href="/sign-in"
-                  className="inline-flex items-center gap-1.5 py-1.5 px-3 sm:px-4 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 shrink-0"
+                  className="inline-flex items-center gap-1.5 py-1.5 px-3.5 sm:px-4 rounded-full bg-amber-500 hover:bg-amber-400 text-stone-950 font-extrabold text-xs sm:text-sm shadow-sm transition active:scale-95 shrink-0"
                   title="Login to Your Account"
                 >
                   <User className="w-3.5 h-3.5 text-stone-950 stroke-[2.5]" />
@@ -221,10 +221,10 @@ export default function Navbar() {
               )}
             </div>
 
-            {/* Shopping Bag CTA */}
+            {/* Shopping Bag CTA (Desktop/Tablet) */}
             <button
               onClick={openDrawer}
-              className="relative p-2 rounded-full hover:bg-stone-100 text-stone-800 transition group cursor-pointer shrink-0"
+              className="hidden md:flex relative p-2 rounded-full hover:bg-stone-100 text-stone-800 transition group cursor-pointer shrink-0"
               title="Open Shopping Bag"
               aria-label="Open Shopping Bag"
             >
@@ -245,14 +245,19 @@ export default function Navbar() {
               <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
             </button>
 
-            {/* Mobile Hamburger Toggle Button */}
+            {/* Mobile Hamburger Toggle Button (The ONLY Header Action on Mobile) */}
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="md:hidden p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 hover:text-stone-950 transition cursor-pointer border border-stone-200/80 shrink-0"
+              className="relative md:hidden p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 hover:text-stone-950 transition cursor-pointer border border-stone-200/80 shrink-0"
               aria-label="Open mobile navigation menu"
             >
               <Menu className="w-5 h-5 text-stone-900" />
+              {totals.totalPieces > 0 && (
+                <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
+                  {totals.totalPieces}
+                </span>
+              )}
             </button>
           </div>
         </div>

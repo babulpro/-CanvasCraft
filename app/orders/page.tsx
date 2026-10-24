@@ -169,9 +169,9 @@ function OrdersPageContent() {
         {/* Page Header */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-3xl font-serif font-bold text-stone-900 flex items-center gap-2.5">
+            <h1 className="text-3xl font-serif font-bold text-stone-950 flex items-center gap-2.5">
               <Package className="w-8 h-8 text-amber-600" />
-              <span>My Orders & Delivery Tracking</span>
+              <span>My Orders &amp; Delivery Tracking</span>
             </h1>
             <p className="text-sm text-stone-600 mt-1">
               View your canvas print orders, monitor workshop progress, and access instant WhatsApp concierge support.
@@ -197,14 +197,14 @@ function OrdersPageContent() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Track by Order Number (e.g. CC-2026-XXXX) or Phone Number..."
-                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 font-mono transition"
+                className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 text-xs text-stone-900 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 font-mono shadow-2xs transition"
               />
             </div>
             <div className="flex items-center gap-2 w-full sm:w-auto">
               <button
                 type="submit"
                 disabled={searchLoading}
-                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-white text-xs font-bold transition shadow-xs cursor-pointer disabled:opacity-50"
+                className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 text-xs font-extrabold transition shadow-xs cursor-pointer disabled:opacity-50"
               >
                 {searchLoading ? "Tracking..." : "Track Order"}
               </button>

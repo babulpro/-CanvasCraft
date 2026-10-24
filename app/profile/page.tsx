@@ -44,8 +44,8 @@ function ProfileContent() {
 
   if (isPending) {
     return (
-      <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-stone-950">
-        <div className="flex items-center gap-3 text-stone-400 text-sm">
+      <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-[#faf8f5]">
+        <div className="flex items-center gap-3 text-stone-600 text-sm">
           <div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
           <span>Loading membership profile...</span>
         </div>
@@ -55,20 +55,20 @@ function ProfileContent() {
 
   if (!session) {
     return (
-      <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-stone-950">
-        <div className="max-w-md w-full bg-stone-900/80 border border-stone-800 rounded-2xl p-8 text-center">
-          <div className="w-14 h-14 rounded-full bg-amber-500/10 border border-amber-500/20 text-amber-400 flex items-center justify-center mx-auto mb-4">
+      <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-[#faf8f5]">
+        <div className="max-w-md w-full bg-white border border-stone-200/90 rounded-3xl p-8 text-center shadow-xl">
+          <div className="w-14 h-14 rounded-full bg-amber-100 text-amber-700 flex items-center justify-center mx-auto mb-4 border border-amber-200">
             <User className="w-7 h-7" />
           </div>
-          <h2 className="text-2xl font-serif text-stone-100 font-bold mb-2">
+          <h2 className="text-2xl font-serif text-stone-950 font-bold mb-2">
             Sign In Required
           </h2>
-          <p className="text-sm text-stone-400 mb-6">
+          <p className="text-sm text-stone-600 mb-6">
             Please log in with your email or social account to view your CanvasCraft membership profile.
           </p>
           <Link
             href="/sign-in"
-            className="inline-flex items-center justify-center gap-2 w-full py-3 px-4 rounded-xl bg-gradient-to-r from-amber-500 to-amber-600 text-stone-950 font-semibold text-sm hover:from-amber-400 hover:to-amber-500 transition"
+            className="inline-flex items-center justify-center gap-2 w-full py-3.5 px-4 rounded-xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-black text-sm shadow-md transition active:scale-98"
           >
             <span>Sign In</span>
           </Link>
@@ -81,70 +81,70 @@ function ProfileContent() {
   const role: UserRole = (user.role as UserRole) || "user";
 
   return (
-    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-stone-950">
+    <div className="min-h-screen pt-32 pb-20 px-4 sm:px-6 lg:px-8 bg-[#faf8f5]">
       <div className="max-w-3xl mx-auto space-y-8">
         {/* Error Notification if redirected from protected admin files */}
         {errorParam === "admin_required" && (
-          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/30 flex items-start gap-3.5 text-amber-300 text-xs shadow-lg animate-in fade-in">
-            <AlertTriangle className="w-5 h-5 shrink-0 text-amber-400 mt-0.5" />
+          <div className="p-4 rounded-2xl bg-amber-50 border border-amber-300 flex items-start gap-3.5 text-amber-900 text-xs shadow-sm animate-in fade-in">
+            <AlertTriangle className="w-5 h-5 shrink-0 text-amber-700 mt-0.5" />
             <div className="space-y-1">
-              <h4 className="font-bold text-amber-200 text-sm">
+              <h4 className="font-bold text-amber-950 text-sm">
                 Administrator Access Required
               </h4>
-              <p className="text-stone-300 leading-relaxed">
-                The administrative file or dashboard you tried to access requires active <span className="text-amber-400 font-bold uppercase">Admin</span> credentials. Your current account role is <span className="font-mono uppercase font-bold text-stone-100">[{role}]</span>.
+              <p className="text-stone-700 leading-relaxed">
+                The administrative file or dashboard you tried to access requires active <span className="text-amber-800 font-bold uppercase">Admin</span> credentials. Your current account role is <span className="font-mono uppercase font-bold text-stone-950">[{role}]</span>.
               </p>
             </div>
           </div>
         )}
 
         {/* Profile Header */}
-        <div className="bg-stone-900/80 border border-stone-800 rounded-2xl p-6 sm:p-8 backdrop-blur-xl relative overflow-hidden">
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-8 shadow-sm relative overflow-hidden">
           <div className="absolute top-0 right-0 w-64 h-64 bg-amber-500/5 rounded-full blur-3xl pointer-events-none" />
 
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative z-10">
             <div className="flex items-center gap-4">
-              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-700 flex items-center justify-center text-stone-950 font-bold text-2xl shadow-xl shadow-amber-500/20">
+              <div className="w-16 h-16 rounded-2xl bg-gradient-to-br from-stone-900 to-stone-950 text-amber-400 flex items-center justify-center font-bold text-2xl shadow-lg border border-stone-800">
                 {user.name ? user.name[0].toUpperCase() : "U"}
               </div>
               <div>
                 <div className="flex items-center gap-2 flex-wrap">
-                  <h1 className="text-2xl font-serif font-bold text-stone-100">
+                  <h1 className="text-2xl font-serif font-bold text-stone-950">
                     {user.name || "Collector"}
                   </h1>
 
                   {/* Role Badges */}
                   {role === "admin" && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-500/10 border border-red-500/30 text-red-400 text-[11px] font-bold font-mono">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-red-50 border border-red-200 text-red-700 text-[11px] font-bold font-mono">
                       <ShieldAlert className="w-3 h-3" />
                       ADMINISTRATOR
                     </span>
                   )}
                   {role === "moderator" && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-400 text-[11px] font-bold font-mono">
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-blue-50 border border-blue-200 text-blue-700 text-[11px] font-bold font-mono">
                       <Shield className="w-3 h-3" />
                       MODERATOR
                     </span>
                   )}
                   {role === "user" && (
-                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 text-[11px] font-medium">
-                      <ShieldCheck className="w-3 h-3" />
+                    <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-[11px] font-bold">
+                      <ShieldCheck className="w-3 h-3 text-emerald-600" />
                       Verified Member
                     </span>
                   )}
                 </div>
                 {user.username && (
-                  <p className="text-sm text-amber-500/90 font-mono mt-0.5">
+                  <p className="text-sm text-amber-800 font-mono mt-0.5 font-bold">
                     @{user.username}
                   </p>
                 )}
-                <p className="text-xs text-stone-400 mt-1">{user.email}</p>
+                <p className="text-xs text-stone-500 mt-1">{user.email}</p>
               </div>
             </div>
 
             <button
               onClick={handleSignOut}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-800/80 hover:bg-stone-800 text-stone-300 hover:text-red-400 border border-stone-700/60 hover:border-red-500/30 text-xs font-medium transition cursor-pointer"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-red-700 border border-stone-200 text-xs font-semibold transition cursor-pointer"
             >
               <LogOut className="w-4 h-4" />
               <span>Sign Out</span>
@@ -153,20 +153,21 @@ function ProfileContent() {
         </div>
 
         {/* Account Details & Role Metrics */}
+        {/* Account Details & Role Metrics */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="bg-stone-900/60 border border-stone-800/80 rounded-xl p-5">
-            <div className="text-stone-400 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <KeyRound className="w-3.5 h-3.5 text-amber-400" />
+          <div className="bg-white border border-stone-200/90 rounded-2xl p-5 shadow-2xs">
+            <div className="text-stone-500 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <KeyRound className="w-3.5 h-3.5 text-amber-600" />
               <span>Account Type</span>
             </div>
-            <p className="text-base font-semibold text-stone-100 capitalize">
+            <p className="text-base font-bold text-stone-900 capitalize">
               {role === "admin"
                 ? "Executive Admin"
                 : role === "moderator"
                 ? "Content Moderator"
                 : "Collector Member"}
             </p>
-            <p className="text-[10px] text-stone-400 mt-1">
+            <p className="text-[11px] text-stone-500 mt-1">
               {role === "admin"
                 ? "Full administrative control"
                 : role === "moderator"
@@ -175,41 +176,41 @@ function ProfileContent() {
             </p>
           </div>
 
-          <div className="bg-stone-900/60 border border-stone-800/80 rounded-xl p-5">
-            <div className="text-stone-400 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+          <div className="bg-white border border-stone-200/90 rounded-2xl p-5 shadow-2xs">
+            <div className="text-stone-500 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
               <span>Role Activation</span>
             </div>
-            <p className="text-base font-semibold text-emerald-400">
+            <p className="text-base font-bold text-emerald-700">
               Admin-Governed
             </p>
-            <p className="text-[10px] text-stone-400 mt-1">
+            <p className="text-[11px] text-stone-500 mt-1">
               Roles can only be turned on by authorized administrators
             </p>
           </div>
 
-          <div className="bg-stone-900/60 border border-stone-800/80 rounded-xl p-5">
-            <div className="text-stone-400 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
-              <Sparkles className="w-3.5 h-3.5 text-amber-400" />
+          <div className="bg-white border border-stone-200/90 rounded-2xl p-5 shadow-2xs">
+            <div className="text-stone-500 text-xs font-mono uppercase tracking-wider mb-1 flex items-center gap-1.5">
+              <Sparkles className="w-3.5 h-3.5 text-amber-600" />
               <span>Tier Benefits</span>
             </div>
-            <p className="text-base font-semibold text-stone-100">
+            <p className="text-base font-bold text-stone-900">
               Archival Quality
             </p>
-            <p className="text-[10px] text-stone-400 mt-1">
+            <p className="text-[11px] text-stone-500 mt-1">
               300+ GSM Archival Canvas &amp; Pine Frames
             </p>
           </div>
         </div>
 
         {/* Dedicated Navigation: My Orders & My Shopping Cart */}
-        <div className="bg-stone-900/80 border border-stone-800 rounded-2xl p-6 space-y-4">
+        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-7 space-y-4 shadow-sm">
           <div>
-            <h3 className="text-base font-serif font-bold text-stone-100 flex items-center gap-2">
-              <Package className="w-4 h-4 text-amber-500" />
+            <h3 className="text-base font-serif font-bold text-stone-950 flex items-center gap-2">
+              <Package className="w-4 h-4 text-amber-600" />
               <span>Shopping &amp; Order Services</span>
             </h3>
-            <p className="text-xs text-stone-400 mt-1">
+            <p className="text-xs text-stone-600 mt-1">
               Track live deliveries, view past orders, and inspect your full shopping bag.
             </p>
           </div>
@@ -217,56 +218,56 @@ function ProfileContent() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
             <Link
               href="/orders"
-              className="flex items-center justify-between p-4 rounded-xl bg-stone-950/70 border border-stone-800/80 hover:border-amber-500/50 transition group"
+              className="flex items-center justify-between p-4 rounded-2xl bg-stone-50/70 border border-stone-200 hover:border-amber-400 hover:bg-amber-50/20 transition group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-amber-100 text-amber-800 flex items-center justify-center font-bold">
                   <Package className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-stone-200 group-hover:text-amber-400 transition">
+                  <h4 className="text-xs font-bold text-stone-900 group-hover:text-amber-800 transition">
                     My Orders &amp; Tracking
                   </h4>
-                  <p className="text-[10px] text-stone-400">
+                  <p className="text-[11px] text-stone-500">
                     Live delivery status &amp; order history
                   </p>
                 </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-amber-400 group-hover:translate-x-1 transition" />
+              <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-amber-700 group-hover:translate-x-1 transition" />
             </Link>
 
             <Link
               href="/cart"
-              className="flex items-center justify-between p-4 rounded-xl bg-stone-950/70 border border-stone-800/80 hover:border-amber-500/50 transition group"
+              className="flex items-center justify-between p-4 rounded-2xl bg-stone-50/70 border border-stone-200 hover:border-rose-400 hover:bg-rose-50/20 transition group"
             >
               <div className="flex items-center gap-3">
-                <div className="w-9 h-9 rounded-lg bg-rose-500/10 text-rose-400 flex items-center justify-center">
+                <div className="w-9 h-9 rounded-xl bg-rose-100 text-rose-800 flex items-center justify-center font-bold">
                   <ShoppingBag className="w-5 h-5" />
                 </div>
                 <div>
-                  <h4 className="text-xs font-bold text-stone-200 group-hover:text-rose-400 transition">
+                  <h4 className="text-xs font-bold text-stone-900 group-hover:text-rose-800 transition">
                     My Shopping Bag &amp; Details
                   </h4>
-                  <p className="text-[10px] text-stone-400">
+                  <p className="text-[11px] text-stone-500">
                     Inspect combo discounts &amp; place order
                   </p>
                 </div>
               </div>
-              <ArrowRight className="w-4 h-4 text-stone-500 group-hover:text-rose-400 group-hover:translate-x-1 transition" />
+              <ArrowRight className="w-4 h-4 text-stone-400 group-hover:text-rose-700 group-hover:translate-x-1 transition" />
             </Link>
           </div>
         </div>
 
         {/* Administrator Operations Control (Visible ONLY to Admins) */}
         {role === "admin" && (
-          <div className="bg-stone-900/80 border border-red-500/30 rounded-2xl p-6 sm:p-7 space-y-4 relative overflow-hidden">
+          <div className="bg-stone-900 text-stone-100 border border-red-500/30 rounded-3xl p-6 sm:p-7 space-y-4 relative overflow-hidden shadow-xl">
             <div className="flex items-center gap-2 text-xs font-mono text-red-400 font-bold uppercase tracking-wider">
               <ShieldAlert className="w-4 h-4" />
               <span>Administrator Executive Control</span>
             </div>
 
             <div>
-              <h3 className="text-lg font-serif font-bold text-stone-100">
+              <h3 className="text-lg font-serif font-bold text-white">
                 Store Operations &amp; Catalog Management
               </h3>
               <p className="text-xs text-stone-400 mt-1">
@@ -277,7 +278,7 @@ function ProfileContent() {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2">
               <Link
                 href="/admin"
-                className="flex items-center justify-between p-4 rounded-xl bg-amber-500/10 border border-amber-500/30 hover:border-amber-400 transition group sm:col-span-2"
+                className="flex items-center justify-between p-4 rounded-xl bg-stone-800/80 border border-amber-500/40 hover:border-amber-400 transition group sm:col-span-2"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center">
@@ -297,7 +298,7 @@ function ProfileContent() {
 
               <Link
                 href="/admin/users"
-                className="flex items-center justify-between p-4 rounded-xl bg-stone-900/90 border border-stone-800 hover:border-amber-500/50 transition group"
+                className="flex items-center justify-between p-4 rounded-xl bg-stone-800/80 border border-stone-700 hover:border-amber-500/50 transition group"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-amber-500/10 text-amber-400 flex items-center justify-center">
@@ -317,7 +318,7 @@ function ProfileContent() {
 
               <Link
                 href="/admin/add-product"
-                className="flex items-center justify-between p-4 rounded-xl bg-stone-900/90 border border-stone-800 hover:border-red-500/50 transition group"
+                className="flex items-center justify-between p-4 rounded-xl bg-stone-800/80 border border-stone-700 hover:border-red-500/50 transition group"
               >
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-lg bg-red-500/10 text-red-400 flex items-center justify-center">
@@ -338,34 +339,17 @@ function ProfileContent() {
           </div>
         )}
 
-        {/* Moderator Badge Details (Visible when Moderator) */}
-        {role === "moderator" && (
-          <div className="bg-blue-950/20 border border-blue-500/20 rounded-2xl p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-blue-500/10 text-blue-400 flex items-center justify-center shrink-0">
-              <Shield className="w-5 h-5" />
-            </div>
-            <div>
-              <h4 className="text-sm font-semibold text-blue-300">
-                Moderator Access Privileges
-              </h4>
-              <p className="text-xs text-stone-400 mt-1 leading-relaxed">
-                Your account has been turned on as a Moderator by the Store Administrator. You are authorized to review customer designs and assist in community curation. Full catalog modifications and role updates remain reserved for Administrators.
-              </p>
-            </div>
-          </div>
-        )}
-
         {/* Regular Customer Notice */}
         {role === "user" && (
-          <div className="bg-stone-900/40 border border-stone-800/80 rounded-2xl p-5 flex items-start gap-4">
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 text-emerald-400 flex items-center justify-center shrink-0">
-              <ShieldCheck className="w-5 h-5" />
+          <div className="bg-white border border-stone-200/90 rounded-3xl p-5 sm:p-6 flex items-start gap-4 shadow-2xs">
+            <div className="w-10 h-10 rounded-xl bg-emerald-100 text-emerald-800 flex items-center justify-center shrink-0 border border-emerald-200">
+              <ShieldCheck className="w-5 h-5 text-emerald-700" />
             </div>
             <div>
-              <h4 className="text-sm font-semibold text-stone-200">
+              <h4 className="text-sm font-bold text-stone-900">
                 CanvasCraft Collector Membership
               </h4>
-              <p className="text-xs text-stone-400 mt-1 leading-relaxed">
+              <p className="text-xs text-stone-600 mt-1 leading-relaxed">
                 Explore our premium museum-quality canvas artworks, choose proportional wall sizes, and enjoy nationwide doorstep delivery across 64 districts.
               </p>
             </div>
@@ -376,30 +360,30 @@ function ProfileContent() {
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <Link
             href="/#combos"
-            className="group block p-6 rounded-2xl bg-gradient-to-br from-stone-900 to-stone-900/40 border border-stone-800 hover:border-amber-500/40 transition"
+            className="group block p-6 rounded-3xl bg-white border border-stone-200/90 hover:border-rose-300 shadow-2xs hover:shadow-md transition"
           >
-            <div className="w-10 h-10 rounded-xl bg-rose-500/10 text-rose-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
+            <div className="w-10 h-10 rounded-xl bg-rose-50 text-rose-700 flex items-center justify-center mb-4 group-hover:scale-110 transition border border-rose-200">
               <Flame className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-semibold text-stone-100 mb-1 group-hover:text-amber-300 transition">
+            <h3 className="text-base font-bold text-stone-950 mb-1 group-hover:text-rose-800 transition">
               View Combo Deals
             </h3>
-            <p className="text-xs text-stone-400">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Browse multi-piece wall board combos (3, 6, 9 &amp; 12 pieces) starting from ৳ 300.
             </p>
           </Link>
 
           <Link
             href="/products"
-            className="group block p-6 rounded-2xl bg-gradient-to-br from-stone-900 to-stone-900/40 border border-stone-800 hover:border-amber-500/40 transition"
+            className="group block p-6 rounded-3xl bg-white border border-stone-200/90 hover:border-amber-300 shadow-2xs hover:shadow-md transition"
           >
-            <div className="w-10 h-10 rounded-xl bg-amber-500/10 text-amber-400 flex items-center justify-center mb-4 group-hover:scale-110 transition">
-              <ShoppingBag className="w-5 h-5" />
+            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center mb-4 group-hover:scale-110 transition border border-amber-200">
+              <ShoppingBag className="w-5 h-5 text-amber-700" />
             </div>
-            <h3 className="text-base font-semibold text-stone-100 mb-1 group-hover:text-amber-300 transition">
+            <h3 className="text-base font-bold text-stone-950 mb-1 group-hover:text-amber-800 transition">
               Explore Art Catalog
             </h3>
-            <p className="text-xs text-stone-400">
+            <p className="text-xs text-stone-600 leading-relaxed">
               Browse Islamic calligraphy, modern abstracts, and minimal gallery collections.
             </p>
           </Link>
@@ -413,8 +397,8 @@ export default function ProfilePage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-stone-950">
-          <div className="flex items-center gap-3 text-stone-400 text-sm">
+        <div className="min-h-screen pt-32 pb-20 px-4 flex items-center justify-center bg-[#faf8f5]">
+          <div className="flex items-center gap-3 text-stone-600 text-sm">
             <div className="w-5 h-5 border-2 border-amber-500 border-t-transparent rounded-full animate-spin" />
             <span>Loading membership profile...</span>
           </div>

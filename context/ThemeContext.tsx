@@ -15,21 +15,47 @@ const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
 const THEME_STORAGE_KEY = 'canvascraft_theme';
 
+function applyDOMTheme(isDark: boolean) {
+  if (typeof document === 'undefined') return;
+  const root = document.documentElement;
+  const body = document.body;
+
+  if (isDark) {
+    root.classList.add('dark');
+    if (body) body.classList.add('dark');
+    root.setAttribute('data-theme', 'dark');
+    root.style.colorScheme = 'dark';
+  } else {
+    root.classList.remove('dark');
+    if (body) body.classList.remove('dark');
+    root.setAttribute('data-theme', 'light');
+    root.style.colorScheme = 'light';
+  }
+}
+
 export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const [theme, setThemeState] = useState<Theme>('system');
   const [resolvedTheme, setResolvedTheme] = useState<'light' | 'dark'>('light');
   const [mounted, setMounted] = useState(false);
 
-  // Read saved theme from localStorage on mount
+  // Read saved theme from localStorage on mount and apply immediately
   useEffect(() => {
+    let initialTheme: Theme = 'system';
     try {
       const savedTheme = localStorage.getItem(THEME_STORAGE_KEY) as Theme | null;
       if (savedTheme && (savedTheme === 'light' || savedTheme === 'dark' || savedTheme === 'system')) {
+        initialTheme = savedTheme;
         setThemeState(savedTheme);
       }
     } catch {
       // Fallback if localStorage is inaccessible
     }
+
+    const isDark =
+      initialTheme === 'dark' ||
+      (initialTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    applyDOMTheme(isDark);
+    setResolvedTheme(isDark ? 'dark' : 'light');
     setMounted(true);
   }, []);
 
@@ -37,35 +63,22 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     if (!mounted) return;
 
-    const root = document.documentElement;
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
 
-    const applyTheme = () => {
-      let isDark = false;
-      if (theme === 'dark') {
-        isDark = true;
-      } else if (theme === 'light') {
-        isDark = false;
-      } else {
-        // System preference
-        isDark = mediaQuery.matches;
-      }
-
-      if (isDark) {
-        root.classList.add('dark');
-        setResolvedTheme('dark');
-      } else {
-        root.classList.remove('dark');
-        setResolvedTheme('light');
-      }
+    const updateFromCurrent = () => {
+      const isDark =
+        theme === 'dark' ||
+        (theme === 'system' && mediaQuery.matches);
+      applyDOMTheme(isDark);
+      setResolvedTheme(isDark ? 'dark' : 'light');
     };
 
-    applyTheme();
+    updateFromCurrent();
 
     // Listen for OS system theme changes if set to 'system'
     const handleMediaChange = () => {
       if (theme === 'system') {
-        applyTheme();
+        updateFromCurrent();
       }
     };
 
@@ -75,6 +88,14 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
 
   const setTheme = (newTheme: Theme) => {
     setThemeState(newTheme);
+
+    // Compute and apply to DOM synchronously without waiting for React cycle
+    const isDark =
+      newTheme === 'dark' ||
+      (newTheme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches);
+    applyDOMTheme(isDark);
+    setResolvedTheme(isDark ? 'dark' : 'light');
+
     try {
       localStorage.setItem(THEME_STORAGE_KEY, newTheme);
     } catch {
@@ -87,8 +108,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     } else if (newTheme === 'light') {
       toast.success('Switched to Day Mode ☀️', { id: 'theme-toast' });
     } else {
-      const isSysDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-      toast.success(`Device Mode Active (${isSysDark ? 'Night' : 'Day'}) 💻`, { id: 'theme-toast' });
+      toast.success(`Device Mode Active (${isDark ? 'Night' : 'Day'}) 💻`, { id: 'theme-toast' });
     }
   };
 

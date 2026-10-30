@@ -163,10 +163,15 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   const cmHeight = Math.round(physHeight * 2.54);
 
   // Living room wall perspective scale calculation
-  const WALL_HORIZON_INCHES = 100;
-  const WALL_VERTICAL_INCHES = 75;
-  const artWidthPct = Math.min(48, Math.max(16, (physWidth / WALL_HORIZON_INCHES) * 100));
-  const artHeightPct = Math.min(48, Math.max(14, (physHeight / WALL_VERTICAL_INCHES) * 100));
+  // Maps physical inches to proportional wall width footprints:
+  // - 16×24″ sits at the prime ~19.5% wall width above the 84″ sofa
+  // - Smaller sizes (6×8″ Mini Tile, 8×12″ Classic Board, 12×16″ Medium Print) scale down cleanly and visibly
+  // - Grand sizes (20×30″, 24×36″) expand impressively across the wall
+  const artWidthPct = isSquare
+    ? Math.round((10.5 + ((physWidth - 6) / 18) * 24) * 10) / 10
+    : isLandscape
+    ? Math.round((13.5 + ((physWidth - 8) / 28) * 28.5) * 10) / 10
+    : Math.round((9.5 + ((physWidth - 6) / 18) * 18) * 10) / 10;
 
   // Dynamic Pricing Calculation
   const basePrice = selectedMaterial === 'pvc' ? selectedSize.pricePvc : selectedSize.priceCanvas;
@@ -344,7 +349,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                     left: '52.4%',
                     top: '30.5%',
                     width: `${artWidthPct}%`,
-                    height: `${artHeightPct}%`,
+                    aspectRatio: `${physWidth} / ${physHeight}`,
                     transform: 'translate(-50%, -50%)',
                   }}
                 >
@@ -396,9 +401,9 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 <div
                   className="relative transition-all duration-300 flex items-center justify-center max-w-[92%] max-h-[92%]"
                   style={{
-                    aspectRatio: isLandscape ? '3/2' : isSquare ? '1/1' : '2/3',
-                    width: isLandscape ? '100%' : 'auto',
-                    height: isLandscape ? 'auto' : '100%',
+                    aspectRatio: `${physWidth} / ${physHeight}`,
+                    width: physWidth >= physHeight ? '100%' : 'auto',
+                    height: physWidth >= physHeight ? 'auto' : '100%',
                   }}
                 >
                   <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300 dark:border-stone-700 bg-white dark:bg-stone-900 shadow-2xl">

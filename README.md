@@ -94,9 +94,8 @@ canvascraft/
 │   │   ├── Navbar.tsx             # Responsive Header, Login Pill & Mobile Drawer
 │   │   └── Footer.tsx             # Guarantees, Dhaka Workshop & Contact Info
 │   ├── products/
-│   │   └── AddToCartModal.tsx     # Quick Size, Material & Frame Selector
-│   └── studio/
-│       └── StudioCustomizer.tsx   # Living Room Simulator, Scaling & Upload Engine
+│   │   ├── CanvasCard.tsx         # Art Gallery Card Display
+│   │   └── ProductDetailContent.tsx # Living Room Simulator, Scaling & Sticky Stage
 ├── context/
 │   └── CartContext.tsx            # Universal Cart State & WhatsApp URL Builder
 ├── data/

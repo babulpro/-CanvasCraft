@@ -2,6 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { Product } from '@/types';
 import { ArrowRight } from 'lucide-react';
 
@@ -41,11 +42,13 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
         >
           {/* Canvas Artwork with Crisp Clean Edge & 3D Depth */}
           <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300/80 bg-white shadow-[0_12px_24px_-4px_rgba(35,25,15,0.22),0_4px_8px_-2px_rgba(35,25,15,0.12)]">
-            <img
+            <Image
               src={product.image}
               alt={product.title}
-              loading={priority ? 'eager' : 'lazy'}
-              className="w-full h-full object-cover block select-none"
+              fill
+              priority={priority}
+              sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
+              className="object-cover block select-none"
             />
 
             {/* Subtle Archival Linen Texture Sheen */}

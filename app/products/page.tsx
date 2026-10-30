@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { Product, AuthUser } from '@/types';
 import { useSession } from '@/lib/auth-client';
-import AddToCartModal from '@/components/products/AddToCartModal';
 import CanvasCard from '@/components/products/CanvasCard';
 import { Search, ShoppingBag, Sparkles, Filter, PlusCircle } from 'lucide-react';
 
@@ -27,7 +26,6 @@ export default function ProductsPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>('All Artworks');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [sortBy, setSortBy] = useState<'featured' | 'price-low' | 'price-high'>('featured');
-  const [modalProduct, setModalProduct] = useState<Product | null>(null);
 
   // Initialize category from URL parameter (?cat=...) if present
   useEffect(() => {
@@ -158,12 +156,6 @@ export default function ProductsPage() {
         )}
 
       </div>
-
-      {/* Quick Add To Bag Modal */}
-      <AddToCartModal
-        product={modalProduct}
-        onClose={() => setModalProduct(null)}
-      />
     </div>
   );
 }

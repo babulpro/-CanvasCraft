@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { STANDARD_SIZES } from '@/data/combo-packages';
@@ -318,11 +319,14 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               <div className="relative w-full aspect-[4/3] max-h-[46vh] sm:max-h-[620px] xl:max-h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
                 
                 {/* 1. Photorealistic Living Room Scene with Exact Wall Color Paint, Real Sofa & Tea Table */}
-                <img
+                <Image
                   key={wallColor.id}
                   src={wallColor.imageSrc}
                   alt={`Living Room with ${wallColor.name} Wall, Real Sofa and Tea Table`}
-                  className="w-full h-full object-cover pointer-events-none select-none transition-all duration-300"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 65vw"
+                  className="object-cover pointer-events-none select-none transition-all duration-300"
                 />
 
                 {/* 2. The Artwork on the Far Wall — True Architectural Perspective, Frameless / Gallery Wrap */}
@@ -344,10 +348,13 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                       borderRadius: '0px'
                     }}
                   >
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.title}
-                      className="w-full h-full object-cover select-none rounded-none block pointer-events-auto"
+                      fill
+                      priority
+                      sizes="(max-width: 1024px) 70vw, 45vw"
+                      className="object-cover select-none rounded-none block pointer-events-auto"
                     />
 
                     {/* 2-3mm Slim Edge/Border (Customizable Color) */}
@@ -442,9 +449,12 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                       borderRadius: '0px'
                     }}
                   >
-                    <img
+                    <Image
                       src={product.image}
                       alt={product.title}
+                      width={600}
+                      height={800}
+                      sizes="(max-width: 640px) 280px, 440px"
                       className="block max-h-[220px] sm:max-h-[360px] max-w-[280px] sm:max-w-[440px] w-auto h-auto object-contain select-none group-hover/studio:scale-[1.02] transition-transform duration-500 rounded-none"
                     />
 
@@ -908,10 +918,13 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
           <div className="relative max-w-5xl max-h-[90vh] flex flex-col items-center justify-center">
             <div className="relative inline-block">
-              <img
+              <Image
                 src={product.image}
                 alt={product.title}
-                className="max-w-full max-h-[82vh] object-contain rounded-none block"
+                width={1200}
+                height={1600}
+                sizes="(max-width: 1280px) 90vw, 1200px"
+                className="max-w-full max-h-[82vh] w-auto h-auto object-contain rounded-none block"
               />
               {/* 2-3mm Slim Edge/Border (Customizable Color) in Zoom View */}
               {selectedBorder.id !== 'none' && (

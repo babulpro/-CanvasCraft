@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect, useMemo } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { PRODUCTS } from '@/data/products';
 import { Product } from '@/types';
-import AddToCartModal from '@/components/products/AddToCartModal';
 import CanvasCard from '@/components/products/CanvasCard';
 import {
   Sparkles,
@@ -32,7 +32,6 @@ const HOME_CATEGORIES = [
 ] as const;
 
 export default function HomePage() {
-  const [modalProduct, setModalProduct] = useState<Product | null>(null);
   const [allProducts, setAllProducts] = useState<Product[]>(PRODUCTS);
   const [selectedCategory, setSelectedCategory] = useState<string>('All Trending');
 
@@ -119,13 +118,16 @@ export default function HomePage() {
 
             {/* Right Hero Visual (Teaser Preview) */}
             <div className="lg:col-span-5 relative">
-              <div className="relative rounded-3xl overflow-hidden bg-white p-3.5 shadow-2xl border border-stone-200/90 group ring-1 ring-stone-900/5">
-                <img
+              <div className="relative rounded-3xl overflow-hidden bg-white p-3.5 shadow-2xl border border-stone-200/90 group ring-1 ring-stone-900/5 aspect-[4/5] w-full">
+                <Image
                   src="/assets/portrait_art.jpg"
                   alt="CanvasCraft Studio Preview"
-                  className="w-full rounded-2xl object-cover aspect-[4/5] group-hover:scale-102 transition duration-500"
+                  fill
+                  priority
+                  sizes="(max-width: 1024px) 100vw, 500px"
+                  className="rounded-2xl object-cover p-3.5 group-hover:scale-102 transition duration-500"
                 />
-                <div className="absolute bottom-6 left-6 right-6 bg-stone-950/85 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center justify-between text-white shadow-xl">
+                <div className="absolute bottom-6 left-6 right-6 bg-stone-950/85 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center justify-between text-white shadow-xl z-10">
                   <div>
                     <span className="text-xs font-mono text-amber-400 font-bold block">16×24″ Studio Canvas</span>
                     <span className="text-sm sm:text-base font-bold text-white">Renaissance Oil Portrait</span>
@@ -182,8 +184,14 @@ export default function HomePage() {
                       key={tIdx}
                       className="relative aspect-[3/4] rounded-xs overflow-hidden shadow-[0_4px_8px_rgba(35,25,15,0.22)] border-[1.5px] border-white group-hover:scale-105 transition-transform duration-300"
                     >
-                      <img src={tile.img} alt={tile.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none" />
+                      <Image
+                        src={tile.img}
+                        alt={tile.title}
+                        fill
+                        sizes="(max-width: 768px) 33vw, 150px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/20 via-transparent to-white/10 pointer-events-none z-10" />
                     </div>
                   ))}
                 </div>
@@ -238,8 +246,14 @@ export default function HomePage() {
                       key={pIdx}
                       className="relative aspect-[2/3] rounded-none overflow-hidden shadow-[0_8px_16px_-2px_rgba(35,25,15,0.28)] border-[2px] border-white group-hover:-translate-y-1 transition-transform duration-300"
                     >
-                      <img src={panel.img} alt={panel.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/20 pointer-events-none" />
+                      <Image
+                        src={panel.img}
+                        alt={panel.title}
+                        fill
+                        sizes="(max-width: 768px) 33vw, 180px"
+                        className="object-cover"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/20 pointer-events-none z-10" />
                     </div>
                   ))}
                 </div>
@@ -282,13 +296,15 @@ export default function HomePage() {
               {/* Visual Solo Statement 16x24 Canvas Mockup (Real Stretched Canvas from DB) */}
               <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80 flex flex-col items-center justify-center">
                 <div className="relative w-48 sm:w-36 aspect-[2/3] rounded-none overflow-hidden shadow-[0_14px_28px_-4px_rgba(35,25,15,0.35),3px_3px_0px_rgba(50,40,30,0.22)] border border-stone-300 group-hover:scale-105 transition-transform duration-300">
-                  <img
+                  <Image
                     src="https://res.cloudinary.com/dmyekmpy3/image/upload/v1792493937/canvascraft/artworks/yysvud3nmdlvhjtmwufp.jpg"
                     alt="16x24 Whispers of the Sunset Solo Canvas"
-                    className="w-full h-full object-cover"
+                    fill
+                    sizes="200px"
+                    className="object-cover"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/25 pointer-events-none" />
-                  <div className="absolute bottom-1.5 left-1.5 bg-black/80 text-amber-300 text-[9px] font-mono px-1.5 py-0.5 rounded">
+                  <div className="absolute inset-0 bg-gradient-to-tr from-black/15 via-transparent to-white/25 pointer-events-none z-10" />
+                  <div className="absolute bottom-1.5 left-1.5 bg-black/80 text-amber-300 text-[9px] font-mono px-1.5 py-0.5 rounded z-10">
                     16×24″ Solo
                   </div>
                 </div>
@@ -405,12 +421,6 @@ export default function HomePage() {
           </div>
         </div>
       </section>
-
-      {/* Add To Bag Modal */}
-      <AddToCartModal
-        product={modalProduct}
-        onClose={() => setModalProduct(null)}
-      />
 
     </div>
   );

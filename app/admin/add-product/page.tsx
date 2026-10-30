@@ -2,6 +2,7 @@
 
 import React, { useState, useRef } from "react";
 import Link from "next/link";
+import NextImage from "next/image";
 import { useRouter } from "next/navigation";
 import { useSession } from "@/lib/auth-client";
 import { AuthUser } from "@/types";
@@ -329,11 +330,13 @@ export default function AddProductPage() {
 
             {imageUrl ? (
               <div className="space-y-4">
-                <div className="relative rounded-xl overflow-hidden border border-stone-700 bg-stone-950 flex items-center justify-center max-h-80">
-                  <img
+                <div className="relative rounded-xl overflow-hidden border border-stone-700 bg-stone-950 flex items-center justify-center h-80 w-full">
+                  <NextImage
                     src={imageUrl}
                     alt="Uploaded Artwork"
-                    className="max-h-80 w-auto object-contain"
+                    fill
+                    sizes="(max-width: 768px) 100vw, 500px"
+                    className="object-contain"
                   />
                   <div className="absolute top-3 right-3 flex items-center gap-2">
                     <span className="px-2.5 py-1 rounded-full bg-emerald-900/90 text-emerald-200 text-[10px] font-mono font-bold border border-emerald-500/30">

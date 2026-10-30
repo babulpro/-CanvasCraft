@@ -152,8 +152,8 @@ export default function CartDrawer() {
                       <div className="flex gap-3">
                         {/* Thumbnail */}
                         <div className="w-16 h-16 rounded-xl overflow-hidden bg-stone-900 shrink-0 relative border border-stone-200">
-                          <img src={it.image} alt={it.title} className="w-full h-full object-cover" />
-                          <span className="absolute bottom-0.5 right-0.5 bg-black/75 text-white text-[9px] font-mono px-1 rounded">
+                          <Image src={it.image} alt={it.title} fill sizes="64px" className="object-cover" />
+                          <span className="absolute bottom-0.5 right-0.5 bg-black/75 text-white text-[9px] font-mono px-1 rounded z-10">
                             {it.sizeCode}
                           </span>
                         </div>
@@ -198,8 +198,8 @@ export default function CartDrawer() {
                                 className="relative rounded-md overflow-hidden bg-stone-900 border border-stone-200 h-9"
                                 title={p.fileName || `Photo #${pIdx + 1}`}
                               >
-                                <img src={p.thumb || p.src} alt="Piece" className="w-full h-full object-cover" />
-                                <span className="absolute top-0.5 left-0.5 bg-black/75 text-white text-[8px] font-mono font-bold px-1 rounded">
+                                <Image src={p.thumb || p.src} alt="Piece" fill sizes="40px" className="object-cover" />
+                                <span className="absolute top-0.5 left-0.5 bg-black/75 text-white text-[8px] font-mono font-bold px-1 rounded z-10">
                                   #{pIdx + 1}
                                 </span>
                               </div>

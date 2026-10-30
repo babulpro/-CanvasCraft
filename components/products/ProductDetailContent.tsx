@@ -163,15 +163,13 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
   const cmHeight = Math.round(physHeight * 2.54);
 
   // Living room wall perspective scale calculation
-  // Maps physical inches to proportional wall width footprints:
-  // - 16×24″ sits at the prime ~19.5% wall width above the 84″ sofa
-  // - Smaller sizes (6×8″ Mini Tile, 8×12″ Classic Board, 12×16″ Medium Print) scale down cleanly and visibly
-  // - Grand sizes (20×30″, 24×36″) expand impressively across the wall
+  // Bounded so that even grand canvases (20×30″, 24×36″) stay strictly below
+  // the ceiling line (y=9.5%) and above the sofa cushions (y=56.8%).
   const artWidthPct = isSquare
-    ? Math.round((10.5 + ((physWidth - 6) / 18) * 24) * 10) / 10
+    ? Math.round((8.5 + ((physWidth - 6) / 18) * 18.5) * 10) / 10
     : isLandscape
-    ? Math.round((13.5 + ((physWidth - 8) / 28) * 28.5) * 10) / 10
-    : Math.round((9.5 + ((physWidth - 6) / 18) * 18) * 10) / 10;
+    ? Math.round((12.0 + ((physWidth - 8) / 28) * 24.0) * 10) / 10
+    : Math.round((7.5 + ((physWidth - 6) / 18) * 10.7) * 10) / 10;
 
   // Dynamic Pricing Calculation
   const basePrice = selectedMaterial === 'pvc' ? selectedSize.pricePvc : selectedSize.priceCanvas;
@@ -346,8 +344,8 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 <div
                   className="absolute z-20 flex items-center justify-center pointer-events-none transition-all duration-500 ease-out"
                   style={{
-                    left: '52.4%',
-                    top: '30.5%',
+                    left: '50.2%',
+                    top: '32.5%',
                     width: `${artWidthPct}%`,
                     aspectRatio: `${physWidth} / ${physHeight}`,
                     transform: 'translate(-50%, -50%)',

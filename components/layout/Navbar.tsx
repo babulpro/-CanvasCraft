@@ -138,7 +138,7 @@ export default function Navbar() {
                 }`}
               >
                 <Grid className="w-3.5 h-3.5 text-amber-600" />
-                <span>All Products</span>
+                <span>Gallery</span>
               </Link>
 
               <Link
@@ -265,27 +265,27 @@ export default function Navbar() {
 
       {/* 3. Mobile Responsive Navigation Drawer (Rendered OUTSIDE <header> to prevent containing-block clipping!) */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-stone-950 text-stone-100">
+        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-[#faf8f5] text-stone-900">
           
           {/* Top Bar of Mobile Menu with Brand & Close Button */}
-          <div className="flex items-center justify-between px-4 h-16 border-b border-stone-800 bg-[#12100e] shrink-0">
+          <div className="flex items-center justify-between px-4 h-16 border-b border-stone-200/90 bg-white/95 backdrop-blur-md shrink-0">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
               className="flex items-center gap-2.5"
             >
-              <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-stone-900 to-stone-950 text-amber-400 font-serif font-bold flex items-center justify-center text-sm border border-stone-700">
+              <div className="w-8 h-8 rounded-xl bg-stone-950 text-amber-400 font-serif font-bold flex items-center justify-center text-sm shadow-xs">
                 C
               </div>
-              <span className="font-serif text-lg font-bold tracking-tight text-white">
-                CanvasCraft<span className="text-amber-500 font-sans text-xs ml-1 font-bold">BD</span>
+              <span className="font-serif text-lg font-bold tracking-tight text-stone-950">
+                CanvasCraft<span className="text-amber-600 font-sans text-xs ml-1 font-bold">BD</span>
               </span>
             </Link>
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-xl bg-stone-900 hover:bg-stone-800 text-stone-300 hover:text-white transition border border-stone-800 cursor-pointer"
+              className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-950 transition border border-stone-200 cursor-pointer"
               aria-label="Close navigation menu"
             >
               <X className="w-5 h-5" />
@@ -295,58 +295,58 @@ export default function Navbar() {
           {/* Scrollable Drawer Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             
-            {/* Mobile User Profile / Sign In Card (Prominent & Clear) */}
-            <div className="p-4 rounded-2xl bg-gradient-to-br from-[#24211e] via-[#1c1917] to-[#121110] border-2 border-amber-500/40 shadow-xl relative overflow-hidden">
-              <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-500/15 rounded-full blur-xl pointer-events-none" />
+            {/* Mobile User Profile / Sign In Card (Polished to match warm luxury UI) */}
+            <div className="p-4 rounded-2xl bg-white border border-stone-200/90 shadow-sm relative overflow-hidden">
+              <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
               {!mounted ? (
-                <div className="w-full h-14 bg-stone-800/60 rounded-xl animate-pulse" />
+                <div className="w-full h-14 bg-stone-100 rounded-xl animate-pulse" />
               ) : user ? (
                 /* Logged-In User Card */
                 <div className="space-y-3 relative z-10">
                   <div className="flex items-center justify-between gap-3">
                     <div className="flex items-center gap-3 min-w-0">
-                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-amber-700 text-stone-950 font-bold flex items-center justify-center text-base shadow-md shrink-0">
+                      <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-amber-500 to-amber-600 text-stone-950 font-bold flex items-center justify-center text-base shadow-xs shrink-0">
                         {user.name ? user.name[0].toUpperCase() : 'U'}
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <p className="font-bold text-stone-100 text-sm truncate">
+                          <p className="font-bold text-stone-950 text-sm truncate">
                             {user.name || 'Member'}
                           </p>
                           {isAdmin && (
-                            <span className="bg-red-600 text-white text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
+                            <span className="bg-red-100 text-red-800 border border-red-200 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
                               Admin
                             </span>
                           )}
                           {isModerator && (
-                            <span className="bg-blue-600 text-white text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
+                            <span className="bg-blue-100 text-blue-800 border border-blue-200 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
                               Moderator
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-stone-400 truncate mt-0.5 font-mono">
+                        <p className="text-xs text-stone-500 truncate mt-0.5 font-mono">
                           {user.email}
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-800/80">
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-100">
                     <Link
                       href="/profile"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-amber-400 font-semibold text-xs transition border border-stone-700"
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 font-semibold text-xs transition border border-stone-200"
                     >
-                      <User className="w-3.5 h-3.5" />
+                      <User className="w-3.5 h-3.5 text-amber-600" />
                       <span>My Profile</span>
                     </Link>
 
                     <Link
                       href="/orders"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-800 hover:bg-stone-700 text-stone-200 font-semibold text-xs transition border border-stone-700"
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 font-semibold text-xs transition border border-stone-200"
                     >
-                      <Package className="w-3.5 h-3.5 text-amber-500" />
+                      <Package className="w-3.5 h-3.5 text-amber-600" />
                       <span>My Orders</span>
                     </Link>
                   </div>
@@ -357,7 +357,7 @@ export default function Navbar() {
                       setMobileMenuOpen(false);
                       await signOut();
                     }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-950/40 hover:bg-red-900/50 text-red-300 hover:text-red-200 text-xs font-semibold border border-red-900/40 transition cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 hover:text-red-800 text-xs font-semibold border border-red-200 transition cursor-pointer"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>Log Out</span>
@@ -367,19 +367,19 @@ export default function Navbar() {
                 /* Not Logged In: Super Clear Sign In & Register Buttons */
                 <div className="space-y-3 relative z-10">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-500 text-stone-950 flex items-center justify-center shrink-0 shadow-md">
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center justify-center shrink-0 shadow-2xs">
                       <User className="w-5 h-5 stroke-[2.5]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h3 className="font-serif font-bold text-stone-100 text-sm">
+                        <h3 className="font-serif font-bold text-stone-950 text-sm">
                           CanvasCraft Account
                         </h3>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-400 bg-amber-500/15 border border-amber-500/30 px-1.5 py-0.2 rounded">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 border border-amber-300/80 px-1.5 py-0.2 rounded">
                           Free
                         </span>
                       </div>
-                      <p className="text-xs text-stone-300">
+                      <p className="text-xs text-stone-600">
                         Sign in to view orders &amp; saved designs
                       </p>
                     </div>
@@ -389,7 +389,7 @@ export default function Navbar() {
                     <Link
                       href="/sign-in"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-black text-xs transition shadow-lg shadow-amber-500/25 text-center"
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 active:bg-amber-600 text-stone-950 font-black text-xs transition shadow-md shadow-amber-500/20 text-center"
                     >
                       <User className="w-3.5 h-3.5 stroke-[2.5]" />
                       <span>Sign In / Login</span>
@@ -398,7 +398,7 @@ export default function Navbar() {
                     <Link
                       href="/sign-up"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-800/90 hover:bg-stone-700 text-stone-200 font-semibold text-xs transition border border-stone-700 text-center"
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-900 font-semibold text-xs transition border border-stone-200 text-center"
                     >
                       <span>Create Account</span>
                     </Link>
@@ -410,7 +410,7 @@ export default function Navbar() {
             {/* Main Nav Links on Mobile */}
             <div className="space-y-1.5">
               <p className="text-[10px] font-mono uppercase tracking-wider text-stone-500 px-2 pb-1">
-                Art Gallery &amp; Tools
+                Art Gallery &amp; Navigation
               </p>
 
               <Link
@@ -418,17 +418,24 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between p-3 rounded-xl transition ${
                   pathname === '/'
-                    ? 'bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30'
-                    : 'text-stone-200 hover:bg-stone-900'
+                    ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
+                    : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-stone-300">
+                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                    pathname === '/'
+                      ? 'bg-amber-200/80 text-amber-900'
+                      : 'bg-stone-100 border border-stone-200/80 text-stone-600'
+                  }`}>
                     🏠
                   </span>
-                  <span className="text-sm font-medium">Home Gallery</span>
+                  <div>
+                    <span className="text-sm font-semibold block">Home</span>
+                    <span className="text-[11px] text-stone-500">Return to storefront showcase</span>
+                  </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-stone-500" />
+                <ChevronRight className={`w-4 h-4 ${pathname === '/' ? 'text-amber-800' : 'text-stone-400'}`} />
               </Link>
 
               <Link
@@ -436,42 +443,46 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between p-3 rounded-xl transition ${
                   pathname === '/products'
-                    ? 'bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30'
-                    : 'text-stone-200 hover:bg-stone-900'
+                    ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
+                    : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
                 }`}
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-amber-500">
+                  <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                    pathname === '/products'
+                      ? 'bg-amber-200/80 text-amber-900'
+                      : 'bg-stone-100 border border-stone-200/80 text-amber-700'
+                  }`}>
                     <Grid className="w-4 h-4" />
                   </span>
                   <div>
-                    <span className="text-sm font-medium block">All Artworks</span>
-                    <span className="text-[11px] text-stone-400">Curated gallery catalog</span>
+                    <span className="text-sm font-semibold block">Gallery</span>
+                    <span className="text-[11px] text-stone-500">Curated gallery catalog</span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-stone-500" />
+                <ChevronRight className={`w-4 h-4 ${pathname === '/products' ? 'text-amber-800' : 'text-stone-400'}`} />
               </Link>
 
               <Link
                 href="/#combos"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl text-rose-300 hover:bg-stone-900 transition border border-rose-950/40 bg-rose-950/20"
+                className="flex items-center justify-between p-3 rounded-xl text-rose-900 hover:bg-rose-100/60 transition border border-rose-200/90 bg-rose-50/80"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-rose-500/20 border border-rose-500/30 flex items-center justify-center text-rose-400">
+                  <span className="w-8 h-8 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-600">
                     <Flame className="w-4 h-4" />
                   </span>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-rose-200">Combo Deals</span>
-                      <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-500 text-white uppercase">
+                      <span className="text-sm font-bold text-rose-950">Combo Deals</span>
+                      <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-600 text-white uppercase">
                         Hot
                       </span>
                     </div>
-                    <span className="text-[11px] text-rose-400/80">3 to 6 Piece Sets from ৳300</span>
+                    <span className="text-[11px] text-rose-700">3 to 6 Piece Sets from ৳300</span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-rose-400" />
+                <ChevronRight className="w-4 h-4 text-rose-600" />
               </Link>
 
               {/* STRICT CONDITION: My Orders ONLY IF LOGGED IN */}
@@ -481,20 +492,24 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between p-3 rounded-xl transition ${
                     pathname === '/orders'
-                      ? 'bg-amber-500/10 text-amber-400 font-bold border border-amber-500/30'
-                      : 'text-stone-200 hover:bg-stone-900'
+                      ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
+                      : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
                   }`}
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-stone-900 border border-stone-800 flex items-center justify-center text-amber-500">
+                    <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
+                      pathname === '/orders'
+                        ? 'bg-amber-200/80 text-amber-900'
+                        : 'bg-stone-100 border border-stone-200/80 text-amber-700'
+                    }`}>
                       <Package className="w-4 h-4" />
                     </span>
                     <div>
-                      <span className="text-sm font-medium block">My Orders &amp; Tracking</span>
-                      <span className="text-[11px] text-stone-400">Live delivery status &amp; history</span>
+                      <span className="text-sm font-semibold block">My Orders &amp; Tracking</span>
+                      <span className="text-[11px] text-stone-500">Live delivery status &amp; history</span>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-stone-500" />
+                  <ChevronRight className={`w-4 h-4 ${pathname === '/orders' ? 'text-amber-800' : 'text-stone-400'}`} />
                 </Link>
               )}
 
@@ -503,18 +518,18 @@ export default function Navbar() {
                 <Link
                   href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between p-3 rounded-xl text-red-300 hover:bg-stone-900 transition border border-red-900/50 bg-red-950/20"
+                  className="flex items-center justify-between p-3 rounded-xl text-red-900 hover:bg-red-100/60 transition border border-red-200/90 bg-red-50/80"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-red-500/20 border border-red-500/30 flex items-center justify-center text-red-400">
+                    <span className="w-8 h-8 rounded-lg bg-red-100 border border-red-200 flex items-center justify-center text-red-600">
                       <ShieldAlert className="w-4 h-4" />
                     </span>
                     <div>
-                      <span className="text-sm font-bold text-red-200 block">Admin Studio Dashboard</span>
-                      <span className="text-[11px] text-red-400/80">Manage artworks &amp; delete products</span>
+                      <span className="text-sm font-bold text-red-950 block">Admin Studio Dashboard</span>
+                      <span className="text-[11px] text-red-700">Manage artworks &amp; delete products</span>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-red-400" />
+                  <ChevronRight className="w-4 h-4 text-red-600" />
                 </Link>
               )}
             </div>
@@ -526,7 +541,7 @@ export default function Navbar() {
                 setMobileMenuOpen(false);
                 openDrawer();
               }}
-              className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-sm shadow-xl shadow-amber-500/20 transition cursor-pointer"
+              className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-stone-950 font-bold text-sm shadow-md shadow-amber-500/20 transition cursor-pointer"
             >
               <div className="flex items-center gap-2">
                 <ShoppingBag className="w-4 h-4" />
@@ -536,7 +551,7 @@ export default function Navbar() {
             </button>
 
             {/* Direct Concierge & Support with User's WhatsApp number */}
-            <div className="pt-3 border-t border-stone-800/80 space-y-2.5 text-xs">
+            <div className="pt-3 border-t border-stone-200/90 space-y-2.5 text-xs">
               <p className="text-[11px] text-stone-500 uppercase font-mono">
                 Dhaka Production Concierge
               </p>
@@ -545,21 +560,21 @@ export default function Navbar() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-emerald-400 border border-stone-800 transition font-bold"
+                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition font-bold"
                 >
-                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <MessageCircle className="w-4 h-4 shrink-0 text-emerald-600" />
                   <span>WhatsApp</span>
                 </a>
 
                 <a
                   href={PHONE_TEL}
-                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-stone-900 hover:bg-stone-800 text-amber-400 border border-stone-800 transition font-bold"
+                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 transition font-bold"
                 >
-                  <Phone className="w-4 h-4 shrink-0" />
+                  <Phone className="w-4 h-4 shrink-0 text-amber-700" />
                   <span>Call Hotline</span>
                 </a>
               </div>
-              <p className="text-[10px] text-stone-400 text-center font-mono">
+              <p className="text-[10px] text-stone-500 text-center font-mono">
                 Hotline / WhatsApp: {PHONE_NUMBER}
               </p>
             </div>

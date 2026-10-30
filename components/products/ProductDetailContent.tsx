@@ -217,6 +217,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
   const waText = encodeURIComponent(
     `Hello CanvasCraft BD! I would like to order this artwork:\n` +
+    `• Canvas ID: ${product.id}\n` +
     `• Artwork: ${product.title}\n` +
     `• Size: ${selectedSize.label} (${physWidth}″ × ${physHeight}″)\n` +
     `• Material: ${selectedMaterial === 'pvc' ? '3mm Rigid PVC Board' : '1.25″ Pine Wood Canvas'}\n` +
@@ -336,12 +337,9 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 >
                   <div
                     onClick={() => setIsLightboxOpen(true)}
-                    className="relative w-full h-full cursor-zoom-in group/canvas transition-shadow duration-300 pointer-events-auto"
+                    className="relative w-full h-full cursor-zoom-in group/canvas pointer-events-auto"
                     style={{
-                      boxShadow:
-                        selectedMaterial === 'canvas'
-                          ? '0 18px 32px -6px rgba(0,0,0,0.52), 0 8px 14px -3px rgba(0,0,0,0.30), 3px 3px 0px rgba(40,30,20,0.22)'
-                          : '0 12px 20px -4px rgba(0,0,0,0.35), 0 5px 10px -2px rgba(0,0,0,0.20), 1.5px 1.5px 0px rgba(40,30,20,0.14)',
+                      boxShadow: 'none',
                       borderRadius: '0px'
                     }}
                   >
@@ -365,14 +363,8 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                     {selectedMaterial === 'canvas' && (
                       <div
                         className="absolute inset-0 pointer-events-none border border-white/20"
-                        style={{
-                          boxShadow: 'inset 0 0 2px rgba(0,0,0,0.15)'
-                        }}
                       />
                     )}
-
-                    {/* Subtle Satin Sheen Surface Reflection */}
-                    <div className="absolute inset-0 pointer-events-none bg-gradient-to-tr from-black/5 via-transparent to-white/15 opacity-60" />
                   </div>
                 </div>
 
@@ -838,7 +830,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 className="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 text-sm text-center"
               >
                 <MessageCircle className="w-4 h-4 shrink-0" />
-                <span>Order via WhatsApp (+880 1972-304749)</span>
+                <span>Order via WhatsApp</span>
               </a>
             </div>
 
@@ -917,7 +909,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               <img
                 src={product.image}
                 alt={product.title}
-                className="max-w-full max-h-[82vh] object-contain rounded-none shadow-2xl block"
+                className="max-w-full max-h-[82vh] object-contain rounded-none block"
               />
               {/* 2-3mm Slim Edge/Border (Customizable Color) in Zoom View */}
               {selectedBorder.id !== 'none' && (

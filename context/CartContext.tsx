@@ -256,6 +256,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
         : '';
 
       detailsText += `[Item ${idx + 1}] ${it.title}%0A` +
+                     `• Canvas ID: ${it.productId}%0A` +
                      `• Size: ${it.sizeLabel}%0A` +
                      `• Material: ${it.materialName}%0A` +
                      `• Frame: ${it.frameName}%0A` +

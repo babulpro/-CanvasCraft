@@ -16,16 +16,16 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
   const isSquare = product.orientation === 'square';
 
   return (
-    <div className="group relative bg-white rounded-2xl overflow-hidden border border-stone-200/90 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:border-amber-400/80">
+    <div className="group relative bg-white dark:bg-[#1c1917] rounded-2xl overflow-hidden border border-stone-200/90 dark:border-stone-800 shadow-2xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between hover:border-amber-400/80 dark:hover:border-amber-500/80">
       
-      {/* 1. CLEAN EXHIBITION STAGE (Neat, clean & beautiful to watch) */}
+      {/* 1. CLEAN EXHIBITION STAGE */}
       <Link
         href={`/products/${product.id}`}
-        className="relative h-80 sm:h-72 w-full overflow-hidden bg-[#faf8f5] flex items-center justify-center p-3 sm:p-5 border-b border-stone-100 select-none block"
+        className="relative h-80 sm:h-72 w-full overflow-hidden bg-[#faf8f5] dark:bg-[#141210] flex items-center justify-center p-3 sm:p-5 border-b border-stone-100 dark:border-stone-800 select-none block transition-colors duration-200"
       >
         {/* Soft Warm Ambient Studio Lighting */}
         <div
-          className="absolute inset-0 pointer-events-none"
+          className="absolute inset-0 pointer-events-none opacity-80 dark:opacity-40"
           style={{
             background: 'radial-gradient(circle at 50% 40%, rgba(255,255,255,0.9) 0%, rgba(245,242,235,0.4) 70%, transparent 100%)'
           }}
@@ -41,7 +41,7 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
           }}
         >
           {/* Canvas Artwork with Crisp Clean Edge & 3D Depth */}
-          <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300/80 bg-white shadow-[0_12px_24px_-4px_rgba(35,25,15,0.22),0_4px_8px_-2px_rgba(35,25,15,0.12)]">
+          <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300/80 dark:border-stone-700/80 bg-white dark:bg-stone-900 shadow-[0_12px_24px_-4px_rgba(0,0,0,0.3),0_4px_8px_-2px_rgba(0,0,0,0.2)]">
             <Image
               src={product.image}
               alt={product.title}
@@ -74,18 +74,18 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
       </Link>
 
       {/* 2. MINIMAL & NEAT CARD DETAILS */}
-      <div className="p-4 flex-1 flex flex-col justify-between bg-white">
+      <div className="p-4 flex-1 flex flex-col justify-between bg-white dark:bg-[#1c1917] transition-colors duration-200">
         <div>
           <Link href={`/products/${product.id}`} className="block">
-            <h3 className="text-base font-serif font-bold text-stone-900 group-hover:text-amber-800 transition line-clamp-1">
+            <h3 className="text-base font-serif font-bold text-stone-900 dark:text-stone-100 group-hover:text-amber-800 dark:group-hover:text-amber-400 transition line-clamp-1">
               {product.title}
             </h3>
           </Link>
         </div>
 
         {/* Clean Price & Action Button */}
-        <div className="pt-3 mt-2 border-t border-stone-100 flex items-center justify-between gap-2">
-          <span className="text-base sm:text-lg font-serif font-bold text-stone-950">
+        <div className="pt-3 mt-2 border-t border-stone-100 dark:border-stone-800 flex items-center justify-between gap-2">
+          <span className="text-base sm:text-lg font-serif font-bold text-stone-950 dark:text-stone-100">
             ৳ {product.basePrice.toLocaleString()}
           </span>
 

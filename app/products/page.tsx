@@ -6,7 +6,7 @@ import { PRODUCTS as STATIC_PRODUCTS } from '@/data/products';
 import { Product, AuthUser } from '@/types';
 import { useSession } from '@/lib/auth-client';
 import CanvasCard from '@/components/products/CanvasCard';
-import { Search, ShoppingBag, Sparkles, Filter, PlusCircle } from 'lucide-react';
+import { Search, Filter, PlusCircle } from 'lucide-react';
 
 const CATEGORIES = [
   'All Artworks',
@@ -67,19 +67,19 @@ export default function ProductsPage() {
   }, [productsList, selectedCategory, searchQuery, sortBy]);
 
   return (
-    <div className="bg-[#faf9f6] min-h-screen py-6 sm:py-10">
+    <div className="bg-[#faf9f6] dark:bg-[#0c0a09] min-h-screen py-6 sm:py-10 transition-colors duration-200">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         
         {/* Page Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 pb-6 border-b border-stone-200 dark:border-stone-800">
           <div>
-            <span className="text-xs font-bold uppercase tracking-wider text-amber-900 bg-amber-100/80 px-3.5 py-1 rounded-full border border-amber-300/60 inline-block mb-1.5 shadow-2xs">
+            <span className="text-xs font-bold uppercase tracking-wider text-amber-900 dark:text-amber-300 bg-amber-100/80 dark:bg-amber-950/60 px-3.5 py-1 rounded-full border border-amber-300/60 dark:border-amber-800/80 inline-block mb-1.5 shadow-2xs">
               Curated Fine Art Collections
             </span>
-            <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-950 tracking-tight">
+            <h1 className="text-2xl sm:text-4xl font-serif font-bold text-stone-950 dark:text-stone-100 tracking-tight">
               Gallery Artworks &amp; Wall Prints
             </h1>
-            <p className="text-sm sm:text-base text-stone-600 mt-1.5">
+            <p className="text-sm sm:text-base text-stone-600 dark:text-stone-400 mt-1.5">
               Explore {productsList.length} curated designs ready for custom sizing in 3mm Rigid PVC or 1.25″ Pine Wood Canvas.
             </p>
           </div>
@@ -97,20 +97,20 @@ export default function ProductsPage() {
             )}
 
             <div className="relative w-full sm:w-64">
-              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400" />
+              <Search className="w-4 h-4 absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 dark:text-stone-500" />
               <input
                 type="text"
                 placeholder="Search art, style, verse..."
                 value={searchQuery}
                 onChange={e => setSearchQuery(e.target.value)}
-                className="w-full text-sm pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-stone-900 placeholder:text-stone-400 shadow-2xs"
+                className="w-full text-sm pl-10 pr-4 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white dark:bg-[#1c1917] text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 shadow-2xs"
               />
             </div>
 
             <select
               value={sortBy}
               onChange={e => setSortBy(e.target.value as any)}
-              className="w-full sm:w-auto text-sm px-3.5 py-2.5 rounded-xl border border-stone-300 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white text-stone-800 cursor-pointer font-medium shadow-2xs"
+              className="w-full sm:w-auto text-sm px-3.5 py-2.5 rounded-xl border border-stone-300 dark:border-stone-700 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-400/20 bg-white dark:bg-[#1c1917] text-stone-800 dark:text-stone-200 cursor-pointer font-medium shadow-2xs"
             >
               <option value="featured">Sort by: Featured</option>
               <option value="price-low">Price: Low to High</option>
@@ -130,8 +130,8 @@ export default function ProductsPage() {
                 onClick={() => setSelectedCategory(cat)}
                 className={`px-4 py-2 rounded-full font-bold whitespace-nowrap transition cursor-pointer text-xs sm:text-sm ${
                   isSelected
-                    ? 'bg-stone-900 text-white shadow-xs'
-                    : 'bg-white text-stone-700 hover:bg-stone-100 hover:text-stone-950 border border-stone-200/90 shadow-2xs'
+                    ? 'bg-stone-900 dark:bg-amber-500 text-white dark:text-stone-950 shadow-xs'
+                    : 'bg-white dark:bg-[#1c1917] text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-stone-800 hover:text-stone-950 dark:hover:text-stone-100 border border-stone-200/90 dark:border-stone-800 shadow-2xs'
                 }`}
               >
                 {cat}
@@ -142,13 +142,13 @@ export default function ProductsPage() {
 
         {/* Artworks Grid */}
         {filteredProducts.length === 0 ? (
-          <div className="text-center py-20 bg-white rounded-3xl border border-stone-200 mt-4">
-            <Filter className="w-10 h-10 text-stone-300 mx-auto mb-2" />
-            <h3 className="text-base font-bold text-stone-800">No matching artworks found</h3>
-            <p className="text-sm text-stone-500 mt-1">Try selecting another category or clear your search term.</p>
+          <div className="text-center py-20 bg-white dark:bg-[#1c1917] rounded-3xl border border-stone-200 dark:border-stone-800 mt-4">
+            <Filter className="w-10 h-10 text-stone-300 dark:text-stone-600 mx-auto mb-2" />
+            <h3 className="text-base font-bold text-stone-800 dark:text-stone-200">No matching artworks found</h3>
+            <p className="text-sm text-stone-500 dark:text-stone-400 mt-1">Try selecting another category or clear your search term.</p>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 pt-2">
             {filteredProducts.map(prod => (
               <CanvasCard key={prod.id} product={prod} />
             ))}

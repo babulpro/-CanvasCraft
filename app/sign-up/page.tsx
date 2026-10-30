@@ -122,33 +122,33 @@ export default function SignUpPage() {
   };
 
   return (
-    <div className="min-h-screen pt-28 pb-20 px-4 flex items-center justify-center bg-[#faf8f5] relative overflow-hidden">
+    <div className="min-h-screen pt-28 pb-20 px-4 flex items-center justify-center bg-[#faf8f5] dark:bg-[#0c0a09] relative overflow-hidden transition-colors duration-200">
       {/* Background Ambience */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/10 rounded-full blur-[140px] pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-amber-500/10 dark:bg-amber-500/5 rounded-full blur-[140px] pointer-events-none" />
 
       <div className="w-full max-w-md relative z-10">
         {/* Header Branding */}
         <div className="text-center mb-8">
           <Link
             href="/"
-            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 border border-amber-300/60 text-amber-900 text-xs font-bold tracking-wider uppercase mb-4 shadow-2xs"
+            className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-100/80 dark:bg-amber-950/60 border border-amber-300/60 dark:border-amber-800 text-amber-900 dark:text-amber-300 text-xs font-bold tracking-wider uppercase mb-4 shadow-2xs"
           >
-            <Sparkles className="w-3.5 h-3.5 text-amber-700" />
+            <Sparkles className="w-3.5 h-3.5 text-amber-700 dark:text-amber-400" />
             <span>Create Your Member Account</span>
           </Link>
-          <h1 className="text-3xl font-serif text-stone-950 font-bold mb-2">
+          <h1 className="text-3xl font-serif text-stone-950 dark:text-stone-100 font-bold mb-2">
             Join CanvasCraft BD
           </h1>
-          <p className="text-sm text-stone-600">
+          <p className="text-sm text-stone-600 dark:text-stone-400">
             Save custom canvas configurations, unlock combo deals, and track workshop production in Dhaka.
           </p>
         </div>
 
         {/* Auth Card */}
-        <div className="bg-white border border-stone-200/90 rounded-3xl p-6 sm:p-8 shadow-xl ring-1 ring-stone-900/5">
+        <div className="bg-white dark:bg-[#1c1917] border border-stone-200/90 dark:border-stone-800 rounded-3xl p-6 sm:p-8 shadow-xl ring-1 ring-stone-900/5 transition-colors">
           {/* Error Banner */}
           {errorMessage && (
-            <div className="mb-5 p-3.5 rounded-xl bg-red-50 border border-red-200 flex items-start gap-3 text-red-700 text-xs">
+            <div className="mb-5 p-3.5 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/50 flex items-start gap-3 text-red-700 dark:text-red-300 text-xs">
               <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
               <span>{errorMessage}</span>
             </div>
@@ -156,8 +156,8 @@ export default function SignUpPage() {
 
           {/* Success Banner */}
           {successMessage && (
-            <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 border border-emerald-200 flex items-start gap-3 text-emerald-800 text-xs font-semibold">
-              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600" />
+            <div className="mb-5 p-3.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800 flex items-start gap-3 text-emerald-800 dark:text-emerald-300 text-xs font-semibold">
+              <CheckCircle2 className="w-4 h-4 shrink-0 mt-0.5 text-emerald-600 dark:text-emerald-400" />
               <span>{successMessage}</span>
             </div>
           )}
@@ -168,7 +168,7 @@ export default function SignUpPage() {
               type="button"
               onClick={() => handleSocialSignUp("google")}
               disabled={loading || !!socialLoading}
-              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 text-sm font-semibold border border-stone-200/90 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-sm font-semibold border border-stone-200/90 dark:border-stone-700 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
             >
               <svg className="w-4 h-4" viewBox="0 0 24 24">
                 <path
@@ -199,9 +199,9 @@ export default function SignUpPage() {
               type="button"
               onClick={() => handleSocialSignUp("github")}
               disabled={loading || !!socialLoading}
-              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 text-sm font-semibold border border-stone-200/90 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
+              className="w-full flex items-center justify-center gap-3 px-4 py-2.5 rounded-xl bg-stone-50 dark:bg-stone-900 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 text-sm font-semibold border border-stone-200/90 dark:border-stone-700 hover:border-stone-300 transition shadow-2xs disabled:opacity-50 cursor-pointer"
             >
-              <svg className="w-4 h-4 fill-stone-900" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 fill-stone-900 dark:fill-stone-100" viewBox="0 0 24 24">
                 <path
                   fillRule="evenodd"
                   clipRule="evenodd"
@@ -218,8 +218,8 @@ export default function SignUpPage() {
 
           {/* Divider */}
           <div className="relative flex items-center justify-center my-6">
-            <div className="border-t border-stone-200 w-full" />
-            <span className="bg-white px-3 text-xs text-stone-400 uppercase tracking-widest font-mono">
+            <div className="border-t border-stone-200 dark:border-stone-800 w-full" />
+            <span className="bg-white dark:bg-[#1c1917] px-3 text-xs text-stone-400 uppercase tracking-widest font-mono">
               or register with email
             </span>
           </div>
@@ -230,7 +230,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="name"
-                className="block text-xs font-semibold text-stone-700 mb-1.5"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5"
               >
                 Full Name
               </label>
@@ -242,9 +242,9 @@ export default function SignUpPage() {
                   placeholder="e.g. Tanvir Ahmed"
                   value={name}
                   onChange={(e) => setName(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-700 focus:border-amber-500 focus:bg-white dark:focus:bg-stone-900 focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <User className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -253,11 +253,11 @@ export default function SignUpPage() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="username"
-                  className="block text-xs font-semibold text-stone-700"
+                  className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
                 >
                   Username Handle
                 </label>
-                <span className="text-[11px] text-stone-500 font-mono">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400 font-mono">
                   {username ? `@${username}` : "min 3 characters"}
                 </span>
               </div>
@@ -269,9 +269,9 @@ export default function SignUpPage() {
                   placeholder="tanvir_bd"
                   value={username}
                   onChange={(e) => handleUsernameChange(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition font-mono"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-700 focus:border-amber-500 focus:bg-white dark:focus:bg-stone-900 focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-sm focus:outline-none shadow-2xs transition font-mono"
                 />
-                <AtSign className="w-4 h-4 text-amber-600 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <AtSign className="w-4 h-4 text-amber-600 dark:text-amber-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -279,7 +279,7 @@ export default function SignUpPage() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-xs font-semibold text-stone-700 mb-1.5"
+                className="block text-xs font-semibold text-stone-700 dark:text-stone-300 mb-1.5"
               >
                 Email Address
               </label>
@@ -291,9 +291,9 @@ export default function SignUpPage() {
                   placeholder="tanvir@example.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
+                  className="w-full pl-10 pr-4 py-2.5 bg-stone-50/60 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-700 focus:border-amber-500 focus:bg-white dark:focus:bg-stone-900 focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Mail className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
               </div>
             </div>
 
@@ -302,11 +302,11 @@ export default function SignUpPage() {
               <div className="flex items-center justify-between mb-1.5">
                 <label
                   htmlFor="password"
-                  className="block text-xs font-semibold text-stone-700"
+                  className="block text-xs font-semibold text-stone-700 dark:text-stone-300"
                 >
                   Password
                 </label>
-                <span className="text-[11px] text-stone-500">
+                <span className="text-[11px] text-stone-500 dark:text-stone-400">
                   min 8 characters
                 </span>
               </div>
@@ -318,13 +318,13 @@ export default function SignUpPage() {
                   placeholder="••••••••"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="w-full pl-10 pr-10 py-2.5 bg-stone-50/60 border border-stone-300 focus:border-amber-500 focus:bg-white focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 placeholder:text-stone-400 text-sm focus:outline-none shadow-2xs transition"
+                  className="w-full pl-10 pr-10 py-2.5 bg-stone-50/60 dark:bg-stone-900/80 border border-stone-300 dark:border-stone-700 focus:border-amber-500 focus:bg-white dark:focus:bg-stone-900 focus:ring-2 focus:ring-amber-400/20 rounded-xl text-stone-900 dark:text-stone-100 placeholder:text-stone-400 dark:placeholder:text-stone-500 text-sm focus:outline-none shadow-2xs transition"
                 />
-                <Lock className="w-4 h-4 text-stone-400 absolute left-3.5 top-1/2 -translate-y-1/2" />
+                <Lock className="w-4 h-4 text-stone-400 dark:text-stone-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
                 <button
                   type="button"
                   onClick={() => setShowPassword(!showPassword)}
-                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 cursor-pointer"
+                  className="absolute right-3.5 top-1/2 -translate-y-1/2 text-stone-400 hover:text-stone-700 dark:hover:text-stone-200 cursor-pointer"
                 >
                   {showPassword ? (
                     <EyeOff className="w-4 h-4" />
@@ -346,11 +346,11 @@ export default function SignUpPage() {
           </form>
 
           {/* Footer Navigation */}
-          <div className="mt-6 text-center text-xs text-stone-600">
+          <div className="mt-6 text-center text-xs text-stone-600 dark:text-stone-400">
             Already have an account?{" "}
             <Link
               href="/sign-in"
-              className="text-amber-800 hover:text-stone-950 font-bold underline underline-offset-4"
+              className="text-amber-800 dark:text-amber-400 hover:text-stone-950 dark:hover:text-stone-100 font-bold underline underline-offset-4"
             >
               Sign In
             </Link>

@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation';
 import { useCart } from '@/context/CartContext';
 import { useSession, signOut } from '@/lib/auth-client';
 import { AuthUser } from '@/types';
+import ThemeToggle from '@/components/ui/ThemeToggle';
 import {
   ShoppingBag,
   ArrowRight,
@@ -98,7 +99,7 @@ export default function Navbar() {
       </div>
 
       {/* 2. Main Sticky Header */}
-      <header className="sticky top-0 z-40 bg-[#faf8f5]/95 backdrop-blur-md border-b border-stone-200/80 shadow-2xs">
+      <header className="sticky top-0 z-40 bg-[#faf8f5]/95 dark:bg-[#0c0a09]/95 backdrop-blur-md border-b border-stone-200/80 dark:border-stone-800/80 shadow-2xs transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-3 sm:px-6 lg:px-8 h-16 sm:h-20 flex items-center justify-between">
           
           {/* Left: Brand Logo & Tagline */}
@@ -108,23 +109,23 @@ export default function Navbar() {
                 C
               </div>
               <div className="min-w-0">
-                <span className="font-serif text-base sm:text-2xl font-bold tracking-tight text-stone-950 block leading-tight truncate">
-                  CanvasCraft<span className="text-amber-700 font-sans text-[11px] sm:text-xs ml-1 font-bold px-1.5 py-0.5 rounded bg-amber-100/70 border border-amber-200">BD</span>
+                <span className="font-serif text-base sm:text-2xl font-bold tracking-tight text-stone-950 dark:text-stone-100 block leading-tight truncate">
+                  CanvasCraft<span className="text-amber-700 dark:text-amber-400 font-sans text-[11px] sm:text-xs ml-1 font-bold px-1.5 py-0.5 rounded bg-amber-100/70 dark:bg-amber-950/60 border border-amber-200 dark:border-amber-800/80">BD</span>
                 </span>
-                <span className="text-[10px] text-stone-500 font-medium tracking-wide hidden sm:block">
+                <span className="text-[10px] text-stone-500 dark:text-stone-400 font-medium tracking-wide hidden sm:block">
                   Archival Canvas &amp; Rigid PVC Wall Decor
                 </span>
               </div>
             </Link>
 
             {/* Desktop Navigation Links */}
-            <nav className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-stone-700 pl-4 border-l border-stone-200">
+            <nav className="hidden md:flex items-center gap-1.5 text-xs font-semibold text-stone-700 dark:text-stone-300 pl-4 border-l border-stone-200 dark:border-stone-800">
               <Link
                 href="/"
                 className={`px-3 py-1.5 rounded-full transition ${
                   pathname === '/'
-                    ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
-                    : 'hover:text-stone-950 hover:bg-stone-100'
+                    ? 'text-amber-950 dark:text-amber-100 bg-amber-100/80 dark:bg-amber-950/60 font-bold border border-amber-300/60 dark:border-amber-700/60 shadow-2xs'
+                    : 'hover:text-stone-950 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-850'
                 }`}
               >
                 Home
@@ -134,19 +135,19 @@ export default function Navbar() {
                 href="/products"
                 className={`px-3 py-1.5 rounded-full transition flex items-center gap-1.5 ${
                   pathname === '/products'
-                    ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
-                    : 'hover:text-stone-950 hover:bg-stone-100'
+                    ? 'text-amber-950 dark:text-amber-100 bg-amber-100/80 dark:bg-amber-950/60 font-bold border border-amber-300/60 dark:border-amber-700/60 shadow-2xs'
+                    : 'hover:text-stone-950 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-850'
                 }`}
               >
-                <Grid className="w-3.5 h-3.5 text-amber-600" />
+                <Grid className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                 <span>Gallery</span>
               </Link>
 
               <Link
                 href="/#combos"
-                className="px-3 py-1.5 rounded-full text-rose-800 hover:text-rose-950 bg-rose-50 hover:bg-rose-100 transition border border-rose-200 flex items-center gap-1.5 font-bold shadow-2xs"
+                className="px-3 py-1.5 rounded-full text-rose-800 dark:text-rose-300 hover:text-rose-950 dark:hover:text-rose-200 bg-rose-50 dark:bg-rose-950/40 hover:bg-rose-100 dark:hover:bg-rose-900/40 transition border border-rose-200 dark:border-rose-900/60 flex items-center gap-1.5 font-bold shadow-2xs"
               >
-                <Flame className="w-3.5 h-3.5 text-rose-600 animate-pulse" />
+                <Flame className="w-3.5 h-3.5 text-rose-600 dark:text-rose-400 animate-pulse" />
                 <span>Combo Deals</span>
               </Link>
 
@@ -156,11 +157,11 @@ export default function Navbar() {
                   href="/orders"
                   className={`px-3 py-1.5 rounded-full transition flex items-center gap-1.5 ${
                     pathname === '/orders'
-                      ? 'text-amber-950 bg-amber-100/80 font-bold border border-amber-300/60 shadow-2xs'
-                      : 'hover:text-stone-950 hover:bg-stone-100'
+                      ? 'text-amber-950 dark:text-amber-100 bg-amber-100/80 dark:bg-amber-950/60 font-bold border border-amber-300/60 dark:border-amber-700/60 shadow-2xs'
+                      : 'hover:text-stone-950 dark:hover:text-stone-100 hover:bg-stone-100 dark:hover:bg-stone-850'
                   }`}
                 >
-                  <Package className="w-3.5 h-3.5 text-amber-600" />
+                  <Package className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                   <span>My Orders</span>
                 </Link>
               )}
@@ -169,9 +170,9 @@ export default function Navbar() {
               {mounted && isAdmin && (
                 <Link
                   href="/admin"
-                  className="px-3 py-1.5 rounded-full text-red-700 hover:text-red-900 bg-red-50 hover:bg-red-100 transition border border-red-200 flex items-center gap-1.5 font-bold shadow-2xs"
+                  className="px-3 py-1.5 rounded-full text-red-700 dark:text-red-300 hover:text-red-900 dark:hover:text-red-200 bg-red-50 dark:bg-red-950/40 hover:bg-red-100 dark:hover:bg-red-900/40 transition border border-red-200 dark:border-red-900/60 flex items-center gap-1.5 font-bold shadow-2xs"
                 >
-                  <Shield className="w-3.5 h-3.5 text-red-600" />
+                  <Shield className="w-3.5 h-3.5 text-red-600 dark:text-red-400" />
                   <span>Admin Dashboard</span>
                 </Link>
               )}
@@ -179,16 +180,21 @@ export default function Navbar() {
           </div>
 
           {/* Right Header Actions */}
-          <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+          <div className="flex items-center gap-1.5 sm:gap-2.5 shrink-0">
             
+            {/* Desktop Theme Toggle: Day / Night / Device */}
+            <div className="hidden sm:flex items-center">
+              <ThemeToggle variant="compact" />
+            </div>
+
             {/* User Session State: Visible on Desktop/Tablet, Accessible in Drawer on Mobile */}
             <div className="hidden md:flex items-center">
               {!mounted ? (
-                <div className="w-16 h-8 rounded-full bg-stone-200/60 animate-pulse" />
+                <div className="w-16 h-8 rounded-full bg-stone-200/60 dark:bg-stone-800/60 animate-pulse" />
               ) : user ? (
                 <Link
                   href="/profile"
-                  className="flex items-center gap-1.5 py-1 px-2.5 sm:px-3 rounded-full bg-amber-100/80 hover:bg-amber-200 text-stone-900 text-xs font-bold transition border border-amber-300/80 shadow-2xs shrink-0"
+                  className="flex items-center gap-1.5 py-1 px-2.5 sm:px-3 rounded-full bg-amber-100/80 dark:bg-amber-950/60 hover:bg-amber-200 dark:hover:bg-amber-900/60 text-stone-900 dark:text-stone-100 text-xs font-bold transition border border-amber-300/80 dark:border-amber-700/60 shadow-2xs shrink-0"
                   title="Member Profile"
                 >
                   <div className="w-6 h-6 rounded-full bg-stone-950 text-amber-400 font-black flex items-center justify-center text-[10px] shadow-2xs shrink-0">
@@ -225,11 +231,11 @@ export default function Navbar() {
             {/* Shopping Bag CTA (Desktop/Tablet) */}
             <button
               onClick={openDrawer}
-              className="hidden md:flex relative p-2 rounded-full hover:bg-stone-100 text-stone-800 transition group cursor-pointer shrink-0"
+              className="hidden md:flex relative p-2 rounded-full hover:bg-stone-100 dark:hover:bg-stone-850 text-stone-800 dark:text-stone-200 transition group cursor-pointer shrink-0"
               title="Open Shopping Bag"
               aria-label="Open Shopping Bag"
             >
-              <ShoppingBag className="w-5 h-5 group-hover:text-stone-950 transition" />
+              <ShoppingBag className="w-5 h-5 group-hover:text-stone-950 dark:group-hover:text-stone-100 transition" />
               {totals.totalPieces > 0 && (
                 <span className="absolute top-0.5 right-0.5 w-4 h-4 bg-amber-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
                   {totals.totalPieces}
@@ -240,7 +246,7 @@ export default function Navbar() {
             {/* Desktop Bag Pill (hidden on small screens) */}
             <button
               onClick={openDrawer}
-              className="hidden lg:inline-flex items-center gap-2 bg-stone-900 hover:bg-stone-800 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:shadow transition transform active:scale-95 cursor-pointer"
+              className="hidden lg:inline-flex items-center gap-2 bg-stone-900 dark:bg-stone-800 hover:bg-stone-800 dark:hover:bg-stone-700 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-sm hover:shadow transition transform active:scale-95 cursor-pointer"
             >
               <span>Bag ({totals.totalPieces})</span>
               <ArrowRight className="w-3.5 h-3.5 text-amber-400" />
@@ -250,10 +256,10 @@ export default function Navbar() {
             <button
               type="button"
               onClick={() => setMobileMenuOpen(true)}
-              className="relative md:hidden p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-800 hover:text-stone-950 transition cursor-pointer border border-stone-200/80 shrink-0"
+              className="relative md:hidden p-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-800 dark:text-stone-200 transition cursor-pointer border border-stone-200/80 dark:border-stone-700 shrink-0"
               aria-label="Open mobile navigation menu"
             >
-              <Menu className="w-5 h-5 text-stone-900" />
+              <Menu className="w-5 h-5 text-stone-900 dark:text-stone-100" />
               {totals.totalPieces > 0 && (
                 <span className="absolute -top-1 -right-1 w-4 h-4 bg-amber-600 text-white text-[10px] font-bold rounded-full flex items-center justify-center shadow-xs">
                   {totals.totalPieces}
@@ -264,12 +270,12 @@ export default function Navbar() {
         </div>
       </header>
 
-      {/* 3. Mobile Responsive Navigation Drawer (Rendered OUTSIDE <header> to prevent containing-block clipping!) */}
+      {/* 3. Mobile Responsive Navigation Drawer */}
       {mobileMenuOpen && (
-        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-[#faf8f5] text-stone-900">
+        <div className="fixed inset-0 z-50 md:hidden flex flex-col bg-[#faf8f5] dark:bg-[#0c0a09] text-stone-900 dark:text-stone-100 transition-colors duration-200">
           
           {/* Top Bar of Mobile Menu with Brand & Close Button */}
-          <div className="flex items-center justify-between px-4 h-16 border-b border-stone-200/90 bg-white/95 backdrop-blur-md shrink-0">
+          <div className="flex items-center justify-between px-4 h-16 border-b border-stone-200/90 dark:border-stone-800 bg-white/95 dark:bg-[#141210]/95 backdrop-blur-md shrink-0">
             <Link
               href="/"
               onClick={() => setMobileMenuOpen(false)}
@@ -278,15 +284,15 @@ export default function Navbar() {
               <div className="w-8 h-8 rounded-xl bg-stone-950 text-amber-400 font-serif font-bold flex items-center justify-center text-sm shadow-xs">
                 C
               </div>
-              <span className="font-serif text-lg font-bold tracking-tight text-stone-950">
-                CanvasCraft<span className="text-amber-600 font-sans text-xs ml-1 font-bold">BD</span>
+              <span className="font-serif text-lg font-bold tracking-tight text-stone-950 dark:text-stone-100">
+                CanvasCraft<span className="text-amber-600 dark:text-amber-400 font-sans text-xs ml-1 font-bold">BD</span>
               </span>
             </Link>
 
             <button
               type="button"
               onClick={() => setMobileMenuOpen(false)}
-              className="p-2 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-700 hover:text-stone-950 transition border border-stone-200 cursor-pointer"
+              className="p-2 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-700 dark:text-stone-300 hover:text-stone-950 dark:hover:text-stone-100 transition border border-stone-200 dark:border-stone-700 cursor-pointer"
               aria-label="Close navigation menu"
             >
               <X className="w-5 h-5" />
@@ -296,11 +302,11 @@ export default function Navbar() {
           {/* Scrollable Drawer Body */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar">
             
-            {/* Mobile User Profile / Sign In Card (Polished to match warm luxury UI) */}
-            <div className="p-4 rounded-2xl bg-white border border-stone-200/90 shadow-sm relative overflow-hidden">
+            {/* Mobile User Profile / Sign In Card */}
+            <div className="p-4 rounded-2xl bg-white dark:bg-[#1c1917] border border-stone-200/90 dark:border-stone-800 shadow-sm relative overflow-hidden">
               <div className="absolute -top-10 -right-10 w-24 h-24 bg-amber-400/10 rounded-full blur-xl pointer-events-none" />
               {!mounted ? (
-                <div className="w-full h-14 bg-stone-100 rounded-xl animate-pulse" />
+                <div className="w-full h-14 bg-stone-100 dark:bg-stone-800 rounded-xl animate-pulse" />
               ) : user ? (
                 /* Logged-In User Card */
                 <div className="space-y-3 relative z-10">
@@ -311,43 +317,43 @@ export default function Navbar() {
                       </div>
                       <div className="min-w-0">
                         <div className="flex items-center gap-1.5 flex-wrap">
-                          <p className="font-bold text-stone-950 text-sm truncate">
+                          <p className="font-bold text-stone-950 dark:text-stone-100 text-sm truncate">
                             {user.name || 'Member'}
                           </p>
                           {isAdmin && (
-                            <span className="bg-red-100 text-red-800 border border-red-200 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
+                            <span className="bg-red-100 dark:bg-red-950/60 text-red-800 dark:text-red-300 border border-red-200 dark:border-red-800 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
                               Admin
                             </span>
                           )}
                           {isModerator && (
-                            <span className="bg-blue-100 text-blue-800 border border-blue-200 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
+                            <span className="bg-blue-100 dark:bg-blue-950/60 text-blue-800 dark:text-blue-300 border border-blue-200 dark:border-blue-800 text-[9px] font-black uppercase px-1.5 py-0.5 rounded">
                               Moderator
                             </span>
                           )}
                         </div>
-                        <p className="text-xs text-stone-500 truncate mt-0.5 font-mono">
+                        <p className="text-xs text-stone-500 dark:text-stone-400 truncate mt-0.5 font-mono">
                           {user.email}
                         </p>
                       </div>
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-100">
+                  <div className="grid grid-cols-2 gap-2 pt-2 border-t border-stone-100 dark:border-stone-800">
                     <Link
                       href="/profile"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 font-semibold text-xs transition border border-stone-200"
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 dark:bg-stone-800/80 hover:bg-stone-100 dark:hover:bg-stone-800 text-stone-800 dark:text-stone-200 font-semibold text-xs transition border border-stone-200 dark:border-stone-700"
                     >
-                      <User className="w-3.5 h-3.5 text-amber-600" />
+                      <User className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                       <span>My Profile</span>
                     </Link>
 
                     <Link
                       href="/orders"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 hover:bg-stone-100 text-stone-800 font-semibold text-xs transition border border-stone-200"
+                      className="flex items-center justify-center gap-1.5 py-2 px-3 rounded-xl bg-stone-50 dark:bg-stone-800/80 hover:bg-stone-100 dark:hover:bg-stone-850 text-stone-800 dark:text-stone-200 font-semibold text-xs transition border border-stone-200 dark:border-stone-700"
                     >
-                      <Package className="w-3.5 h-3.5 text-amber-600" />
+                      <Package className="w-3.5 h-3.5 text-amber-600 dark:text-amber-400" />
                       <span>My Orders</span>
                     </Link>
                   </div>
@@ -359,29 +365,29 @@ export default function Navbar() {
                       toast.success("Signed out successfully", { id: "sign-out" });
                       await signOut();
                     }}
-                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 hover:text-red-800 text-xs font-semibold border border-red-200 transition cursor-pointer"
+                    className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-50 dark:bg-red-950/30 hover:bg-red-100 dark:hover:bg-red-900/40 text-red-700 dark:text-red-300 text-xs font-semibold border border-red-200 dark:border-red-900/50 transition cursor-pointer"
                   >
                     <LogOut className="w-3.5 h-3.5" />
                     <span>Log Out</span>
                   </button>
                 </div>
               ) : (
-                /* Not Logged In: Super Clear Sign In & Register Buttons */
+                /* Not Logged In: Sign In & Register Buttons */
                 <div className="space-y-3 relative z-10">
                   <div className="flex items-center gap-3">
-                    <div className="w-10 h-10 rounded-xl bg-amber-100 text-amber-900 border border-amber-300/80 flex items-center justify-center shrink-0 shadow-2xs">
+                    <div className="w-10 h-10 rounded-xl bg-amber-100 dark:bg-amber-950/80 text-amber-900 dark:text-amber-300 border border-amber-300/80 dark:border-amber-800/80 flex items-center justify-center shrink-0 shadow-2xs">
                       <User className="w-5 h-5 stroke-[2.5]" />
                     </div>
                     <div>
                       <div className="flex items-center gap-1.5">
-                        <h3 className="font-serif font-bold text-stone-950 text-sm">
+                        <h3 className="font-serif font-bold text-stone-950 dark:text-stone-100 text-sm">
                           CanvasCraft Account
                         </h3>
-                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 bg-amber-100 border border-amber-300/80 px-1.5 py-0.2 rounded">
+                        <span className="text-[10px] font-bold uppercase tracking-wider text-amber-800 dark:text-amber-300 bg-amber-100 dark:bg-amber-950/80 border border-amber-300/80 dark:border-amber-800 px-1.5 py-0.2 rounded">
                           Free
                         </span>
                       </div>
-                      <p className="text-xs text-stone-600">
+                      <p className="text-xs text-stone-600 dark:text-stone-400">
                         Sign in to view orders &amp; saved designs
                       </p>
                     </div>
@@ -400,7 +406,7 @@ export default function Navbar() {
                     <Link
                       href="/sign-up"
                       onClick={() => setMobileMenuOpen(false)}
-                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-100 hover:bg-stone-200 text-stone-900 font-semibold text-xs transition border border-stone-200 text-center"
+                      className="flex items-center justify-center gap-1.5 py-2.5 px-3 rounded-xl bg-stone-100 dark:bg-stone-800 hover:bg-stone-200 dark:hover:bg-stone-700 text-stone-900 dark:text-stone-100 font-semibold text-xs transition border border-stone-200 dark:border-stone-700 text-center"
                     >
                       <span>Create Account</span>
                     </Link>
@@ -409,9 +415,12 @@ export default function Navbar() {
               )}
             </div>
 
+            {/* Studio Ambience / Theme Mood Selector (Day, Night, Device) */}
+            <ThemeToggle variant="full" />
+
             {/* Main Nav Links on Mobile */}
             <div className="space-y-1.5">
-              <p className="text-[10px] font-mono uppercase tracking-wider text-stone-500 px-2 pb-1">
+              <p className="text-[10px] font-mono uppercase tracking-wider text-stone-500 dark:text-stone-400 px-2 pb-1">
                 Art Gallery &amp; Navigation
               </p>
 
@@ -420,24 +429,24 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between p-3 rounded-xl transition ${
                   pathname === '/'
-                    ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
-                    : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
+                    ? 'bg-amber-100/90 dark:bg-amber-950/60 text-amber-950 dark:text-amber-100 font-bold border border-amber-300/80 dark:border-amber-700/60 shadow-2xs'
+                    : 'bg-white/80 dark:bg-[#1c1917]/80 hover:bg-white dark:hover:bg-[#1c1917] text-stone-800 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                     pathname === '/'
-                      ? 'bg-amber-200/80 text-amber-900'
-                      : 'bg-stone-100 border border-stone-200/80 text-stone-600'
+                      ? 'bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200'
+                      : 'bg-stone-100 dark:bg-stone-800 border border-stone-200/80 dark:border-stone-700 text-stone-600 dark:text-stone-300'
                   }`}>
                     🏠
                   </span>
                   <div>
                     <span className="text-sm font-semibold block">Home</span>
-                    <span className="text-[11px] text-stone-500">Return to storefront showcase</span>
+                    <span className="text-[11px] text-stone-500 dark:text-stone-400">Return to storefront showcase</span>
                   </div>
                 </div>
-                <ChevronRight className={`w-4 h-4 ${pathname === '/' ? 'text-amber-800' : 'text-stone-400'}`} />
+                <ChevronRight className={`w-4 h-4 ${pathname === '/' ? 'text-amber-800 dark:text-amber-300' : 'text-stone-400'}`} />
               </Link>
 
               <Link
@@ -445,46 +454,46 @@ export default function Navbar() {
                 onClick={() => setMobileMenuOpen(false)}
                 className={`flex items-center justify-between p-3 rounded-xl transition ${
                   pathname === '/products'
-                    ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
-                    : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
+                    ? 'bg-amber-100/90 dark:bg-amber-950/60 text-amber-950 dark:text-amber-100 font-bold border border-amber-300/80 dark:border-amber-700/60 shadow-2xs'
+                    : 'bg-white/80 dark:bg-[#1c1917]/80 hover:bg-white dark:hover:bg-[#1c1917] text-stone-800 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800'
                 }`}
               >
                 <div className="flex items-center gap-3">
                   <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                     pathname === '/products'
-                      ? 'bg-amber-200/80 text-amber-900'
-                      : 'bg-stone-100 border border-stone-200/80 text-amber-700'
+                      ? 'bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200'
+                      : 'bg-stone-100 dark:bg-stone-800 border border-stone-200/80 dark:border-stone-700 text-amber-700 dark:text-amber-400'
                   }`}>
                     <Grid className="w-4 h-4" />
                   </span>
                   <div>
                     <span className="text-sm font-semibold block">Gallery</span>
-                    <span className="text-[11px] text-stone-500">Curated gallery catalog</span>
+                    <span className="text-[11px] text-stone-500 dark:text-stone-400">Curated gallery catalog</span>
                   </div>
                 </div>
-                <ChevronRight className={`w-4 h-4 ${pathname === '/products' ? 'text-amber-800' : 'text-stone-400'}`} />
+                <ChevronRight className={`w-4 h-4 ${pathname === '/products' ? 'text-amber-800 dark:text-amber-300' : 'text-stone-400'}`} />
               </Link>
 
               <Link
                 href="/#combos"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between p-3 rounded-xl text-rose-900 hover:bg-rose-100/60 transition border border-rose-200/90 bg-rose-50/80"
+                className="flex items-center justify-between p-3 rounded-xl text-rose-900 dark:text-rose-200 hover:bg-rose-100/60 dark:hover:bg-rose-900/40 transition border border-rose-200/90 dark:border-rose-900/60 bg-rose-50/80 dark:bg-rose-950/40"
               >
                 <div className="flex items-center gap-3">
-                  <span className="w-8 h-8 rounded-lg bg-rose-100 border border-rose-200 flex items-center justify-center text-rose-600">
+                  <span className="w-8 h-8 rounded-lg bg-rose-100 dark:bg-rose-950/80 border border-rose-200 dark:border-rose-900/60 flex items-center justify-center text-rose-600 dark:text-rose-400">
                     <Flame className="w-4 h-4" />
                   </span>
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-bold text-rose-950">Combo Deals</span>
+                      <span className="text-sm font-bold text-rose-950 dark:text-rose-100">Combo Deals</span>
                       <span className="px-1.5 py-0.5 rounded text-[9px] font-black bg-rose-600 text-white uppercase">
                         Hot
                       </span>
                     </div>
-                    <span className="text-[11px] text-rose-700">3 to 6 Piece Sets from ৳300</span>
+                    <span className="text-[11px] text-rose-700 dark:text-rose-300">3 to 6 Piece Sets from ৳300</span>
                   </div>
                 </div>
-                <ChevronRight className="w-4 h-4 text-rose-600" />
+                <ChevronRight className="w-4 h-4 text-rose-600 dark:text-rose-400" />
               </Link>
 
               {/* STRICT CONDITION: My Orders ONLY IF LOGGED IN */}
@@ -494,24 +503,24 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center justify-between p-3 rounded-xl transition ${
                     pathname === '/orders'
-                      ? 'bg-amber-100/90 text-amber-950 font-bold border border-amber-300/80 shadow-2xs'
-                      : 'bg-white/80 hover:bg-white text-stone-800 border border-stone-200/80'
+                      ? 'bg-amber-100/90 dark:bg-amber-950/60 text-amber-950 dark:text-amber-100 font-bold border border-amber-300/80 dark:border-amber-700/60 shadow-2xs'
+                      : 'bg-white/80 dark:bg-[#1c1917]/80 hover:bg-white dark:hover:bg-[#1c1917] text-stone-800 dark:text-stone-200 border border-stone-200/80 dark:border-stone-800'
                   }`}
                 >
                   <div className="flex items-center gap-3">
                     <span className={`w-8 h-8 rounded-lg flex items-center justify-center ${
                       pathname === '/orders'
-                        ? 'bg-amber-200/80 text-amber-900'
-                        : 'bg-stone-100 border border-stone-200/80 text-amber-700'
+                        ? 'bg-amber-200/80 dark:bg-amber-900/60 text-amber-900 dark:text-amber-200'
+                        : 'bg-stone-100 dark:bg-stone-800 border border-stone-200/80 dark:border-stone-700 text-amber-700 dark:text-amber-400'
                     }`}>
                       <Package className="w-4 h-4" />
                     </span>
                     <div>
                       <span className="text-sm font-semibold block">My Orders &amp; Tracking</span>
-                      <span className="text-[11px] text-stone-500">Live delivery status &amp; history</span>
+                      <span className="text-[11px] text-stone-500 dark:text-stone-400">Live delivery status &amp; history</span>
                     </div>
                   </div>
-                  <ChevronRight className={`w-4 h-4 ${pathname === '/orders' ? 'text-amber-800' : 'text-stone-400'}`} />
+                  <ChevronRight className={`w-4 h-4 ${pathname === '/orders' ? 'text-amber-800 dark:text-amber-300' : 'text-stone-400'}`} />
                 </Link>
               )}
 
@@ -520,18 +529,18 @@ export default function Navbar() {
                 <Link
                   href="/admin"
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between p-3 rounded-xl text-red-900 hover:bg-red-100/60 transition border border-red-200/90 bg-red-50/80"
+                  className="flex items-center justify-between p-3 rounded-xl text-red-900 dark:text-red-200 hover:bg-red-100/60 dark:hover:bg-red-900/40 transition border border-red-200/90 dark:border-red-900/60 bg-red-50/80 dark:bg-red-950/40"
                 >
                   <div className="flex items-center gap-3">
-                    <span className="w-8 h-8 rounded-lg bg-red-100 border border-red-200 flex items-center justify-center text-red-600">
+                    <span className="w-8 h-8 rounded-lg bg-red-100 dark:bg-red-950/80 border border-red-200 dark:border-red-900/60 flex items-center justify-center text-red-600 dark:text-red-400">
                       <ShieldAlert className="w-4 h-4" />
                     </span>
                     <div>
-                      <span className="text-sm font-bold text-red-950 block">Admin Studio Dashboard</span>
-                      <span className="text-[11px] text-red-700">Manage artworks &amp; delete products</span>
+                      <span className="text-sm font-bold text-red-950 dark:text-red-100 block">Admin Studio Dashboard</span>
+                      <span className="text-[11px] text-red-700 dark:text-red-300">Manage artworks &amp; delete products</span>
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-red-600" />
+                  <ChevronRight className="w-4 h-4 text-red-600 dark:text-red-400" />
                 </Link>
               )}
             </div>
@@ -553,8 +562,8 @@ export default function Navbar() {
             </button>
 
             {/* Direct Concierge & Support with User's WhatsApp number */}
-            <div className="pt-3 border-t border-stone-200/90 space-y-2.5 text-xs">
-              <p className="text-[11px] text-stone-500 uppercase font-mono">
+            <div className="pt-3 border-t border-stone-200/90 dark:border-stone-800 space-y-2.5 text-xs">
+              <p className="text-[11px] text-stone-500 dark:text-stone-400 uppercase font-mono">
                 Dhaka Production Concierge
               </p>
               <div className="grid grid-cols-2 gap-2">
@@ -562,21 +571,21 @@ export default function Navbar() {
                   href={WHATSAPP_URL}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-800 border border-emerald-200 transition font-bold"
+                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/30 hover:bg-emerald-100 dark:hover:bg-emerald-900/40 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800 transition font-bold"
                 >
-                  <MessageCircle className="w-4 h-4 shrink-0 text-emerald-600" />
+                  <MessageCircle className="w-4 h-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
                   <span>WhatsApp</span>
                 </a>
 
                 <a
                   href={PHONE_TEL}
-                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-amber-50 hover:bg-amber-100 text-amber-900 border border-amber-200 transition font-bold"
+                  className="flex items-center justify-center gap-2 p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/30 hover:bg-amber-100 dark:hover:bg-amber-900/40 text-amber-900 dark:text-amber-300 border border-amber-200 dark:border-amber-800 transition font-bold"
                 >
-                  <Phone className="w-4 h-4 shrink-0 text-amber-700" />
+                  <Phone className="w-4 h-4 shrink-0 text-amber-700 dark:text-amber-400" />
                   <span>Call Hotline</span>
                 </a>
               </div>
-              <p className="text-[10px] text-stone-500 text-center font-mono">
+              <p className="text-[10px] text-stone-500 dark:text-stone-400 text-center font-mono">
                 Hotline / WhatsApp: {PHONE_NUMBER}
               </p>
             </div>

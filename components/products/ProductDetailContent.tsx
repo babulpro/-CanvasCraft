@@ -265,11 +265,11 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
       </div>
 
       {/* 2. Main Product Showcase & Configurator */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 xl:gap-12 items-start">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-4 sm:pt-10">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 lg:gap-10 xl:gap-12 items-start">
           
           {/* Left Column: Interactive Proportional Size Preview & Room View (2/3 Width on Laptop/Desktop) */}
-          <div className="lg:col-span-7 xl:col-span-8 space-y-4 lg:sticky lg:top-24">
+          <div className="w-full lg:col-span-7 xl:col-span-8 space-y-3 lg:space-y-4 sticky top-16 sm:top-20 lg:top-24 z-30 bg-[#faf8f5] pt-1 pb-3 lg:pb-0 border-b border-stone-200/90 lg:border-b-0 shadow-xs lg:shadow-none">
             
             {/* View Mode Controls Bar */}
             <div className="flex items-center justify-between gap-2 p-1.5 bg-stone-900/5 rounded-2xl border border-stone-200/90">
@@ -313,7 +313,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
             {/* Main Visual Preview Display Area */}
             {viewMode === 'room' ? (
               /* Photorealistic Living Room Scene with Real Sofa & Tea Table */
-              <div className="relative w-full aspect-[4/3] max-h-[620px] xl:max-h-[700px] rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
+              <div className="relative w-full aspect-[4/3] max-h-[46vh] sm:max-h-[620px] xl:max-h-[700px] rounded-2xl sm:rounded-3xl overflow-hidden shadow-2xl border border-stone-800/15 bg-stone-900 select-none">
                 
                 {/* 1. Photorealistic Living Room Scene with Exact Wall Color Paint, Real Sofa & Tea Table */}
                 <img
@@ -410,7 +410,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               </div>
             ) : (
               /* Studio Detail View (High-res Dark Gallery Exhibition) */
-              <div className="relative bg-[#141210] rounded-3xl p-6 shadow-2xl border border-stone-800/80 overflow-hidden flex flex-col items-center justify-between min-h-[500px] sm:min-h-[550px]">
+              <div className="relative bg-[#141210] rounded-2xl sm:rounded-3xl p-4 sm:p-6 shadow-2xl border border-stone-800/80 overflow-hidden flex flex-col items-center justify-between min-h-[300px] sm:min-h-[550px]">
                 {/* Museum Spotlight Beam */}
                 <div
                   className="absolute inset-0 pointer-events-none"
@@ -452,7 +452,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                     <img
                       src={product.image}
                       alt={product.title}
-                      className="block max-h-[320px] sm:max-h-[360px] max-w-[360px] sm:max-w-[440px] w-auto h-auto object-contain select-none group-hover/studio:scale-[1.02] transition-transform duration-500 rounded-none"
+                      className="block max-h-[220px] sm:max-h-[360px] max-w-[280px] sm:max-w-[440px] w-auto h-auto object-contain select-none group-hover/studio:scale-[1.02] transition-transform duration-500 rounded-none"
                     />
 
                     {/* 2-3mm Slim Edge/Border (Customizable Color) */}
@@ -495,18 +495,18 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
 
             {/* Wall Color Selector Palette (Active in Room View) */}
             {viewMode === 'room' && (
-              <div className="p-3.5 bg-white rounded-2xl border border-stone-200/90 shadow-2xs space-y-2">
+              <div className="p-2.5 sm:p-3.5 bg-white rounded-2xl border border-stone-200/90 shadow-2xs space-y-1.5 sm:space-y-2">
                 <div className="flex items-center justify-between text-xs">
                   <span className="font-bold text-stone-900 flex items-center gap-1.5">
                     <Palette className="w-3.5 h-3.5 text-amber-600" />
                     <span>Wall Color: <strong className="text-amber-800">{wallColor.name}</strong></span>
                   </span>
-                  <span className="text-[11px] text-stone-500">
+                  <span className="text-[11px] text-stone-500 hidden sm:inline">
                     Preview on your home wall
                   </span>
                 </div>
 
-                <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-0.5">
+                <div className="flex items-center gap-2 overflow-x-auto pb-1 pt-0.5 custom-scrollbar">
                   {WALL_COLORS.map(col => {
                     const isSelected = wallColor.id === col.id;
                     return (
@@ -515,7 +515,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                         type="button"
                         onClick={() => setWallColor(col)}
                         title={col.name}
-                        className={`w-8 h-8 rounded-full border-2 transition-transform cursor-pointer relative shrink-0 flex items-center justify-center ${
+                        className={`w-7 h-7 sm:w-8 sm:h-8 rounded-full border-2 transition-transform cursor-pointer relative shrink-0 flex items-center justify-center ${
                           isSelected
                             ? 'border-amber-600 scale-110 shadow-md ring-2 ring-amber-400/50'
                             : 'border-stone-300 hover:scale-105'
@@ -532,8 +532,8 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               </div>
             )}
 
-            {/* Quick Benefits Banner */}
-            <div className="grid grid-cols-3 gap-2.5 text-center text-xs">
+            {/* Quick Benefits Banner (Desktop) */}
+            <div className="hidden lg:grid grid-cols-3 gap-2.5 text-center text-xs">
               <div className="p-3 bg-white rounded-2xl border border-stone-200 shadow-2xs">
                 <Truck className="w-4 h-4 text-amber-600 mx-auto mb-1" />
                 <span className="font-bold text-stone-900 block">Fast 48h Delivery</span>
@@ -551,8 +551,8 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
               </div>
             </div>
 
-            {/* Artwork Texture & Archival Guarantee Caption */}
-            <div className="pt-1 px-1 flex items-center justify-between text-xs text-stone-500">
+            {/* Artwork Texture & Archival Guarantee Caption (Desktop) */}
+            <div className="hidden lg:flex pt-1 px-1 items-center justify-between text-xs text-stone-500">
               <span className="flex items-center gap-1.5">
                 <ShieldCheck className="w-4 h-4 text-emerald-600" />
                 <span>12-Color Archival Pigment Inks • Waterproof UV Seal</span>
@@ -565,7 +565,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
           </div>
 
           {/* Right Column: Title, Details, Simplified 2-Step Ordering (1/3 Width on Laptop/Desktop) */}
-          <div className="lg:col-span-5 xl:col-span-4 space-y-6">
+          <div className="w-full lg:col-span-5 xl:col-span-4 space-y-6 pt-2 lg:pt-0">
             
             {/* Header & Title */}
             <div>
@@ -840,6 +840,37 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 <MessageCircle className="w-4 h-4 shrink-0" />
                 <span>Order via WhatsApp (+880 1972-304749)</span>
               </a>
+            </div>
+
+            {/* Quick Benefits Banner & Guarantee (Mobile) */}
+            <div className="lg:hidden space-y-3 pt-1">
+              <div className="grid grid-cols-3 gap-2 text-center text-xs">
+                <div className="p-2.5 bg-white rounded-2xl border border-stone-200 shadow-2xs">
+                  <Truck className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+                  <span className="font-bold text-stone-900 block text-[11px]">Fast 48h Delivery</span>
+                  <span className="text-[10px] text-stone-500">64 Districts</span>
+                </div>
+                <div className="p-2.5 bg-white rounded-2xl border border-stone-200 shadow-2xs">
+                  <Clock className="w-4 h-4 text-emerald-600 mx-auto mb-1" />
+                  <span className="font-bold text-stone-900 block text-[11px]">COD Available</span>
+                  <span className="text-[10px] text-stone-500">30% Adv • 70% COD</span>
+                </div>
+                <div className="p-2.5 bg-white rounded-2xl border border-stone-200 shadow-2xs">
+                  <Sparkles className="w-4 h-4 text-amber-600 mx-auto mb-1" />
+                  <span className="font-bold text-stone-900 block text-[11px]">Decade Guarantee</span>
+                  <span className="text-[10px] text-stone-500">Fade-Proof</span>
+                </div>
+              </div>
+
+              <div className="pt-1 px-1 flex items-center justify-between text-[11px] text-stone-500">
+                <span className="flex items-center gap-1.5">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-600" />
+                  <span>12-Color Archival Pigment Inks • UV Seal</span>
+                </span>
+                <span className="font-mono text-[10px] text-stone-400">
+                  Dhaka Handcrafted
+                </span>
+              </div>
             </div>
 
             {/* Production Specifications Card */}

@@ -20,7 +20,7 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
       {/* 1. CLEAN EXHIBITION STAGE (Neat, clean & beautiful to watch) */}
       <Link
         href={`/products/${product.id}`}
-        className="relative h-64 sm:h-72 w-full overflow-hidden bg-[#faf8f5] flex items-center justify-center p-5 border-b border-stone-100 select-none block"
+        className="relative h-80 sm:h-72 w-full overflow-hidden bg-[#faf8f5] flex items-center justify-center p-3 sm:p-5 border-b border-stone-100 select-none block"
       >
         {/* Soft Warm Ambient Studio Lighting */}
         <div
@@ -32,15 +32,15 @@ export default function CanvasCard({ product, priority = false }: CanvasCardProp
 
         {/* Clean Canvas Display Container */}
         <div
-          className="relative transition-transform duration-300 ease-out group-hover:scale-[1.03] flex items-center justify-center max-w-[88%] max-h-[88%]"
+          className="relative transition-transform duration-300 ease-out group-hover:scale-[1.03] flex items-center justify-center max-w-[94%] max-h-[94%] sm:max-w-[88%] sm:max-h-[88%]"
           style={{
             aspectRatio: isLandscape ? '3/2' : isSquare ? '1/1' : '2/3',
             width: isLandscape ? '100%' : 'auto',
             height: isLandscape ? 'auto' : '100%',
           }}
         >
-          {/* Canvas Artwork with Crisp Clean Edge */}
-          <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300/80 bg-white">
+          {/* Canvas Artwork with Crisp Clean Edge & 3D Depth */}
+          <div className="relative w-full h-full rounded-xs overflow-hidden border border-stone-300/80 bg-white shadow-[0_12px_24px_-4px_rgba(35,25,15,0.22),0_4px_8px_-2px_rgba(35,25,15,0.12)]">
             <img
               src={product.image}
               alt={product.title}

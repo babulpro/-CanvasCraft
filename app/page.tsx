@@ -281,7 +281,7 @@ export default function HomePage() {
 
               {/* Visual Solo Statement 16x24 Canvas Mockup (Real Stretched Canvas from DB) */}
               <div className="mb-5 bg-gradient-to-b from-[#f9f7f2] via-[#f5f2ea] to-[#eee8dc] p-3.5 rounded-2xl border border-stone-200/80 flex flex-col items-center justify-center">
-                <div className="relative w-36 aspect-[2/3] rounded-none overflow-hidden shadow-[0_14px_28px_-4px_rgba(35,25,15,0.35),3px_3px_0px_rgba(50,40,30,0.22)] border border-stone-300 group-hover:scale-105 transition-transform duration-300">
+                <div className="relative w-48 sm:w-36 aspect-[2/3] rounded-none overflow-hidden shadow-[0_14px_28px_-4px_rgba(35,25,15,0.35),3px_3px_0px_rgba(50,40,30,0.22)] border border-stone-300 group-hover:scale-105 transition-transform duration-300">
                   <img
                     src="https://res.cloudinary.com/dmyekmpy3/image/upload/v1792493937/canvascraft/artworks/yysvud3nmdlvhjtmwufp.jpg"
                     alt="16x24 Whispers of the Sunset Solo Canvas"

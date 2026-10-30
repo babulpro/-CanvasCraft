@@ -28,6 +28,7 @@ import {
   Filter,
   Package,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface AdminProduct {
   id: string;
@@ -118,14 +119,17 @@ export default function AdminDashboardPage() {
 
       // Remove immediately from local state
       setProducts((prev) => prev.filter((p) => p.id !== productToDelete.id));
+      const successText = data.message || `Artwork "${productToDelete.title}" permanently deleted.`;
       setStatusMessage({
         type: "success",
-        text: data.message || `Artwork "${productToDelete.title}" permanently deleted.`,
+        text: successText,
       });
+      toast.success(successText);
       setProductToDelete(null);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Deletion failed.";
       setStatusMessage({ type: "error", text: msg });
+      toast.error(msg);
     } finally {
       setIsDeleting(false);
     }

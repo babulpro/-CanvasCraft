@@ -27,6 +27,7 @@ import {
   Eye,
   Palette
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 interface ProductDetailContentProps {
   productId: string;
@@ -827,6 +828,7 @@ export default function ProductDetailContent({ productId }: ProductDetailContent
                 href={waUrl}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={() => toast.success('Connecting with CanvasCraft WhatsApp Concierge...', { id: 'wa-connect' })}
                 className="w-full bg-emerald-600 hover:bg-emerald-500 active:bg-emerald-700 text-white font-bold py-3.5 px-6 rounded-2xl shadow-sm transition flex items-center justify-center gap-2 text-sm text-center"
               >
                 <MessageCircle className="w-4 h-4 shrink-0" />

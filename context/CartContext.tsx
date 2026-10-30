@@ -2,6 +2,7 @@
 
 import React, { createContext, useContext, useState, useEffect, useMemo, ReactNode } from 'react';
 import { CartItem, CartTotals, DeliveryLocation } from '@/types';
+import toast from 'react-hot-toast';
 
 const CART_STORAGE_KEY = 'canvascraft_cart_v1';
 const COMBO_SELECTION_KEY = 'canvascraft_combo_v1';
@@ -92,6 +93,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       };
       return [...prev, newItem];
     });
+    toast.success(`Added "${item.title}" to bag!`, { id: 'cart-add' });
     openDrawer();
   };
 
@@ -100,6 +102,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (autoComboIds && autoComboIds.length > 0) {
       setComboSelectedIds(autoComboIds);
     }
+    toast.success(`Added ${itemsToAdd.length} items to bag!`, { id: 'cart-add-multi' });
     openDrawer();
   };
 
@@ -111,6 +114,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const newQty = prev[idx].quantity + delta;
       if (newQty <= 0) {
         setComboSelectedIds(c => c.filter(id => id !== cartItemId));
+        toast.success('Removed item from bag', { id: 'cart-remove' });
         return prev.filter(i => i.id !== cartItemId);
       }
 
@@ -127,11 +131,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const removeItem = (cartItemId: string) => {
     setItems(prev => prev.filter(i => i.id !== cartItemId));
     setComboSelectedIds(prev => prev.filter(id => id !== cartItemId));
+    toast.success('Removed item from bag', { id: 'cart-remove' });
   };
 
   const clearCart = () => {
     setItems([]);
     setComboSelectedIds([]);
+    toast.success('Shopping bag cleared', { id: 'cart-clear' });
   };
 
   const toggleComboItem = (cartItemId: string) => {
@@ -148,9 +154,12 @@ export function CartProvider({ children }: { children: ReactNode }) {
       const added = target ? target.quantity : 1;
 
       if (currentCount + added > 6) {
-        alert('Maximum 6 pieces allowed in a single Combo Deal! Please select up to 6 pieces.');
+        toast.error('Maximum 6 pieces allowed in a single Combo Deal! Please select up to 6 pieces.', {
+          id: 'combo-max',
+        });
         return;
       }
+      toast.success('Item added to Combo bundle!', { id: 'combo-toggle' });
       setComboSelectedIds(prev => [...prev, cartItemId]);
     }
   };

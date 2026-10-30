@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { signIn } from "@/lib/auth-client";
 import { Sparkles, ArrowRight, Eye, EyeOff, Lock, User, AlertCircle, CheckCircle2 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -23,7 +24,9 @@ export default function SignInPage() {
 
     const trimmedIdentifier = identifier.trim();
     if (!trimmedIdentifier || !password) {
-      setErrorMessage("Please fill in all required fields.");
+      const msg = "Please fill in all required fields.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
@@ -40,7 +43,9 @@ export default function SignInPage() {
           },
           {
             onSuccess: () => {
-              setSuccessMessage("Welcome back! Redirecting...");
+              const msg = "Welcome back! Redirecting...";
+              setSuccessMessage(msg);
+              toast.success(msg);
               setTimeout(() => {
                 router.push("/");
                 router.refresh();
@@ -48,9 +53,9 @@ export default function SignInPage() {
             },
             onError: (ctx) => {
               setLoading(false);
-              setErrorMessage(
-                ctx.error.message || "Invalid email or password. Please try again."
-              );
+              const msg = ctx.error.message || "Invalid email or password. Please try again.";
+              setErrorMessage(msg);
+              toast.error(msg);
             },
           }
         );
@@ -62,7 +67,9 @@ export default function SignInPage() {
           },
           {
             onSuccess: () => {
-              setSuccessMessage("Welcome back! Redirecting...");
+              const msg = "Welcome back! Redirecting...";
+              setSuccessMessage(msg);
+              toast.success(msg);
               setTimeout(() => {
                 router.push("/");
                 router.refresh();
@@ -70,9 +77,9 @@ export default function SignInPage() {
             },
             onError: (ctx) => {
               setLoading(false);
-              setErrorMessage(
-                ctx.error.message || "Invalid username or password. Please try again."
-              );
+              const msg = ctx.error.message || "Invalid username or password. Please try again.";
+              setErrorMessage(msg);
+              toast.error(msg);
             },
           }
         );
@@ -81,6 +88,7 @@ export default function SignInPage() {
       setLoading(false);
       const msg = err instanceof Error ? err.message : "Authentication failed.";
       setErrorMessage(msg);
+      toast.error(msg);
     }
   };
 
@@ -96,9 +104,9 @@ export default function SignInPage() {
     } catch (err: unknown) {
       setSocialLoading(null);
       const msg = err instanceof Error ? err.message : "Social login failed.";
-      setErrorMessage(
-        `${msg} (Ensure ${provider.toUpperCase()}_CLIENT_ID is configured in your .env)`
-      );
+      const fullMsg = `${msg} (Ensure ${provider.toUpperCase()}_CLIENT_ID is configured in your .env)`;
+      setErrorMessage(fullMsg);
+      toast.error(msg);
     }
   };
 

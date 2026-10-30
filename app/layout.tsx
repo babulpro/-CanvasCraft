@@ -5,6 +5,7 @@ import { CartProvider } from '@/context/CartContext';
 import Navbar from '@/components/layout/Navbar';
 import Footer from '@/components/layout/Footer';
 import CartDrawer from '@/components/cart/CartDrawer';
+import { Toaster } from 'react-hot-toast';
 
 const playfair = Playfair_Display({
   subsets: ['latin'],
@@ -55,6 +56,34 @@ export default function RootLayout({
           </main>
           <CartDrawer />
           <Footer />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 3500,
+              style: {
+                background: '#ffffff',
+                color: '#1c1917',
+                border: '1px solid #e7e5e4',
+                borderRadius: '16px',
+                padding: '12px 18px',
+                fontSize: '13px',
+                fontWeight: '600',
+                boxShadow: '0 10px 25px -4px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+              },
+              success: {
+                iconTheme: {
+                  primary: '#d97706',
+                  secondary: '#ffffff',
+                },
+              },
+              error: {
+                iconTheme: {
+                  primary: '#ef4444',
+                  secondary: '#ffffff',
+                },
+              },
+            }}
+          />
         </CartProvider>
       </body>
     </html>

@@ -16,6 +16,7 @@ import {
   AlertCircle,
   CheckCircle2,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function SignUpPage() {
   const router = useRouter();
@@ -45,17 +46,23 @@ export default function SignUpPage() {
     const trimmedEmail = email.trim();
 
     if (!trimmedName || !trimmedUsername || !trimmedEmail || !password) {
-      setErrorMessage("Please complete all required fields.");
+      const msg = "Please complete all required fields.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
     if (trimmedUsername.length < 3) {
-      setErrorMessage("Username must be at least 3 characters long.");
+      const msg = "Username must be at least 3 characters long.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
     if (password.length < 8) {
-      setErrorMessage("Password must be at least 8 characters long.");
+      const msg = "Password must be at least 8 characters long.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
@@ -71,9 +78,9 @@ export default function SignUpPage() {
         },
         {
           onSuccess: () => {
-            setSuccessMessage(
-              `Account created successfully! Welcome to CanvasCraft, @${trimmedUsername}. Redirecting...`
-            );
+            const msg = `Account created successfully! Welcome to CanvasCraft, @${trimmedUsername}. Redirecting...`;
+            setSuccessMessage(msg);
+            toast.success(msg);
             setTimeout(() => {
               router.push("/");
               router.refresh();
@@ -81,10 +88,9 @@ export default function SignUpPage() {
           },
           onError: (ctx) => {
             setLoading(false);
-            setErrorMessage(
-              ctx.error.message ||
-                "Failed to register account. Please check your credentials."
-            );
+            const msg = ctx.error.message || "Failed to register account. Please check your credentials.";
+            setErrorMessage(msg);
+            toast.error(msg);
           },
         }
       );
@@ -92,6 +98,7 @@ export default function SignUpPage() {
       setLoading(false);
       const msg = err instanceof Error ? err.message : "Registration error.";
       setErrorMessage(msg);
+      toast.error(msg);
     }
   };
 
@@ -110,6 +117,7 @@ export default function SignUpPage() {
       setErrorMessage(
         `${msg} (Ensure ${provider.toUpperCase()}_CLIENT_ID is configured in your .env)`
       );
+      toast.error(msg);
     }
   };
 

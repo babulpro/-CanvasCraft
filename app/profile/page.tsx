@@ -24,6 +24,7 @@ import {
   AlertTriangle,
   Flame,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 function ProfileContent() {
   const router = useRouter();
@@ -32,6 +33,7 @@ function ProfileContent() {
   const { data: session, isPending } = useSession();
 
   const handleSignOut = async () => {
+    toast.success("Signed out successfully", { id: "sign-out" });
     await signOut({
       fetchOptions: {
         onSuccess: () => {

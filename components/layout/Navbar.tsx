@@ -23,6 +23,7 @@ import {
   Flame,
   LogOut,
 } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const WHATSAPP_URL = 'https://wa.me/8801972304749';
 const PHONE_NUMBER = '+880 1972-304749';
@@ -355,6 +356,7 @@ export default function Navbar() {
                     type="button"
                     onClick={async () => {
                       setMobileMenuOpen(false);
+                      toast.success("Signed out successfully", { id: "sign-out" });
                       await signOut();
                     }}
                     className="w-full flex items-center justify-center gap-2 py-2 px-3 rounded-xl bg-red-50 hover:bg-red-100 text-red-700 hover:text-red-800 text-xs font-semibold border border-red-200 transition cursor-pointer"

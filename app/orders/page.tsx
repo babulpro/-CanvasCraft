@@ -23,6 +23,7 @@ import {
   ShieldCheck,
   RefreshCw,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 function OrdersPageContent() {
   const searchParams = useSearchParams();
@@ -74,13 +75,21 @@ function OrdersPageContent() {
       if (data.success && Array.isArray(data.orders)) {
         setSearchResult(data.orders);
         if (data.orders.length === 0) {
-          setErrorMessage(`No order found matching "${query}". Please check your order reference or phone number.`);
+          const msg = `No order found matching "${query}". Please check your order reference or phone number.`;
+          setErrorMessage(msg);
+          toast.error(msg);
+        } else {
+          toast.success(`Found ${data.orders.length} order(s)!`);
         }
       } else {
-        setErrorMessage(data.error || "Failed to search order.");
+        const msg = data.error || "Failed to search order.";
+        setErrorMessage(msg);
+        toast.error(msg);
       }
     } catch {
-      setErrorMessage("Network error while searching for order.");
+      const msg = "Network error while searching for order.";
+      setErrorMessage(msg);
+      toast.error(msg);
     } finally {
       setSearchLoading(false);
     }

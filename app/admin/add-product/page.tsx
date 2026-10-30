@@ -20,6 +20,7 @@ import {
   Grid,
   Users,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 const CATEGORIES = [
   "Modern Abstract",
@@ -108,9 +109,11 @@ export default function AddProductPage() {
         bytes: data.bytes,
         publicId: data.publicId,
       });
+      toast.success("Image uploaded to Cloudinary successfully!");
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Image upload failed.";
       setErrorMessage(msg);
+      toast.error(msg);
     } finally {
       setUploadingImage(false);
       if (e.target) e.target.value = "";
@@ -124,7 +127,9 @@ export default function AddProductPage() {
     setSuccessMessage(null);
 
     if (!title.trim() || !imageUrl || !basePrice) {
-      setErrorMessage("Please complete all required fields and upload an image.");
+      const msg = "Please complete all required fields and upload an image.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
@@ -152,7 +157,9 @@ export default function AddProductPage() {
         throw new Error(data.error || "Failed to create product.");
       }
 
-      setSuccessMessage("Artwork successfully published to the CanvasCraft catalog!");
+      const msg = "Artwork successfully published to the CanvasCraft catalog!";
+      setSuccessMessage(msg);
+      toast.success(msg);
       setTimeout(() => {
         router.push("/products");
         router.refresh();
@@ -160,6 +167,7 @@ export default function AddProductPage() {
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Creation failed.";
       setErrorMessage(msg);
+      toast.error(msg);
     } finally {
       setSubmitting(false);
     }

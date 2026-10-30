@@ -24,6 +24,7 @@ import {
   User,
   AlertCircle,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 export default function CartPage() {
   const router = useRouter();
@@ -62,12 +63,16 @@ export default function CartPage() {
     setErrorMessage(null);
 
     if (!customerName.trim() || !customerPhone.trim() || !customerAddress.trim()) {
-      setErrorMessage("Please fill in your name, phone number, and delivery address.");
+      const msg = "Please fill in your name, phone number, and delivery address.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
     if (items.length === 0) {
-      setErrorMessage("Your shopping bag is empty.");
+      const msg = "Your shopping bag is empty.";
+      setErrorMessage(msg);
+      toast.error(msg);
       return;
     }
 
@@ -100,11 +105,13 @@ export default function CartPage() {
         throw new Error(data.error || "Failed to place order.");
       }
 
+      toast.success("Order placed successfully! Redirecting...");
       clearCart();
       router.push(`/orders?placed=${data.orderNumber}`);
     } catch (err: unknown) {
       const msg = err instanceof Error ? err.message : "Failed to place order.";
       setErrorMessage(msg);
+      toast.error(msg);
       setIsSubmitting(false);
     }
   };

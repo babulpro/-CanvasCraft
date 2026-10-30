@@ -20,6 +20,7 @@ import {
   UserX,
   Sparkles,
 } from "lucide-react";
+import toast from "react-hot-toast";
 
 interface AdminUserItem {
   id: string;
@@ -90,25 +91,31 @@ export default function AdminUsersPage() {
 
       const data = await res.json();
       if (data.success) {
+        const msg = data.message || `Role updated to ${newRole.toUpperCase()}`;
         setStatusMessage({
           type: "success",
-          text: data.message || `Role updated to ${newRole.toUpperCase()}`,
+          text: msg,
         });
+        toast.success(msg);
         // Optimistically update local state
         setUsers((prev) =>
           prev.map((u) => (u.id === targetUserId ? { ...u, role: newRole } : u))
         );
       } else {
+        const msg = data.error || "Failed to update role.";
         setStatusMessage({
           type: "error",
-          text: data.error || "Failed to update role.",
+          text: msg,
         });
+        toast.error(msg);
       }
     } catch {
+      const msg = "Network failure while updating user role.";
       setStatusMessage({
         type: "error",
-        text: "Network failure while updating user role.",
+        text: msg,
       });
+      toast.error(msg);
     } finally {
       setUpdatingUserId(null);
     }

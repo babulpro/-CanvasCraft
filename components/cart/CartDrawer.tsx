@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { useCart } from '@/context/CartContext';
 import { X, Trash2, ShoppingBag, Truck, ShieldCheck, Sparkles, CheckCircle2, MessageCircle, ArrowRight, Package } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function CartDrawer() {
   const {
@@ -335,6 +336,7 @@ export default function CartDrawer() {
               href={getWhatsAppCheckoutUrl()}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => toast.success('Connecting with CanvasCraft WhatsApp Concierge...', { id: 'wa-checkout' })}
               className="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-bold py-2.5 px-4 rounded-xl text-sm transition shadow-sm hover:shadow flex items-center justify-center gap-2 transform active:scale-98 cursor-pointer"
             >
               <MessageCircle className="w-4 h-4" />
